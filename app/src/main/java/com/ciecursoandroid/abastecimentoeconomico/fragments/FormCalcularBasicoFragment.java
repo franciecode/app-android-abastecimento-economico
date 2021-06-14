@@ -1,12 +1,10 @@
 package com.ciecursoandroid.abastecimentoeconomico.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
@@ -16,7 +14,7 @@ import com.ciecursoandroid.abastecimentoeconomico.R;
  * Use the {@link FormCalcularBasicoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FormCalcularBasicoFragment extends FormCalcularFragment {
+public class FormCalcularBasicoFragment extends FormCalcularBaseFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

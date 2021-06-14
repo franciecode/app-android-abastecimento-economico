@@ -1,21 +1,22 @@
 package com.ciecursoandroid.abastecimentoeconomico;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBasicoFragment;
-import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularFragment;
+import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBaseFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularKmsLitroFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularVeiculoFragment;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularFragment.Listener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
 
     private FragmentManager fragmentManager;
     private RadioGroup radioGroupTipoCalculo;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         fragmentManager = getSupportFragmentManager();
 
-
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
 
-    private void setFragementTipCalculo(Class<? extends FormCalcularFragment> fragmentClass) {
+    private void setFragementTipCalculo(Class<? extends FormCalcularBaseFragment> fragmentClass) {
         String tag = fragmentClass.getSimpleName();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragmentClass, null, tag)
@@ -74,5 +74,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         veiculo = v;
         kmsLitroGasolina = kmsGasolina;
         kmsLitroAlcool = kmsAlcool;
+    }
+
+
+    public void calcular(View view) {
+        String valores = tipoCalculo + ": " + veiculo + " " + kmsLitroGasolina + " " + kmsLitroAlcool;
+        Toast.makeText(this, valores, Toast.LENGTH_SHORT).show();
     }
 }

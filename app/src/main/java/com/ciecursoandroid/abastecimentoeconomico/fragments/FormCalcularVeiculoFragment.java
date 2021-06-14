@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -17,7 +16,7 @@ import com.ciecursoandroid.abastecimentoeconomico.R;
  * Use the {@link FormCalcularVeiculoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FormCalcularVeiculoFragment extends FormCalcularFragment {
+public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
     // TODO: Rename and change types of parameters
     private Spinner spinnerVeiculo;
 

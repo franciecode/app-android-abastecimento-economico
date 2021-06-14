@@ -18,7 +18,7 @@ import com.ciecursoandroid.abastecimentoeconomico.R;
  * Use the {@link FormCalcularKmsLitroFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FormCalcularKmsLitroFragment extends FormCalcularFragment implements TextWatcher {
+public class FormCalcularKmsLitroFragment extends FormCalcularBaseFragment implements TextWatcher {
 
     private EditText editTextKmsLitroGasolina;
     private EditText editTextKmsLitroAlcool;
@@ -47,6 +47,7 @@ public class FormCalcularKmsLitroFragment extends FormCalcularFragment implement
         editTextKmsLitroGasolina = root.findViewById(R.id.editTextKmsLitroGasolina);
         editTextKmsLitroAlcool = root.findViewById(R.id.editTextKmsLitroAlcool);
         editTextKmsLitroGasolina.addTextChangedListener(this);
+        editTextKmsLitroAlcool.addTextChangedListener(this);
         return root;
     }
 
