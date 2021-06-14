@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padd">16dp</dimen>
+    <dimen name="grid_space">16dp</dimen>
+    <dimen name="grid_space_2x">32dp</dimen>
+</resources>
