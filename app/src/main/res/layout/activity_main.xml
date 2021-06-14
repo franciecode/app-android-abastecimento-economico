@@ -130,13 +130,14 @@
         </LinearLayout>
 
         <RadioGroup
+            android:id="@+id/radioGroupTipoCalculo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/grid_space"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioButtonCalcularPorVeiculo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,14 +145,14 @@
                 android:text="@string/veiculo" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioButtonCalcularPorKmsLitro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/kms_litro" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/radioButtonCalcularPorBasico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -163,7 +164,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/screen_backgroundGray"
-            android:padding="@dimen/grid_space"/>
+            android:padding="@dimen/grid_space" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"

@@ -13,4 +13,7 @@
     <string name="alcool_ou_gasolina">Álcool ou Gasolina</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_edit_text_kmsLitro">0.0</string>
+    <string name="descricao_alerta_calculo_por_basico">Atenção! O calculo básico tem como base 70% do rendimento do álcool sobre a gasolina, talves essa métrica não se aplica ao seu veículo..</string>
+    <string name="atencao">Atenção</string>
 </resources>
