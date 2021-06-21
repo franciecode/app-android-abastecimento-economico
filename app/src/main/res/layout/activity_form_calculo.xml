@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_background"
-    tools:context=".MainActivity">
+    tools:context=".FormCalculoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,8 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="110dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="24dp"
             android:contentDescription="@string/logo"
             app:srcCompat="@drawable/logo_completo"
             tools:layout_editor_absoluteX="0dp"
@@ -26,11 +27,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_space_2x"
             android:gravity="center_horizontal"
-            android:text="@string/headline_calcular_combustivel"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:text="@string/headline_calcular_combustivel" />
 
         <LinearLayout
             android:layout_width="match_parent"

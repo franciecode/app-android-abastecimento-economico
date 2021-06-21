@@ -2,7 +2,7 @@
     <string name="app_name">Abastecimento Econômico</string>
     <string name="alcool">Álcool</string>
     <string name="gasolina">Gasolina</string>
-    <string name="headline_calcular_combustivel">Descubra qual combústivel sai mais barato:</string>
+    <string name="headline_calcular_combustivel">Calcule qual combústivel sai mais barato:</string>
     <string name="prefixo_valor_dinheiro">R$</string>
     <string name="logo">logo</string>
     <string name="hint_edit_text_dinheiro">0.0</string>
