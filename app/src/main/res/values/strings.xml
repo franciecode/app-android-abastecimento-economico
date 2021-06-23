@@ -18,4 +18,6 @@
     <string name="atencao">Atenção</string>
     <string name="radio_preco_gasolina">Gasolina R$%.3f</string>
     <string name="radio_preco_alcool">Álcool R$%.3f</string>
+    <string name="infomr_o_preco_gasolina">Informe o preço da gasolina</string>
+    <string name="informe_preco_alcool">Informe o preço do álcool.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -17,6 +18,10 @@ import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBasicoFr
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularKmsLitroFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularVeiculoFragment;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
+import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class FormCalculoActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
 
@@ -84,10 +89,39 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
 
 
     public void calcular(View view) {
+        if (!validarFormulario()) return;
         switch (tipoCalculo) {
             case BASICO:
                 Intent i = new Intent(this, CalculoResultadoBasicoActivity.class);
+                i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
+                i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
                 startActivity(i);
         }
+    }
+
+    private boolean validarFormulario() {
+        List<String> errors = new LinkedList<>();
+
+        if (TextUtils.isEmpty(editTextPrecoGasolina.getText()))
+            errors.add(getString(R.string.infomr_o_preco_gasolina));
+        if (TextUtils.isEmpty(editTextPrecoAlcool.getText()))
+            errors.add(getString(R.string.informe_preco_alcool));
+        switch (tipoCalculo) {
+
+        }
+        if (errors.size() == 0)
+            return true;
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(errors.get(0));
+        for (int i = 1; i < errors.size(); i++) {
+            sb.append("\n");
+            sb.append(errors.get(i));
+        }
+
+        Alerts.alertWaring(this, "Formulário inválido", sb.toString())
+                .setPositiveButton("ok", null).show();
+        return false;
     }
 }
