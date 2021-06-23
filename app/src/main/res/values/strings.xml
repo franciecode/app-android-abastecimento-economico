@@ -16,4 +16,6 @@
     <string name="hint_edit_text_kmsLitro">0.0</string>
     <string name="descricao_alerta_calculo_por_basico">Atenção! O calculo básico tem como base 70% do rendimento do álcool sobre a gasolina, talves essa métrica não se aplica ao seu veículo..</string>
     <string name="atencao">Atenção</string>
+    <string name="radio_preco_gasolina">Gasolina R$%.3f</string>
+    <string name="radio_preco_alcool">Álcool R$%.3f</string>
 </resources>

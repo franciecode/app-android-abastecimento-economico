@@ -1,13 +1,16 @@
-package com.ciecursoandroid.abastecimentoeconomico;
+package com.ciecursoandroid.abastecimentoeconomico.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBaseFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBasicoFragment;
@@ -24,6 +27,8 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
     Float kmsLitroGasolina = 0f;
     Float kmsLitroAlcool = 0f;
     Veiculo veiculo;
+    private EditText editTextPrecoGasolina;
+    private EditText editTextPrecoAlcool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
         radioGroupTipoCalculo.setOnCheckedChangeListener(this);
         radioGroupTipoCalculo.check(R.id.radioButtonCalcularPorVeiculo);
         fragmentManager = getSupportFragmentManager();
+        editTextPrecoGasolina = findViewById(R.id.editTextPrecoGasolina);
+        editTextPrecoAlcool = findViewById(R.id.editTextPrecoAlcool);
 
         if (savedInstanceState == null) {
             setFragementTipCalculo(FormCalcularVeiculoFragment.class);
@@ -77,6 +84,10 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
 
 
     public void calcular(View view) {
-
+        switch (tipoCalculo) {
+            case BASICO:
+                Intent i = new Intent(this, CalculoResultadoBasicoActivity.class);
+                startActivity(i);
+        }
     }
 }
