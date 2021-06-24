@@ -18,6 +18,7 @@ import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBasicoFr
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularKmsLitroFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularVeiculoFragment;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 import java.util.LinkedList;
@@ -34,6 +35,7 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
     Veiculo veiculo;
     private EditText editTextPrecoGasolina;
     private EditText editTextPrecoAlcool;
+    AppPreferencias appPreferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,14 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
         fragmentManager = getSupportFragmentManager();
         editTextPrecoGasolina = findViewById(R.id.editTextPrecoGasolina);
         editTextPrecoAlcool = findViewById(R.id.editTextPrecoAlcool);
+
+        appPreferencias = new AppPreferencias(this);
+        if (appPreferencias.getPrecoGasolina() > 0) {
+            editTextPrecoGasolina.setText(String.valueOf(appPreferencias.getPrecoGasolina()));
+        }
+        if (appPreferencias.getPrecoAlcool() > 0) {
+            editTextPrecoAlcool.setText(String.valueOf(appPreferencias.getPrecoAlcool()));
+        }
 
         if (savedInstanceState == null) {
             tipoCalculo = TipoCalculo.VEICULO;

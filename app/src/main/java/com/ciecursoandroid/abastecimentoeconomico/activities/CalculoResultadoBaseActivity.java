@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 
 public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
@@ -28,12 +29,15 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     protected EditText editTextLitros;
     protected TextView textViewCombustivelRecomendado;
     protected TextView textViewPorcentagemEconomia;
-    TipoCombustivel abastecer;
-    float litrosAbastecidos = 0f;
+    protected TipoCombustivel abastecer;
+    protected float litrosAbastecidos = 0f;
+    protected AppPreferencias appPreferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        appPreferencias = new AppPreferencias(this);
 
     }
 
@@ -50,14 +54,13 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
         radioButtonGasolina.setText(String.format(getString(R.string.radio_preco_gasolina), precoGAsolina));
         radioButtonAlcool.setText(String.format(getString(R.string.radio_preco_alcool), precoAlcool));
 
-        radioGroupAbastecimento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                abastecer = i == radioButtonAlcool.getId() ? TipoCombustivel.ALCOOL : TipoCombustivel.GASOLINA;
-                float precoCombustivel = abastecer == TipoCombustivel.ALCOOL ? precoAlcool : precoGAsolina;
-                calcularAbastecimento(abastecer, precoCombustivel, litrosAbastecidos);
-            }
+        // calcular abasteciento >>>>>>>>>>>>>>>>>>>>>>>
+        radioGroupAbastecimento.setOnCheckedChangeListener((radioGroup, i) -> {
+            abastecer = i == radioButtonAlcool.getId() ? TipoCombustivel.ALCOOL : TipoCombustivel.GASOLINA;
+            float precoCombustivel = abastecer == TipoCombustivel.ALCOOL ? precoAlcool : precoGAsolina;
+            calcularAbastecimento(abastecer, precoCombustivel, litrosAbastecidos);
         });
+
         editTextLitros.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -76,6 +79,9 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
                 calcularAbastecimento(abastecer, precoCombustivel, litrosAbastecidos);
             }
         });
+        // calcular abasteciento <<<<<<<<<<<<<<<<<<<
+
+        salvarPrecosCombustiveis();
     }
 
     void calcularCombustivelMaisBarato(float precoAlcool, float precoGAsolina, float kmsGasolina, float kmsAlcool) {
@@ -107,6 +113,12 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
         textViewPorcentagemEconomia.setText(String.format("%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
 
+    }
+
+    private void salvarPrecosCombustiveis() {
+        appPreferencias.setPrecoAlcool(precoAlcool);
+        appPreferencias.setPrecoGasolina(precoGAsolina);
+        appPreferencias.commit();
     }
 
     public abstract void calcularAbastecimento(TipoCombustivel abastecer, float precoCombustivel, float litrosAbastecidos);
