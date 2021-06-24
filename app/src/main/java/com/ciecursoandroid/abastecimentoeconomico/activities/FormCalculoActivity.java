@@ -50,6 +50,7 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
         editTextPrecoAlcool = findViewById(R.id.editTextPrecoAlcool);
 
         if (savedInstanceState == null) {
+            tipoCalculo = TipoCalculo.VEICULO;
             setFragementTipCalculo(FormCalcularVeiculoFragment.class);
         }
 

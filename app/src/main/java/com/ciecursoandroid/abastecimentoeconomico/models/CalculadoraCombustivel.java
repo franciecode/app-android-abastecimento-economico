@@ -63,18 +63,18 @@ public class CalculadoraCombustivel {
     }
 
     public class CombustivelMaisBarato {
-        TipoCombustivel combustivel;
+        TipoCombustivel combustivelMaisBarato;
         float porcentagemEconomia = 0f;
         RendimentoCombustivel rendimentoCombustivel;
 
         public CombustivelMaisBarato(TipoCombustivel combustivel, float porcentagemEconomia, RendimentoCombustivel rendimentoCombustivel) {
-            this.combustivel = combustivel;
+            this.combustivelMaisBarato = combustivel;
             this.porcentagemEconomia = porcentagemEconomia;
             this.rendimentoCombustivel = rendimentoCombustivel;
         }
 
-        public TipoCombustivel getCombustivel() {
-            return combustivel;
+        public TipoCombustivel getCombustivelMaisBarato() {
+            return combustivelMaisBarato;
         }
 
         public float getPorcentagemEconomia() {

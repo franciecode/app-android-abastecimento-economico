@@ -3,6 +3,8 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,7 +27,9 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     protected RadioButton radioButtonAlcool;
     protected EditText editTextLitros;
     protected TextView textViewCombustivelRecomendado;
-    private TextView textViewPorcentagemEconomia;
+    protected TextView textViewPorcentagemEconomia;
+    TipoCombustivel abastecer;
+    float litrosAbastecidos = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +46,46 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
         textViewPorcentagemEconomia = findViewById(R.id.textViewPorcentagemEconomia);
         precoGAsolina = getIntent().getFloatExtra("precoGasolina", 0);
         precoAlcool = getIntent().getFloatExtra("precoAlcool", 0);
+
+        radioButtonGasolina.setText(String.format(getString(R.string.radio_preco_gasolina), precoGAsolina));
+        radioButtonAlcool.setText(String.format(getString(R.string.radio_preco_alcool), precoAlcool));
+
+        radioGroupAbastecimento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                abastecer = i == radioButtonAlcool.getId() ? TipoCombustivel.ALCOOL : TipoCombustivel.GASOLINA;
+                float precoCombustivel = abastecer == TipoCombustivel.ALCOOL ? precoAlcool : precoGAsolina;
+                calcularAbastecimento(abastecer, precoCombustivel, litrosAbastecidos);
+            }
+        });
+        editTextLitros.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                litrosAbastecidos = Float.valueOf(charSequence.length() == 0 ? "0.0" : charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                float precoCombustivel = abastecer == null ? 0f :
+                        abastecer == TipoCombustivel.ALCOOL ? precoAlcool : precoGAsolina;
+                calcularAbastecimento(abastecer, precoCombustivel, litrosAbastecidos);
+            }
+        });
     }
 
     void calcularCombustivelMaisBarato(float precoAlcool, float precoGAsolina, float kmsGasolina, float kmsAlcool) {
         CalculadoraCombustivel.CombustivelMaisBarato result = calculadoraCombustivel.calcularCombustivelMaisBarato(precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
-        combustivelMaisBarato = result.getCombustivel();
+        combustivelMaisBarato = result.getCombustivelMaisBarato();
         setCombustivelRecomendado(result);
     }
 
     private void setCombustivelRecomendado(CalculadoraCombustivel.CombustivelMaisBarato combustivelMaisBarato) {
-        if (combustivelMaisBarato.getCombustivel() == TipoCombustivel.ALCOOL) {
+        if (combustivelMaisBarato.getCombustivelMaisBarato() == TipoCombustivel.ALCOOL) {
             textViewCombustivelRecomendado.setText(getText(R.string.alcool));
             int color = getResources().getColor(R.color.color_alcool);
             textViewCombustivelRecomendado.setTextColor(color);
@@ -71,9 +105,11 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
             }
         }
 
-        textViewPorcentagemEconomia.setText(String.format("%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(),"%"));
+        textViewPorcentagemEconomia.setText(String.format("%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
 
     }
+
+    public abstract void calcularAbastecimento(TipoCombustivel abastecer, float precoCombustivel, float litrosAbastecidos);
 
 
 }
