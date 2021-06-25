@@ -24,7 +24,7 @@ import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FormCalculoActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
+public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
 
     private FragmentManager fragmentManager;
     private RadioGroup radioGroupTipoCalculo;

@@ -3,4 +3,6 @@
     <dimen name="screen_padd">16dp</dimen>
     <dimen name="grid_space">16dp</dimen>
     <dimen name="grid_space_2x">32dp</dimen>
+    <dimen name="text_body_medium">18sp</dimen>
+    <dimen name="grid_small">8dp</dimen>
 </resources>

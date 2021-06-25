@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
-        <activity android:name=".activities.CalculoResultadoKmsLitroActivity"
-            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar"></activity>
+        <activity android:name=".activities.AbastecimentosActivity"></activity>
+        <activity
+            android:name=".activities.CalculoResultadoKmsLitroActivity"
+            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
             android:name=".activities.CalculoResultadoBasicoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
-        <activity android:name=".activities.FormCalculoActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

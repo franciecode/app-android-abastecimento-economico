@@ -28,4 +28,6 @@
     <string name="valor_total_economizado">Valor total economizado:</string>
     <string name="diferenca">Diferença</string>
     <string name="dinheiro_vazio">R$0.0</string>
+    <string name="abastecimentos">Abastecimentos</string>
+    <string name="pesquisar">Buscar</string>
 </resources>
