@@ -21,4 +21,11 @@
     <string name="infomr_o_preco_gasolina">Informe o preço da gasolina</string>
     <string name="informe_preco_alcool">Informe o preço do álcool.</string>
     <string name="valor_dinheiro">R$%.2f</string>
+    <string name="preco_km">Preço Km</string>
+    <string name="total_kms">Total KMs</string>
+    <string name="total_pagar">Total Pagar</string>
+    <string name="total_a_pagar">Total a pagar:</string>
+    <string name="valor_total_economizado">Valor total economizado:</string>
+    <string name="diferenca">Diferença</string>
+    <string name="dinheiro_vazio">R$0.0</string>
 </resources>

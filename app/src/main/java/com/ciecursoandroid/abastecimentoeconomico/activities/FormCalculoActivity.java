@@ -92,7 +92,7 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
     }
 
     @Override
-    public void onChangedFormCalcularFragment(Veiculo v, Float kmsGasolina, Float kmsAlcool) {
+    public void onChangedFormCalcularFragmentListener(Veiculo v, Float kmsGasolina, Float kmsAlcool) {
         veiculo = v;
         kmsLitroGasolina = kmsGasolina;
         kmsLitroAlcool = kmsAlcool;
@@ -101,12 +101,21 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
 
     public void calcular(View view) {
         if (!validarFormulario()) return;
+        Intent i;
         switch (tipoCalculo) {
             case BASICO:
-                Intent i = new Intent(this, CalculoResultadoBasicoActivity.class);
+                i = new Intent(this, CalculoResultadoBasicoActivity.class);
                 i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
                 i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
                 startActivity(i);
+                break;
+            case KMS_LITRO:
+                i = new Intent(this, CalculoResultadoKmsLitroActivity.class);
+                i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
+                i.putExtra("kmsGasolina", Float.valueOf(kmsLitroGasolina));
+                i.putExtra("kmAlcool", Float.valueOf(kmsLitroAlcool));
+                startActivity(i);
+
         }
     }
 
@@ -118,6 +127,12 @@ public class FormCalculoActivity extends AppCompatActivity implements RadioGroup
         if (TextUtils.isEmpty(editTextPrecoAlcool.getText()))
             errors.add(getString(R.string.informe_preco_alcool));
         switch (tipoCalculo) {
+            case KMS_LITRO:
+                if (kmsLitroGasolina <= 0)
+                    errors.add("Informe o total de kms/litro de gasolina");
+                if (kmsLitroAlcool <= 0)
+                    errors.add("Informe o total de kms/litro de álcool");
+                break;
 
         }
         if (errors.size() == 0)

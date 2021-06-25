@@ -67,6 +67,6 @@ public class FormCalcularKmsLitroFragment extends FormCalcularBaseFragment imple
                 ? "0.0" : editTextKmsLitroGasolina.getText().toString());
         Float kmsLitroAlcool = Float.valueOf(TextUtils.isEmpty(editTextKmsLitroAlcool.getText())
                 ? "0.0" : editTextKmsLitroAlcool.getText().toString());
-        listener.onChangedFormCalcularFragment(null, kmsLitroGasolina, kmsLitroAlcool);
+        listener.onChangedFormCalcularFragmentListener(null, kmsLitroGasolina, kmsLitroAlcool);
     }
 }

@@ -22,7 +22,7 @@ public abstract class FormCalcularBaseFragment extends Fragment {
     }
 
     public interface Listener {
-        void onChangedFormCalcularFragment(Veiculo veiculo, Float kmsLitroGasolina, Float KmsLitroAlcool);
+        void onChangedFormCalcularFragmentListener(Veiculo veiculo, Float kmsLitroGasolina, Float KmsLitroAlcool);
     }
 
     @Override
@@ -38,6 +38,6 @@ public abstract class FormCalcularBaseFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         setListener((Listener) context);
-        listener.onChangedFormCalcularFragment(veiculo, kmsLitroGasolina, kmsLitroAlcool);
+        listener.onChangedFormCalcularFragmentListener(veiculo, kmsLitroGasolina, kmsLitroAlcool);
     }
 }
