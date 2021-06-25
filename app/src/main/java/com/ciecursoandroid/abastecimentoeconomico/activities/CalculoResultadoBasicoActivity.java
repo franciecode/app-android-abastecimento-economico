@@ -1,12 +1,22 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
+import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.NumeroUtils;
+import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity {
 
@@ -14,6 +24,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     float kmsAlcool = 7;
     TextView textViewTotalAPagar;
     TextView textViewValorEconomizado;
+    Abastecimento abastecimento;
+    AbastecimentoViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +37,24 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         textViewValorEconomizado = findViewById(R.id.textViewvalorEconomizado);
         textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, 0f));
         textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, 0f));
-
+        Button btnSalvar = findViewById(R.id.btnSalvar);
+        Button btnNaoSalvar = findViewById(R.id.btnNaoSalvar);
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, 10, 7);
+
+        viewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
+        viewModel.setRepository(new AbastecimentoRepository(this));
+
+        btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
     }
 
     @Override
-    public void calcularAbastecimento(TipoCombustivel abastecer, float precoCombustivel, float litrosAbastecidos) {
-        if (abastecer == null) return;
+    public void calcularAbastecimento(TipoCombustivel abastecido, float precoCombustivel, float litrosAbastecidos) {
+        if (abastecido == null) return;
         CalculadoraCombustivel.CalculoAbastecimento result = calculadoraCombustivel
                 .calcularAbastecimento(litrosAbastecidos,
-                        abastecer, precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
+                        abastecido, precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
 
-        float totalPagar = abastecer == TipoCombustivel.ALCOOL ? result.getRendimentoAlcool().getCustoTotal() : result.getRendimentoGasolina().getCustoTotal();
+        float totalPagar = abastecido == TipoCombustivel.ALCOOL ? result.getRendimentoAlcool().getCustoTotal() : result.getRendimentoGasolina().getCustoTotal();
         textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, totalPagar));
         textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, result.getValorEconomizado()));
         if (result.getValorEconomizado() < 0) {
@@ -45,6 +63,33 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
             textViewValorEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
         }
 
+        abastecimento = new Abastecimento();
+        abastecimento.setPorcentagemEconomia(combustivelMaisBarato.getPorcentagemEconomia());
+        abastecimento.setTipoCalculo(TipoCalculo.BASICO);
+        abastecimento.setCombustivelRecomendado(combustivelRecomendado);
+        abastecimento.setCombustivelAbastecido(abastecido);
+        abastecimento.setPrecoAlcool(precoAlcool);
+        abastecimento.setPrecoGasolina(precoGAsolina);
+        abastecimento.setTotalPago(totalPagar);
+        abastecimento.setTotalLitrosAbastecidos(litrosAbastecidos);
+        abastecimento.setValorEconomizado(result.getValorEconomizado());
     }
 
+    @Override
+    public void salvarAbastecimento(Abastecimento abastecimento) {
+        if (!validarFormSalvarAbastecimento()) return;
+        viewModel.insert(abastecimento, (e, abastecimento1) -> {
+            if (e != null)
+                Alerts.alertWaring(this, "Erro ao salvar", e.getMessage())
+                        .setPositiveButton("ok", null).show();
+            else
+                Alerts.alertSuccess(this, "Sucesso", "Abastecimento salvo com sucesso")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(CalculoResultadoBasicoActivity.this, "ir para abastecimentos", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+        });
+    }
 }

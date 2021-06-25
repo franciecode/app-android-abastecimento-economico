@@ -10,7 +10,15 @@ public class Alerts {
         AlertDialog.Builder al = new AlertDialog.Builder(context);
         al.setTitle(title)
                 .setMessage(msg)
-                .setIcon(R.drawable.ic_baseline_warning_24);
+                .setIcon(R.drawable.ic_warning);
+        return al;
+    }
+
+    static public AlertDialog.Builder alertSuccess(Context context, String title, String msg) {
+        AlertDialog.Builder al = new AlertDialog.Builder(context);
+        al.setTitle(title)
+                .setMessage(msg)
+                .setIcon(R.drawable.ic_success);
         return al;
     }
 }

@@ -1,6 +1,11 @@
 package com.ciecursoandroid.abastecimentoeconomico.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "table_veiculo")
 public class Veiculo {
+    @PrimaryKey
     long id;
     String nome;
     Float kmsLitroCidadeGasolina;

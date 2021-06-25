@@ -18,7 +18,7 @@
             android:layout_marginEnd="@dimen/grid_space"
             android:layout_marginRight="@dimen/grid_space"
             android:contentDescription="@string/atencao"
-            android:src="@drawable/ic_baseline_warning_24" />
+            android:src="@drawable/ic_warning" />
 
         <TextView
             android:id="@+id/textViewPorcentagemEconomia"

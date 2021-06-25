@@ -9,11 +9,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 
@@ -22,7 +24,8 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     protected float precoGAsolina;
     protected float precoAlcool;
     protected CalculadoraCombustivel calculadoraCombustivel = new CalculadoraCombustivel();
-    protected TipoCombustivel combustivelMaisBarato;
+    protected CalculadoraCombustivel.CombustivelMaisBarato combustivelMaisBarato;
+    protected TipoCombustivel combustivelRecomendado;
     protected RadioGroup radioGroupAbastecimento;
     protected RadioButton radioButtonGasolina;
     protected RadioButton radioButtonAlcool;
@@ -85,12 +88,13 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     }
 
     void calcularCombustivelMaisBarato(float precoAlcool, float precoGAsolina, float kmsGasolina, float kmsAlcool) {
-        CalculadoraCombustivel.CombustivelMaisBarato result = calculadoraCombustivel.calcularCombustivelMaisBarato(precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
-        combustivelMaisBarato = result.getCombustivelMaisBarato();
-        setCombustivelRecomendado(result);
+        combustivelMaisBarato = calculadoraCombustivel.calcularCombustivelMaisBarato(precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
+        combustivelRecomendado = combustivelMaisBarato.getCombustivelMaisBarato();
+        setCombustivelRecomendado(combustivelMaisBarato);
     }
 
     private void setCombustivelRecomendado(CalculadoraCombustivel.CombustivelMaisBarato combustivelMaisBarato) {
+
         if (combustivelMaisBarato.getCombustivelMaisBarato() == TipoCombustivel.ALCOOL) {
             textViewCombustivelRecomendado.setText(getText(R.string.alcool));
             int color = getResources().getColor(R.color.color_alcool);
@@ -122,6 +126,22 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     }
 
     public abstract void calcularAbastecimento(TipoCombustivel abastecer, float precoCombustivel, float litrosAbastecidos);
+
+    public abstract void salvarAbastecimento(Abastecimento abastecimento);
+
+    protected boolean validarFormSalvarAbastecimento() {
+        boolean erro = false;
+        if (radioGroupAbastecimento.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Combústível não informado!", Toast.LENGTH_SHORT).show();
+            erro = true;
+        }
+        if (litrosAbastecidos == 0) {
+            Toast.makeText(this, "Total de litros não informado!", Toast.LENGTH_SHORT).show();
+            erro = true;
+        }
+
+        return erro == false;
+    }
 
 
 }

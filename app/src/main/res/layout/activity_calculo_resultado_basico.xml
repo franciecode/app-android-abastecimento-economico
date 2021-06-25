@@ -183,7 +183,7 @@
             android:layout_marginTop="@dimen/grid_space">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnSalvar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SALVAR"
@@ -191,7 +191,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnNaoSalvar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
