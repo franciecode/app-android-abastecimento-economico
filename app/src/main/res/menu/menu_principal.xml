@@ -9,6 +9,9 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
+        android:id="@+id/menu_abastecer"
+        android:title="@string/abastecer" />
+    <item
         android:id="@+id/menu_abastecimentos"
         android:title="@string/abastecimentos" />
 </menu>

@@ -73,6 +73,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         abastecimento.setTotalPago(totalPagar);
         abastecimento.setTotalLitrosAbastecidos(litrosAbastecidos);
         abastecimento.setValorEconomizado(result.getValorEconomizado());
+        abastecimento.setKmsLitroGasolina(kmsGasolina);
+        abastecimento.setKmsLitroAlcool(kmsAlcool);
     }
 
     @Override

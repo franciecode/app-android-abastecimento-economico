@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AbastecimentosActivity"
-    android:background="@color/screen_background">
+    android:background="@color/screen_background"
+    tools:context=".activities.AbastecimentosActivity">
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -25,10 +25,11 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textViewTotalRegistros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="10/360"
+                android:text="0/0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
         </TableRow>
 
@@ -46,13 +47,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textViewTotalGasto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="R$571,00"
+                android:text="@string/dinheiro_vazio"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
         </TableRow>
 
@@ -69,12 +70,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
+                android:id="@+id/textViewTotalEconomizado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="R$571,00"
+                android:text="@string/dinheiro_vazio"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/color_text_green" />
         </TableRow>
@@ -82,6 +84,7 @@
     </TableLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="16dp"

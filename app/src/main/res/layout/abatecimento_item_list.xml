@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_small"
     android:orientation="vertical"
-    android:padding="@dimen/grid_space"
-    android:layout_margin="@dimen/grid_small">
+    android:padding="@dimen/grid_space">
 
 
     <RelativeLayout
@@ -18,8 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Tipo Calculo"
-            android:textSize="@dimen/text_body_medium" />
+            android:text="@string/tipo_calculo"
+            android:textSize="@dimen/text_body_medium"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/dataAbastecimento"
@@ -27,7 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:text="25/01/2021 10:11" />
+            android:text="@string/exemplo_data_hora"
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/descricaoAbastecimento"
@@ -36,18 +40,22 @@
             android:layout_below="@id/tipoCalculo"
             android:layout_marginTop="@dimen/grid_space"
             android:drawableLeft="@drawable/ic_baseline_directions_car_24"
-            android:text="descrição"
-            android:textSize="@dimen/text_body_medium" />
+            android:layout_centerHorizontal="true"
+            android:text="@string/descricao"
+            android:textSize="@dimen/text_body_medium"
+            android:drawableStart="@drawable/ic_baseline_directions_car_24"
+            tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView
-            android:gravity="center_horizontal"
+            android:id="@+id/detalhesAbastecimento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/descricaoAbastecimento"
             android:layout_marginTop="@dimen/grid_space"
-            android:text="Abastecido com Álcool: Litros 48.7 \nTotal: R$348,35 | Economia: R$ 35,7"
-            android:textSize="@dimen/text_body_medium"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            android:gravity="center_horizontal"
+            android:text="@string/exemplo_resumo_abastecimento"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="@dimen/text_body_medium" />
 
     </RelativeLayout>
 

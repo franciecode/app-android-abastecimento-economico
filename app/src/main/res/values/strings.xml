@@ -30,4 +30,14 @@
     <string name="dinheiro_vazio">R$0.0</string>
     <string name="abastecimentos">Abastecimentos</string>
     <string name="pesquisar">Buscar</string>
+    <string name="data_hora">dd/MM/yyyy hh:mm</string>
+    <string name="porcent_sobre_gasolina">%/Gasolina</string>
+    <string name="alcool_sobre_gasolina">Álcool %.2f%s</string>
+    <string name="detalhe_resumo_abastecimento">%s: Litros %.2f \nTotal: R$%.2f | Economia: R$%.2f</string>
+    <string name="abastecer">Abastecer</string>
+    <string name="mks_por_litro">KMs/Litro</string>
+    <string name="tipo_calculo">Tipo Calculo</string>
+    <string name="descricao">descrição</string>
+    <string name="exemplo_data_hora">25/01/2021 10:11</string>
+    <string name="exemplo_resumo_abastecimento">Abastecido com Álcool: Litros 48.7 \nTotal: R$348,35 | Economia: R$ 35,7</string>
 </resources>

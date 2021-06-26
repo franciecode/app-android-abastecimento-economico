@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.lifecycle.LiveData;
+
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,6 +41,10 @@ public class AbastecimentoRepository {
                 });
             }
         });
+    }
+
+    public LiveData<List<Abastecimento>> getAll() {
+        return db.abastecimentoDao().getAll();
     }
 
     public interface OnInsert {

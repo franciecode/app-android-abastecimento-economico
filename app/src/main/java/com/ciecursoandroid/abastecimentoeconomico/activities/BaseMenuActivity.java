@@ -26,6 +26,11 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                 startActivity(i);
                 if (this instanceof AbastecimentosActivity) finish();
                 break;
+            case R.id.menu_abastecer:
+                if (this instanceof MainActivity) return false;
+                i = new Intent(this, MainActivity.class);
+                startActivity(i);
+                break;
         }
 
         return true;
