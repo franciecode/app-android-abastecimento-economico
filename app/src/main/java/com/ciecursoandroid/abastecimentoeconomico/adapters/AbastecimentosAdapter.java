@@ -78,7 +78,6 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                             (abastecimento.getKmsLitroAlcool() / abastecimento.getKmsLitroGasolina() * 100),
                             context.getResources().getString(R.string.porcent_sobre_gasolina)
                     ).toString();
-                    descricaoAbastecimento.setCompoundDrawables(null, null, null, null);
                     break;
                 case KMS_LITRO:
                     descricao = new Formatter().format(

@@ -40,4 +40,8 @@
     <string name="descricao">descrição</string>
     <string name="exemplo_data_hora">25/01/2021 10:11</string>
     <string name="exemplo_resumo_abastecimento">Abastecido com Álcool: Litros 48.7 \nTotal: R$348,35 | Economia: R$ 35,7</string>
+    <string name="sucesso">Sucesso</string>
+    <string name="erro_ao_salvar_abastecimento">Erro ao salvar abastecimento</string>
+    <string name="ok">ok</string>
+    <string name="abastecimento_salvo_com_sucesso">Abastecimento salvo com sucesso!</string>
 </resources>

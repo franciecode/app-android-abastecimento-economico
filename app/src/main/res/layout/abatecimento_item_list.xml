@@ -17,20 +17,19 @@
             android:id="@+id/tipoCalculo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="@string/tipo_calculo"
-            android:textSize="@dimen/text_body_medium"
-            android:layout_alignParentStart="true" />
+            android:text="@string/tipo_calculo" />
 
         <TextView
             android:id="@+id/dataAbastecimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:text="@string/exemplo_data_hora"
-            android:layout_alignParentEnd="true"
             tools:ignore="RelativeOverlap" />
 
         <TextView
@@ -38,12 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tipoCalculo"
-            android:layout_marginTop="@dimen/grid_space"
-            android:drawableLeft="@drawable/ic_baseline_directions_car_24"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/grid_space"
             android:text="@string/descricao"
-            android:textSize="@dimen/text_body_medium"
-            android:drawableStart="@drawable/ic_baseline_directions_car_24"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
         <TextView

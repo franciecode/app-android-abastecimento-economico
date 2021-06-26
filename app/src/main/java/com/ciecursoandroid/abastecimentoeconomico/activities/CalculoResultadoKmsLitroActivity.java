@@ -1,6 +1,7 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +15,7 @@ import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.NumeroUtils;
+import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivity {
     private float kmsGasolina, kmsAlcool;
@@ -52,6 +54,11 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         textViewTablePrecoKmDiferenca = findViewById(R.id.tablePrecoKmDiferenca);
         textViewTableTotalKmsDiferenca = findViewById(R.id.tableTotalKmsDiferenca);
         textViewTableTotalPagarDiferenca = findViewById(R.id.tableTotalPagarDiferenca);
+
+        Button btnSalvar = findViewById(R.id.btnSalvarAbastecimento);
+        btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
+
+        Button btnNaoSalvar = findViewById(R.id.btnNaoSalvarAbastecimento);
 
         viewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         viewModel.setRepository(new AbastecimentoRepository(this));
@@ -93,8 +100,8 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         textViewTableTotalPagarAlcool.setText(String.format(getString(R.string.valor_dinheiro), rAlcool.getCustoTotal()));
 
         textViewTablePrecoKmDiferenca.setText(String.format(getString(R.string.valor_dinheiro), Math.abs(rAlcool.getPrecoKm() - rGasolina.getPrecoKm())));
-        textViewTableTotalKmsDiferenca.setText(String.format("%.2f",  Math.abs(rAlcool.getTotalKms() - rGasolina.getTotalKms())));
-        textViewTableTotalPagarDiferenca.setText(String.format(getString(R.string.valor_dinheiro),  Math.abs(rAlcool.getCustoTotal() - rGasolina.getCustoTotal())));
+        textViewTableTotalKmsDiferenca.setText(String.format("%.2f", Math.abs(rAlcool.getTotalKms() - rGasolina.getTotalKms())));
+        textViewTableTotalPagarDiferenca.setText(String.format(getString(R.string.valor_dinheiro), Math.abs(rAlcool.getCustoTotal() - rGasolina.getCustoTotal())));
 
     }
 
@@ -115,6 +122,24 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
 
     @Override
     public void salvarAbastecimento(Abastecimento abastecimento) {
-
+        if (!validarFormSalvarAbastecimento()) return;
+        viewModel.insert(abastecimento, new AbastecimentoRepository.OnInsert() {
+            @Override
+            public void onComplete(Exception e, Abastecimento abastecimento) {
+                if (e != null) {
+                    Alerts.alertWaring(CalculoResultadoKmsLitroActivity.this,
+                            getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())
+                            .setPositiveButton(R.string.ok, null)
+                            .show();
+                } else {
+                    Alerts.alertSuccess(CalculoResultadoKmsLitroActivity.this,
+                            getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+                            .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                                ActivitiesNavigation.goAbastecimentos(getApplicationContext());
+                                finish();
+                            }).show();
+                }
+            }
+        });
     }
 }
