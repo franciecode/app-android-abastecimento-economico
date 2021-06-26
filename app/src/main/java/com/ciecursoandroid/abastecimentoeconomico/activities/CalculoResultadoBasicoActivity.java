@@ -34,7 +34,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
 
         setFields();
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
-        textViewValorEconomizado = findViewById(R.id.textViewvalorEconomizado);
+        textViewValorEconomizado = findViewById(R.id.textViewValorEconomizado);
         textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, 0f));
         textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, 0f));
         Button btnSalvar = findViewById(R.id.btnSalvar);

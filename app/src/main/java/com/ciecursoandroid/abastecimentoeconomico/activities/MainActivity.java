@@ -112,6 +112,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
             case KMS_LITRO:
                 i = new Intent(this, CalculoResultadoKmsLitroActivity.class);
                 i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
+                i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
                 i.putExtra("kmsGasolina", Float.valueOf(kmsLitroGasolina));
                 i.putExtra("kmAlcool", Float.valueOf(kmsLitroAlcool));
                 startActivity(i);

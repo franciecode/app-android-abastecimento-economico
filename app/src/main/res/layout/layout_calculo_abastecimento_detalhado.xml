@@ -159,19 +159,19 @@
                 android:text="@string/gasolina" />
 
             <TextView
-                android:id="@+id/precoKmGasolina"
+                android:id="@+id/tablePrecoKmGasolina"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0" />
 
             <TextView
-                android:id="@+id/totalKmsGasolina"
+                android:id="@+id/tableTotalKmsGasolina"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0" />
 
             <TextView
-                android:id="@+id/totalPagarGasolina"
+                android:id="@+id/tableTotalPagarGasolina"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0" />
@@ -184,19 +184,19 @@
                 android:text="@string/alcool" />
 
             <TextView
-                android:id="@+id/precoKmAlcool"
+                android:id="@+id/tablePrecoKmAlcool"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0" />
 
             <TextView
-                android:id="@+id/totalKmsAlcool"
+                android:id="@+id/tableTotalKmsAlcool"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0" />
 
             <TextView
-                android:id="@+id/totalPagarAlcool"
+                android:id="@+id/tableTotalPagarAlcool"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0" />
@@ -210,21 +210,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/precoKmDiferenca"
+                android:id="@+id/tablePrecoKmDiferenca"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/totalKmsDiferenca"
+                android:id="@+id/tableTotalKmsDiferenca"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/totalPagarDiferenca"
+                android:id="@+id/tableTotalPagarDiferenca"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="R$0.0"
@@ -271,7 +271,7 @@
                 android:text="@string/valor_total_economizado" />
 
             <TextView
-                android:id="@+id/textViewvalorEconomizado"
+                android:id="@+id/textViewValorEconomizado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
