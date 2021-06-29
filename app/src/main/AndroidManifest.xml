@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
-        <activity android:name=".activities.AbastecimentosActivity"></activity>
+        <activity
+            android:name=".activities.AddEditVeiculoActivity"
+            android:label="@string/adicionar_veiculo"></activity>
+        <activity android:name=".activities.AbastecimentosActivity" />
         <activity
             android:name=".activities.CalculoResultadoKmsLitroActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />

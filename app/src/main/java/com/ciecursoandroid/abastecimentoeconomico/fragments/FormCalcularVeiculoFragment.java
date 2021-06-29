@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
+import com.ciecursoandroid.abastecimentoeconomico.activities.ActivitiesNavigation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +48,22 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
         adapter.add("Selecione um veículo...");
         adapter.add("+ NOVO VEÍCULO +");
         spinnerVeiculo.setAdapter(adapter);
+        spinnerVeiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 1) {
+                    spinnerVeiculo.setSelection(0);
+                    ActivitiesNavigation.goAddVeiculoForResult(getActivity());
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         return root;
     }
+
 }

@@ -44,4 +44,11 @@
     <string name="erro_ao_salvar_abastecimento">Erro ao salvar abastecimento</string>
     <string name="ok">ok</string>
     <string name="abastecimento_salvo_com_sucesso">Abastecimento salvo com sucesso!</string>
+    <string name="carro">Carro</string>
+    <string name="moto">Moto</string>
+    <string name="cidade">Cidade</string>
+    <string name="rodovia">Rodovia</string>
+    <string name="adicionar_veiculo">Adicionar Veículo</string>
+    <string name="kms_litro_de_gasolina">Kms/Litro de Gasolina</string>
+    <string name="kms_litro_de_lcool">Kms/Litro de álcool</string>
 </resources>

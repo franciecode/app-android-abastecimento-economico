@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    tools:context=".activities.AddEditVeiculoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/screen_padd">
+
+        <RadioGroup
+            android:id="@+id/radioGroupVeiculo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_space"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonCarro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_baseline_directions_car_24"
+                android:text="@string/carro" />
+
+            <RadioButton
+                android:id="@+id/radioButtonMoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_motorcycle_solid"
+                android:text="@string/moto" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome de identificação do veículo:" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_space"
+            android:hint="Exemplo: José - Fiat Mobi Drive"
+            android:inputType="text" />
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_space">
+
+            <TableRow>
+
+                <View />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/cidade"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="Rodovia"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="@string/kms_litro_de_lcool" />
+
+                <EditText
+                    android:id="@+id/texViewKmsAlcoolCidade"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="0.0" />
+
+                <EditText
+                    android:id="@+id/texViewKmsAlcoolRodovia"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="0.0"
+                    android:inputType="numberDecimal" />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="@string/kms_litro_de_gasolina" />
+
+                <EditText
+                    android:id="@+id/texViewKmsGasolinaCidade"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="0.0"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/texViewKmsGasolinaRodovia"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:hint="0.0"
+                    android:inputType="numberDecimal" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/grid_space">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salvar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                app:backgroundTint="@color/secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
