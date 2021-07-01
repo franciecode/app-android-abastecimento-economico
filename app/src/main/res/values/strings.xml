@@ -51,4 +51,12 @@
     <string name="adicionar_veiculo">Adicionar Veículo</string>
     <string name="kms_litro_de_gasolina">Kms/Litro de Gasolina</string>
     <string name="kms_litro_de_lcool">Kms/Litro de álcool</string>
+    <string name="form_error_addEditVeiculo__veiculo_nao_informado">Selecione o tipo(Carro ou Moto) de veículo.</string>
+    <string name="form_error_addEditVeiculo__nome_veiculo_nao_informado">Nome de identificação do veículo não informado.</string>
+    <string name="form_error_addEditVeiculo__kmsAlcoolCidade_nao_informado">Não informado: Kms/Litro de alcool na cidade.</string>
+    <string name="form_error_addEditVeiculo__kmsAlcoolRodovia_nao_informado">Não informado: KMs/Litro de álcool na rodovia.</string>
+    <string name="form_error_addEditVeiculo__kmsGasolinaCidade_nao_informado">Não informado: KMs/Litro de gasolina na cidade</string>
+    <string name="form_error_addEditVeiculo__kmsGasolinaRodovia_nao_informado">Não informado: KMs/Litro de gasolina na rodovia</string>
+    <string name="erro_ao_salvar_veiculo">Erro ao salvar veículo</string>
+    <string name="nom_de_veiculo_ja_cadastrado">Este nome de identificação de veículo já está cadastrado.</string>
 </resources>

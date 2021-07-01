@@ -1,5 +1,7 @@
 package com.ciecursoandroid.abastecimentoeconomico.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
@@ -21,6 +28,23 @@ import com.ciecursoandroid.abastecimentoeconomico.activities.ActivitiesNavigatio
 public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
     // TODO: Rename and change types of parameters
     private Spinner spinnerVeiculo;
+
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent intent = result.getData();
+                        long veiculoId = intent.getLongExtra("veiculoId", -1);
+                        selectSpinnerVeiculo(veiculoId);
+                    }
+                }
+            });
+
+    private void selectSpinnerVeiculo(long veiculoId) {
+        Toast.makeText(getActivity(), "select veiculo id: " + veiculoId, Toast.LENGTH_SHORT).show();
+    }
+
 
     public FormCalcularVeiculoFragment() {
         // Required empty public constructor
@@ -53,7 +77,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 1) {
                     spinnerVeiculo.setSelection(0);
-                    ActivitiesNavigation.goAddVeiculoForResult(getActivity());
+                    ActivitiesNavigation.goAddVeiculoForResult(getActivity(), mStartForResult);
                 }
 
             }

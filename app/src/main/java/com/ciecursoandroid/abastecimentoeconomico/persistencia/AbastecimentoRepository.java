@@ -21,8 +21,10 @@ public class AbastecimentoRepository {
     }
 
     public void insert(Abastecimento abastecimento, OnInsert listener) {
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         final Handler handler = new Handler(Looper.getMainLooper());
+
         executorService.execute(new Runnable() {
             Exception exception;
 
@@ -36,6 +38,7 @@ public class AbastecimentoRepository {
                     exception = e;
                     e.printStackTrace();
                 }
+
                 handler.post(() -> {
                     listener.onComplete(exception, abastecimento);
                 });
