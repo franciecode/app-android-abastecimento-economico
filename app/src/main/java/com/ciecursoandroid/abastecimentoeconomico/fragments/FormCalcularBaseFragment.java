@@ -21,9 +21,6 @@ public abstract class FormCalcularBaseFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public interface Listener {
-        void onChangedFormCalcularFragmentListener(Veiculo veiculo, Float kmsLitroGasolina, Float KmsLitroAlcool);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,5 +36,9 @@ public abstract class FormCalcularBaseFragment extends Fragment {
         super.onAttach(context);
         setListener((Listener) context);
         listener.onChangedFormCalcularFragmentListener(veiculo, kmsLitroGasolina, kmsLitroAlcool);
+    }
+
+    public interface Listener {
+        void onChangedFormCalcularFragmentListener(Veiculo veiculo, Float kmsLitroGasolina, Float KmsLitroAlcool);
     }
 }

@@ -6,9 +6,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
@@ -116,13 +116,15 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
                 i.putExtra("kmsGasolina", Float.valueOf(kmsLitroGasolina));
                 i.putExtra("kmAlcool", Float.valueOf(kmsLitroAlcool));
                 startActivity(i);
+                break;
+            case VEICULO:
+                Toast.makeText(this, "calcular por veículo", Toast.LENGTH_SHORT).show();
 
         }
     }
 
     private boolean validarFormulario() {
         List<String> errors = new LinkedList<>();
-
         if (TextUtils.isEmpty(editTextPrecoGasolina.getText()))
             errors.add(getString(R.string.infomr_o_preco_gasolina));
         if (TextUtils.isEmpty(editTextPrecoAlcool.getText()))
@@ -133,6 +135,10 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
                     errors.add("Informe o total de kms/litro de gasolina");
                 if (kmsLitroAlcool <= 0)
                     errors.add("Informe o total de kms/litro de álcool");
+                break;
+            case VEICULO:
+                if (veiculo == null)
+                    errors.add("Selecione um veículo!");
                 break;
 
         }

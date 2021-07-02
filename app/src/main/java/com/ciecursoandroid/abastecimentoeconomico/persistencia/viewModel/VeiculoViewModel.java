@@ -1,9 +1,12 @@
 package com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
+
+import java.util.List;
 
 public class VeiculoViewModel extends ViewModel {
     VeiculoRespository respository;
@@ -14,5 +17,9 @@ public class VeiculoViewModel extends ViewModel {
 
     public void insertVeiculo(Veiculo veiculo, VeiculoRespository.OnInsert listener) {
         respository.insert(veiculo, listener);
+    }
+
+    public LiveData<List<Veiculo>> getAll() {
+        return respository.getAll();
     }
 }

@@ -5,9 +5,11 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.ciecursoandroid.abastecimentoeconomico.R;
+import androidx.lifecycle.LiveData;
+
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -49,6 +51,10 @@ public class VeiculoRespository {
             }
 
         });
+    }
+
+    public LiveData<List<Veiculo>> getAll() {
+        return dao.getAll();
     }
 
     public interface OnInsert {
