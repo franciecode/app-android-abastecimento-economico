@@ -22,4 +22,9 @@ public class VeiculoViewModel extends ViewModel {
     public LiveData<List<Veiculo>> getAll() {
         return respository.getAll();
     }
+
+    public LiveData<List<Veiculo>> getAllDeleted(){
+        return respository.getAllDeleted();
+    }
+
 }

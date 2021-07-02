@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/screen_background"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/grid_space"
+    android:paddingLeft="@dimen/grid_space"
+    android:paddingRight="@dimen/grid_space">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/grid_space">
+
+            <CheckBox
+                android:id="@+id/checkboxItem"
+                android:layout_width="26dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/grid_space"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imageIconVeiculo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_toRightOf="@id/checkboxItem"
+                android:contentDescription="@string/veiculo"
+                app:srcCompat="@drawable/ic_baseline_directions_car_24" />
+
+            <TextView
+                android:id="@+id/textViewNomeVeiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/imageIconVeiculo"
+                android:layout_alignBottom="@+id/imageIconVeiculo"
+                android:layout_marginLeft="@dimen/grid_space"
+                android:layout_toRightOf="@id/imageIconVeiculo"
+                android:text="Meu veículo"
+                android:textSize="@dimen/text_body_medium" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageIconVeiculo"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/small_grid">
+
+                <TableRow>
+
+                    <View
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="@string/cidade" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="@string/rodovia" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="@string/alcool" />
+
+                    <TextView
+                        android:id="@+id/textViewKmsAlcoolCidade"
+                        android:layout_weight="1"
+                        android:text="7.8kms" />
+
+                    <TextView
+                        android:id="@+id/textViewKmsAlcoolRodovia"
+                        android:layout_weight="1"
+                        android:text="10.4Kms" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="@string/gasolina" />
+
+                    <TextView
+                        android:id="@+id/textViewKmsGasolinaCidade"
+                        android:layout_weight="1"
+                        android:text="9.2kms" />
+
+                    <TextView
+                        android:id="@+id/textViewKmsGasolinaRodovia"
+                        android:layout_weight="1"
+                        android:text="12.7Kms" />
+                </TableRow>
+            </TableLayout>
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

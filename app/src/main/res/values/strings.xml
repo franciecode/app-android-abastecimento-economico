@@ -59,4 +59,9 @@
     <string name="form_error_addEditVeiculo__kmsGasolinaRodovia_nao_informado">Não informado: KMs/Litro de gasolina na rodovia</string>
     <string name="erro_ao_salvar_veiculo">Erro ao salvar veículo</string>
     <string name="nom_de_veiculo_ja_cadastrado">Este nome de identificação de veículo já está cadastrado.</string>
+    <string name="veiculos">Veículos</string>
+    <string name="title_activity_veiculos">VeiculosActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="cadastrados">Cadastrados</string>
 </resources>

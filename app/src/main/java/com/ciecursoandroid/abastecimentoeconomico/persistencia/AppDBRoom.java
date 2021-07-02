@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 
-@Database(entities = {Veiculo.class, Abastecimento.class}, version = 3, exportSchema = false)
+@Database(entities = {Veiculo.class, Abastecimento.class}, version = 4, exportSchema = false)
 @TypeConverters({RoomTypeConverters.class})
 public abstract class AppDBRoom extends RoomDatabase {
     public static AppDBRoom INSTANCE;

@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
         <activity
+            android:name=".activities.VeiculosActivity"
+            android:label="@string/veiculos"></activity>
+        <activity
             android:name=".activities.AddEditVeiculoActivity"
-            android:label="@string/adicionar_veiculo"></activity>
+            android:label="@string/adicionar_veiculo" />
         <activity android:name=".activities.AbastecimentosActivity" />
         <activity
             android:name=".activities.CalculoResultadoKmsLitroActivity"

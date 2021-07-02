@@ -19,6 +19,15 @@ public class Veiculo {
     Float kmsLitroCidadeAlcool;
     Float kmsLitroRodoviaAlcool;
     String tipo;
+    Boolean deleted = false;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public String getTipo() {
         return tipo;

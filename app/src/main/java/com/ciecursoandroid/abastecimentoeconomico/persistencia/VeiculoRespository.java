@@ -57,6 +57,10 @@ public class VeiculoRespository {
         return dao.getAll();
     }
 
+    public LiveData<List<Veiculo>> getAllDeleted() {
+        return dao.getAllDeleted();
+    }
+
     public interface OnInsert {
         void onComplete(Exception e, Veiculo veiculo);
     }

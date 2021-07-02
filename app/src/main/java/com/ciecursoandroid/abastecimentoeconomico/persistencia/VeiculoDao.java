@@ -16,4 +16,7 @@ public interface VeiculoDao {
 
     @Query("SELECT * FROM TABLE_VEICULO")
     LiveData<List<Veiculo>> getAll();
+
+    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 1")
+    LiveData<List<Veiculo>> getAllDeleted();
 }
