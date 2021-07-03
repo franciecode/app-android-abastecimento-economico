@@ -30,4 +30,16 @@ public class VeiculoViewModel extends ViewModel {
     public void update(Veiculo veiculo, VeiculoRespository.OnUpdateListener listener) {
         respository.update(veiculo, listener);
     }
+
+    public void trash(Veiculo veiculo, VeiculoRespository.OnTrashListener listener) {
+        respository.trash(veiculo, listener);
+    }
+
+    public LiveData<Integer> getTotalCadastrados() {
+        return respository.getTotalCadastrados();
+    }
+
+    public LiveData<Integer> getTotalRemovidos() {
+        return respository.getTotalRemovidos();
+    }
 }

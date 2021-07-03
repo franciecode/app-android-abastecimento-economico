@@ -21,10 +21,10 @@ import java.util.List;
 public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHolder> {
 
     private static final String TAG = VeiculosAdapter.class.getSimpleName();
-    List<Veiculo> veiculos;
-    Context context;
-    LayoutInflater layoutInflater;
-    OnItemClickListener listener;
+    private List<Veiculo> veiculos;
+    private Context context;
+    private LayoutInflater layoutInflater;
+    private final OnItemClickListener listener;
 
     public VeiculosAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
@@ -43,6 +43,7 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.veiculo_item_list, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -60,8 +61,7 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listener.onLongClick(veiculos.get(position), position);
-                    return false;
+                    return listener.onLongClick(veiculos.get(position), position);
                 }
             });
         }
@@ -70,6 +70,11 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
     @Override
     public int getItemCount() {
         return veiculos == null ? 0 : veiculos.size();
+    }
+
+    public void removeItem(int position) {
+        veiculos.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -108,6 +113,6 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
     public interface OnItemClickListener {
         void onClick(Veiculo veiculo, int position);
 
-        void onLongClick(Veiculo veiculo, int position);
+        boolean onLongClick(Veiculo veiculo, int position);
     }
 }

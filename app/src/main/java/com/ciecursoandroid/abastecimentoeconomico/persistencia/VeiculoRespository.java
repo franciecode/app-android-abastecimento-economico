@@ -89,11 +89,51 @@ public class VeiculoRespository {
         });
     }
 
+    public void trash(Veiculo veiculo, OnTrashListener listener) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(new Runnable() {
+            Exception ex;
+
+            @Override
+            public void run() {
+                try {
+                    dao.trash(veiculo.getId());
+                } catch (SQLiteConstraintException e) {
+                    ex = e;
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    ex = e;
+                    e.printStackTrace();
+                }
+
+                handler.post(() -> {
+                    listener.onComplete(ex, veiculo);
+                });
+
+            }
+
+        });
+    }
+
+    public LiveData<Integer> getTotalCadastrados() {
+        return dao.getTotalCadastrados();
+    }
+
+    public LiveData<Integer> getTotalRemovidos() {
+        return dao.getTotalRemovidos();
+    }
+
     public interface OnInsert {
         void onComplete(Exception e, Veiculo veiculo);
     }
 
     public interface OnUpdateListener {
-        void onComplete(Exception e, Veiculo veiculoUp);
+        void onComplete(Exception e, Veiculo veiculo);
+    }
+
+    public interface OnTrashListener {
+        void onComplete(Exception e, Veiculo veiculo);
     }
 }

@@ -15,7 +15,7 @@ public interface VeiculoDao {
     @Insert
     long insert(Veiculo veiculo);
 
-    @Query("SELECT * FROM TABLE_VEICULO")
+    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 0")
     LiveData<List<Veiculo>> getAll();
 
     @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 1")
@@ -23,4 +23,13 @@ public interface VeiculoDao {
 
     @Update
     void update(Veiculo veiculo);
+
+    @Query("UPDATE table_veiculo SET deleted = 1 WHERE id = :id")
+    void trash(long id);
+
+    @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 0")
+    LiveData<Integer> getTotalCadastrados();
+
+    @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 1")
+    LiveData<Integer> getTotalRemovidos();
 }

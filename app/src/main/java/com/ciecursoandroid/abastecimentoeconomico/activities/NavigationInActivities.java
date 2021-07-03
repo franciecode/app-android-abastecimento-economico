@@ -27,7 +27,7 @@ public class NavigationInActivities {
         activity.startActivity(intent);
     }
 
-    public static void goAddVeiculo(VeiculosActivity activity) {
+    public static void goAddVeiculo(Activity activity) {
         Intent i = new Intent(activity, AddEditVeiculoActivity.class);
         activity.startActivity(i);
     }

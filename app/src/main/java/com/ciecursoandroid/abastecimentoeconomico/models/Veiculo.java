@@ -23,8 +23,18 @@ public class Veiculo implements Parcelable {
     Float kmsLitroRodoviaAlcool;
     String tipo;
     Boolean deleted = false;
+    @Ignore
+    int totalRegistros;
 
     public Veiculo() {
+    }
+
+    public int getTotalRegistros() {
+        return totalRegistros;
+    }
+
+    public void setTotalRegistros(int totalRegistros) {
+        this.totalRegistros = totalRegistros;
     }
 
     protected Veiculo(Parcel in) {
