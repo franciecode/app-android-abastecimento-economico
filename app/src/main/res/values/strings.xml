@@ -64,4 +64,5 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="cadastrados">Cadastrados</string>
+    <string name="atualizar_veiculo">Atualizar Veículo</string>
 </resources>

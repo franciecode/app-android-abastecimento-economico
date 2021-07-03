@@ -23,8 +23,11 @@ public class VeiculoViewModel extends ViewModel {
         return respository.getAll();
     }
 
-    public LiveData<List<Veiculo>> getAllDeleted(){
+    public LiveData<List<Veiculo>> getAllDeleted() {
         return respository.getAllDeleted();
     }
 
+    public void update(Veiculo veiculo, VeiculoRespository.OnUpdateListener listener) {
+        respository.update(veiculo, listener);
+    }
 }

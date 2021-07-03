@@ -24,15 +24,17 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
     List<Veiculo> veiculos;
     Context context;
     LayoutInflater layoutInflater;
+    OnItemClickListener listener;
 
-    public VeiculosAdapter(Context context) {
+    public VeiculosAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-        Log.d(TAG, "setVeiculos: "+veiculos.size());
+        Log.d(TAG, "setVeiculos: " + veiculos.size());
         notifyDataSetChanged();
     }
 
@@ -47,8 +49,22 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        if (getItemCount() > 0)
+        if (getItemCount() > 0) {
             holder.setData(veiculos.get(position));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(veiculos.get(position), position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onLongClick(veiculos.get(position), position);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -87,5 +103,11 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
             kmsGasolinaCidade.setText(veiculo.getKmsLitroRodoviaGasolina() + "KMs");
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClick(Veiculo veiculo, int position);
+
+        void onLongClick(Veiculo veiculo, int position);
     }
 }

@@ -61,7 +61,39 @@ public class VeiculoRespository {
         return dao.getAllDeleted();
     }
 
+    public void update(Veiculo veiculo, OnUpdateListener listener) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(new Runnable() {
+            Exception ex;
+
+            @Override
+            public void run() {
+                try {
+                    dao.update(veiculo);
+                } catch (SQLiteConstraintException e) {
+                    ex = e;
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    ex = e;
+                    e.printStackTrace();
+                }
+
+                handler.post(() -> {
+                    listener.onComplete(ex, veiculo);
+                });
+
+            }
+
+        });
+    }
+
     public interface OnInsert {
         void onComplete(Exception e, Veiculo veiculo);
+    }
+
+    public interface OnUpdateListener {
+        void onComplete(Exception e, Veiculo veiculoUp);
     }
 }

@@ -135,7 +135,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
                     Alerts.alertSuccess(CalculoResultadoKmsLitroActivity.this,
                             getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                             .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                ActivitiesNavigation.goAbastecimentos(getApplicationContext());
+                                NavigationInActivities.goAbastecimentos(getApplicationContext());
                                 finish();
                             }).show();
                 }

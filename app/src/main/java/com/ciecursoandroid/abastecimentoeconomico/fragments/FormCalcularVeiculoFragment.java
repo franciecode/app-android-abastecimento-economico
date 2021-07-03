@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
-import com.ciecursoandroid.abastecimentoeconomico.activities.ActivitiesNavigation;
+import com.ciecursoandroid.abastecimentoeconomico.activities.NavigationInActivities;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
@@ -98,7 +98,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
 
     private void inserirVeiculo() {
         spinnerVeiculo.setSelection(0);
-        ActivitiesNavigation.goAddVeiculoForResult(getActivity(), mStartForResult);
+        NavigationInActivities.goAddVeiculoForResult(getActivity(), mStartForResult);
     }
 
     private void setDataSpinner() {

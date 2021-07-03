@@ -1,5 +1,6 @@
 package com.ciecursoandroid.abastecimentoeconomico.fragments;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
+import com.ciecursoandroid.abastecimentoeconomico.activities.NavigationInActivities;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.VeiculosAdapter;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
@@ -72,9 +74,50 @@ public class VeiculosFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewVeiculos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        veiculosAdapter = new VeiculosAdapter(getActivity());
+        veiculosAdapter = new VeiculosAdapter(getActivity(), new VeiculosAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(Veiculo veiculo, int position) {
+                if (!isTrash) {
+                    editarVeiculo(veiculo);
+                } else {
+                    restaurarVeiculo(veiculo);
+                }
+            }
+
+            @Override
+            public void onLongClick(Veiculo veiculo, int position) {
+                if (isTrash) {
+                    enviarPraLixeira(veiculo);
+                } else {
+                    deletarPermanentemente(veiculo);
+                }
+            }
+        });
         recyclerView.setAdapter(veiculosAdapter);
         carregarVeiculos();
+    }
+
+    private void deletarPermanentemente(Veiculo veiculo) {
+
+    }
+
+    private void enviarPraLixeira(Veiculo veiculo) {
+
+    }
+
+    private void restaurarVeiculo(Veiculo veiculo) {
+
+    }
+
+    private void editarVeiculo(Veiculo veiculo) {
+        AlertDialog.Builder al = new AlertDialog.Builder(getActivity());
+        al.setTitle("Veiculo")
+                .setMessage(veiculo.getNome())
+                .setPositiveButton("Editar", (dialogInterface, i) -> {
+                    NavigationInActivities.goEditVeiculo(getActivity(), veiculo);
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
     }
 
     private void carregarVeiculos() {
