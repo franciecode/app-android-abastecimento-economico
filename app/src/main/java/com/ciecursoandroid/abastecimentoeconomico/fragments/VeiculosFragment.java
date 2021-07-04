@@ -1,6 +1,7 @@
 package com.ciecursoandroid.abastecimentoeconomico.fragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +25,6 @@ import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespositor
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -118,7 +118,7 @@ public class VeiculosFragment extends Fragment {
     }
 
     private void deletarPermanentemente(Veiculo veiculo) {
-        Toast.makeText(getActivity(), "deletarPermanentemente", Toast.LENGTH_SHORT).show();
+
     }
 
     private void enviarPraLixeira(Veiculo veiculo, int position) {
@@ -126,17 +126,26 @@ public class VeiculosFragment extends Fragment {
         al.setTitle("Veiculo")
                 .setMessage(veiculo.getNome())
                 .setPositiveButton("Remover", (dialogInterface, i) -> {
-                    veiculoViewModel.trash(veiculo, (e, veiculo1) -> {
-                        if (e != null) {
-                            Alerts.alertWaring(getActivity(),
-                                    "Erro ao remover o veículo",
-                                    e.getMessage())
-                                    .setPositiveButton("ok", null)
-                                    .show();
-                        } else {
-                            veiculosAdapter.removeItem(position);
-                        }
-                    });
+                    Alerts.alertWaring(getActivity(), "Atenção!",
+                            getString(R.string.msg_alerta_enviar_veiculo_para_lixeira))
+                            .setPositiveButton("Confirmar remover", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    veiculoViewModel.trash(veiculo, (e, veiculo1) -> {
+                                        if (e != null) {
+                                            Alerts.alertWaring(getActivity(),
+                                                    "Erro ao remover o veículo",
+                                                    e.getMessage())
+                                                    .setPositiveButton("ok", null)
+                                                    .show();
+                                        } else {
+                                            veiculosAdapter.removeItem(position);
+                                        }
+                                    });
+                                }
+                            }).setNegativeButton("cancelar", null)
+                            .show();
+
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();

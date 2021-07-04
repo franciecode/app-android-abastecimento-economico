@@ -65,5 +65,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="cadastrados">Cadastrados</string>
     <string name="atualizar_veiculo">Atualizar Veículo</string>
-    <string name="icone_veiculo">icone_veiculo</string>
+    <string name="icone_veiculo">icone veiculo</string>
+    <string name="msg_alerta_enviar_veiculo_para_lixeira">Todos os abastecimentos desse veículo serão removidos. Ao restaurar este veículo da lixeira, todos os seus abastecimentos tambem serão resautrados.</string>
 </resources>

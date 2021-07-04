@@ -23,8 +23,6 @@ public class VeiculosActivity extends BaseMenuActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private VeiculoViewModel veiculoViewModel;
-    Integer totalCadastrados = 0;
-    Integer totalRemovidos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +32,6 @@ public class VeiculosActivity extends BaseMenuActivity {
         veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
         veiculoViewModel.setRespository(new VeiculoRespository(this));
 
-        veiculoViewModel.getTotalRemovidos().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                totalRemovidos = integer;
-            }
-        });
 
         // field views
         tabLayout = findViewById(R.id.tabLayoutVeiculos);

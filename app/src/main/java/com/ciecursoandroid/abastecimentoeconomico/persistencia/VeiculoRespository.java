@@ -14,13 +14,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class VeiculoRespository {
-    AppDBRoom db;
-    VeiculoDao dao;
-    Context context;
+    private AbastecimentoDao abastecimentoDao;
+    private AppDBRoom db;
+    private VeiculoDao dao;
+    private Context context;
 
     public VeiculoRespository(Context context) {
         this.db = AppDBRoom.getInstance(context);
         this.dao = this.db.veiculoDao();
+        this.abastecimentoDao = this.db.abastecimentoDao();
     }
 
     public void insert(Veiculo veiculo, OnInsert listener) {
@@ -95,11 +97,11 @@ public class VeiculoRespository {
 
         executorService.execute(new Runnable() {
             Exception ex;
-
             @Override
             public void run() {
                 try {
                     dao.trash(veiculo.getId());
+                    abastecimentoDao.sendTrashByVeiculoId(veiculo.getId());
                 } catch (SQLiteConstraintException e) {
                     ex = e;
                     e.printStackTrace();
