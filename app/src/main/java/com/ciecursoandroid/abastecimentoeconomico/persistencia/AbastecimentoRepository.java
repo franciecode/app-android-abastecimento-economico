@@ -7,6 +7,7 @@ import android.os.Looper;
 import androidx.lifecycle.LiveData;
 
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsAsyncTask;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -44,6 +45,26 @@ public class AbastecimentoRepository {
                 });
             }
         });
+    }
+
+    public void delete(Abastecimento abastecimento, VeiculoRespository.OnDeleteListener listener) {
+        new UtilsAsyncTask<Abastecimento, Void, Exception>() {
+            @Override
+            public Exception doInBackground(Abastecimento abastecimento) {
+                try {
+                    db.abastecimentoDao().delete(abastecimento);
+                    return null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return e;
+                }
+            }
+
+            @Override
+            public void onPostResult(Exception e) {
+                listener.onComplete(e);
+            }
+        }.execute(abastecimento);
     }
 
     public LiveData<List<Abastecimento>> getAll() {

@@ -79,4 +79,7 @@
     <string name="combustivel_nao_informado">Combústível não informado!</string>
     <string name="litros_nao_informados">Total de litros não informado!</string>
     <string name="descricao_abastecimento_por_kmsLitro">%.2fKMs/litro Álcool - %.2fKMs/litro Gasolina</string>
+    <string name="cancelar">cancelar</string>
+    <string name="remover">remover</string>
+    <string name="erro_ao_remover_abastecimento">Erro ao remover abastecimento!</string>
 </resources>

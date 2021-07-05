@@ -1,7 +1,10 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,16 +15,18 @@ import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.AbastecimentosAdapter;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
+import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 import java.util.List;
 
-public class AbastecimentosActivity extends BaseMenuActivity {
+public class AbastecimentosActivity extends BaseMenuActivity implements AbastecimentosAdapter.OnItemClickListener {
 
 
     private RecyclerView recyclerView;
     private AbastecimentosAdapter abastecimentosAdapter;
-    private AbastecimentoViewModel viewModel;
+    private AbastecimentoViewModel abastecimentoViewModel;
     private TextView textViewTotalRegistros;
     private TextView textViewTotaGasto;
     TextView textViewTotalEconomizado;
@@ -38,13 +43,13 @@ public class AbastecimentosActivity extends BaseMenuActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        abastecimentosAdapter = new AbastecimentosAdapter(this);
+        abastecimentosAdapter = new AbastecimentosAdapter(this, this);
         recyclerView.setAdapter(abastecimentosAdapter);
 
 
-        viewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
-        viewModel.setRepository(new AbastecimentoRepository(this));
-        viewModel.getAll().observe(this, new Observer<List<Abastecimento>>() {
+        abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
+        abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
+        abastecimentoViewModel.getAll().observe(this, new Observer<List<Abastecimento>>() {
             @Override
             public void onChanged(List<Abastecimento> abastecimentos) {
                 abastecimentosAdapter.setAbastecimentos(abastecimentos);
@@ -72,5 +77,39 @@ public class AbastecimentosActivity extends BaseMenuActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onItemClick(Abastecimento abastecimento, int position) {
+
+    }
+
+    @Override
+    public boolean onLongItemClick(Abastecimento abastecimento, int position) {
+        String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimento.getDataAbastecimento()).toString();
+        Alerts.alertWaring(this, "Remover Abastecimento!",
+                "Você confirmar remover o abastecimento feito em " + dataAbastecimento
+        ).setPositiveButton(R.string.remover, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                abastecimentoViewModel.delete(abastecimento, new VeiculoRespository.OnDeleteListener() {
+                    @Override
+                    public void onComplete(Exception e) {
+                        if (e != null) {
+                            Alerts.alertError(AbastecimentosActivity.this,
+                                    getString(R.string.erro_ao_remover_abastecimento),
+                                    e.getMessage())
+                                    .setPositiveButton("ok", null)
+                                    .show();
+                        } else {
+                            Toast.makeText(AbastecimentosActivity.this, "Abastecimento removido com sucesso!", Toast.LENGTH_SHORT).show();
+                            abastecimentosAdapter.removeItem(position);
+                        }
+                    }
+                });
+            }
+        }).setNegativeButton(getString(R.string.cancelar), null)
+                .show();
+        return false;
     }
 }

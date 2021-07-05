@@ -30,8 +30,10 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     List<Abastecimento> abastecimentos;
     Context context;
     VeiculoViewModel veiculoViewModel;
+    OnItemClickListener listener;
 
-    public AbastecimentosAdapter(Context context) {
+    public AbastecimentosAdapter(Context context, OnItemClickListener listener) {
+        this.listener = listener;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.veiculoViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(VeiculoViewModel.class);
@@ -54,7 +56,6 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         if (abastecimentos != null && abastecimentos.size() > 0) {
             Abastecimento abastecimento = abastecimentos.get(position);
             if (abastecimento.getTipoCalculo() == TipoCalculo.VEICULO) {
-
                 veiculoViewModel.getById(abastecimento.getVeiculoId())
                         .observe((LifecycleOwner) context, veiculo -> {
                             abastecimento.setVeiculo(veiculo);
@@ -63,12 +64,29 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
             } else {
                 holder.setData(abastecimento);
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(abastecimento, position);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    return listener.onLongItemClick(abastecimento, position);
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
         return abastecimentos == null ? 0 : abastecimentos.size();
+    }
+
+    public void removeItem(int position) {
+        abastecimentos.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class VH extends RecyclerView.ViewHolder {
@@ -117,5 +135,11 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                     abastecimento.getValorEconomizado());
             detalhesAbastecimento.setText(detalhes);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Abastecimento abastecimento, int position);
+
+        boolean onLongItemClick(Abastecimento abastecimento, int position);
     }
 }

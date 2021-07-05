@@ -2,6 +2,7 @@ package com.ciecursoandroid.abastecimentoeconomico.persistencia;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -25,5 +26,8 @@ public interface AbastecimentoDao {
 
     @Query("DELETE FROM table_abastecimento WHERE veiculoId = :veiculoId")
     void deleteByVeiculoId(long veiculoId);
+
+    @Delete
+    void delete(Abastecimento abastecimento);
 
 }
