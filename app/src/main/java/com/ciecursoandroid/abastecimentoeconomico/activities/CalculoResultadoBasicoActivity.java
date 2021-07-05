@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -45,6 +44,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         viewModel.setRepository(new AbastecimentoRepository(this));
 
         btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
+        btnNaoSalvar.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -89,7 +89,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(CalculoResultadoBasicoActivity.this, "ir para abastecimentos", Toast.LENGTH_SHORT).show();
+                                NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
+                                finish();
                             }
                         }).show();
         });

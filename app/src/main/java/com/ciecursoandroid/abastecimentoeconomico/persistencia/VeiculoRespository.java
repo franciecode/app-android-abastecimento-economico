@@ -175,6 +175,10 @@ public class VeiculoRespository {
         }.execute(veiculo);
     }
 
+    public LiveData<Veiculo> getById(long veiculoId) {
+        return dao.getById(veiculoId);
+    }
+
     // LISTENERS
     //-----------------------------------------------------------
     public interface OnInsert {
@@ -191,5 +195,9 @@ public class VeiculoRespository {
 
     public interface OnDeleteListener {
         void onComplete(Exception e);
+    }
+
+    public interface OnGetById {
+        void onComplete(Exception e, Veiculo veiculo);
     }
 }

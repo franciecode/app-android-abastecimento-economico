@@ -27,6 +27,7 @@ public interface VeiculoDao {
 
     @Query("UPDATE table_veiculo SET deleted = 1 WHERE id = :id")
     void trash(long id);
+
     @Query("UPDATE table_veiculo SET deleted = 0 WHERE id = :id")
     void removeFromTrash(long id);
 
@@ -39,5 +40,6 @@ public interface VeiculoDao {
     @Delete
     void delete(Veiculo veiculo);
 
-
+    @Query("SELECT * FROM table_veiculo WHERE id =:veiculoId")
+    LiveData<Veiculo> getById(long veiculoId);
 }

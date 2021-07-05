@@ -8,11 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
+import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsEnums;
 
 import java.util.Formatter;
@@ -23,10 +29,13 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     LayoutInflater inflater;
     List<Abastecimento> abastecimentos;
     Context context;
+    VeiculoViewModel veiculoViewModel;
 
     public AbastecimentosAdapter(Context context) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.veiculoViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(VeiculoViewModel.class);
+        this.veiculoViewModel.setRespository(new VeiculoRespository(context));
     }
 
     public void setAbastecimentos(List<Abastecimento> abastecimentos) {
@@ -42,8 +51,19 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
 
     @Override
     public void onBindViewHolder(@NonNull AbastecimentosAdapter.VH holder, int position) {
-        if (abastecimentos != null && abastecimentos.size() > 0)
-            holder.setData(abastecimentos.get(position));
+        if (abastecimentos != null && abastecimentos.size() > 0) {
+            Abastecimento abastecimento = abastecimentos.get(position);
+            if (abastecimento.getTipoCalculo() == TipoCalculo.VEICULO) {
+
+                veiculoViewModel.getById(abastecimento.getVeiculoId())
+                        .observe((LifecycleOwner) context, veiculo -> {
+                            abastecimento.setVeiculo(veiculo);
+                            holder.setData(abastecimento);
+                        });
+            } else {
+                holder.setData(abastecimento);
+            }
+        }
     }
 
     @Override
@@ -81,11 +101,13 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                     break;
                 case KMS_LITRO:
                     descricao = new Formatter().format(
-                            "%.2fKMs/litro Álcool - %.2fKMs/litro Gasolina",
+                            context.getResources().getString(R.string.descricao_abastecimento_por_kmsLitro),
                             abastecimento.getKmsLitroAlcool(),
                             abastecimento.getKmsLitroGasolina()).toString();
                     break;
                 case VEICULO:
+                    descricao = abastecimento.getVeiculo().getNome();
+                    break;
             }
             descricaoAbastecimento.setText(descricao);
             String detalhes = String.format(context.getResources().getString(R.string.detalhe_resumo_abastecimento),

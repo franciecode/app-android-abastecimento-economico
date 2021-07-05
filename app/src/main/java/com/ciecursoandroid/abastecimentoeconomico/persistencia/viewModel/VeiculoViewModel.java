@@ -50,4 +50,8 @@ public class VeiculoViewModel extends ViewModel {
     public void removeFromTrash(Veiculo veiculo, VeiculoRespository.OnDeleteListener listener) {
         respository.removeFromTrash(veiculo, listener);
     }
+
+    public LiveData<Veiculo> getById(long veiculoId) {
+        return respository.getById(veiculoId);
+    }
 }
