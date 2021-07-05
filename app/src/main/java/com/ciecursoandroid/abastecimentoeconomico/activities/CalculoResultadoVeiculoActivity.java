@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.AbastecimentoViculoViewPager2Adapter;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -58,5 +59,13 @@ public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
 
     public Veiculo getVeiculo() {
         return veiculo;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppPreferencias appPreferencias = new AppPreferencias(this);
+        appPreferencias.setVeiculoIdDoUltimoAbastecimentoPorVeiclo(veiculo.getId());
+        appPreferencias.commit();
     }
 }

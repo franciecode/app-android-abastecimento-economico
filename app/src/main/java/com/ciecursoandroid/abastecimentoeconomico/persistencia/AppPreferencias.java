@@ -7,16 +7,25 @@ import android.content.SharedPreferences;
 public class AppPreferencias {
     public final String PRECO_GASOLINA = "precoGasolina";
     public final String PRECO_ALCOOL = "precoAlcool";
+    public final String VEICULO_ID_ULTIMO_ABASTECIMENTO = "veiculoIdUltimoAbastecimento";
     private final SharedPreferences.Editor editor;
-    SharedPreferences sharePreferences;
+    SharedPreferences prefs;
 
     public AppPreferencias(Activity activity) {
-        sharePreferences = activity.getSharedPreferences("appPref", Context.MODE_PRIVATE);
-        editor = sharePreferences.edit();
+        prefs = activity.getSharedPreferences("appPref", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+    }
+
+    public void setVeiculoIdDoUltimoAbastecimentoPorVeiclo(long veiculoId) {
+        editor.putLong(VEICULO_ID_ULTIMO_ABASTECIMENTO, veiculoId);
+    }
+
+    public long getVeiculoIdDoUltimoAbastecimentoPorVeiclo() {
+        return prefs.getLong(VEICULO_ID_ULTIMO_ABASTECIMENTO, -1);
     }
 
     public float getPrecoGasolina() {
-        return sharePreferences.getFloat(PRECO_GASOLINA, 0);
+        return prefs.getFloat(PRECO_GASOLINA, 0);
     }
 
     public void setPrecoGasolina(Float valor) {
@@ -24,7 +33,7 @@ public class AppPreferencias {
     }
 
     public float getPrecoAlcool() {
-        return sharePreferences.getFloat(PRECO_ALCOOL, 0);
+        return prefs.getFloat(PRECO_ALCOOL, 0);
     }
 
     public void setPrecoAlcool(Float valor) {

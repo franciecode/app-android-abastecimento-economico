@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.activities.NavigationInActivities;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 
@@ -38,6 +39,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
     ArrayAdapter<String> spinnerAdapter;
     private List<Veiculo> listVeiculos;
     private Long newVeiculoId;
+    private Long veiculoIdUltimoAbastecimento;
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -66,6 +68,9 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
         super.onCreate(savedInstanceState);
         veiculoViewModel = new ViewModelProvider(getActivity()).get(VeiculoViewModel.class);
         veiculoViewModel.setRespository(new VeiculoRespository(getActivity()));
+
+        AppPreferencias pref = new AppPreferencias(getActivity());
+        veiculoIdUltimoAbastecimento = pref.getVeiculoIdDoUltimoAbastecimentoPorVeiclo();
     }
 
     @Override
@@ -75,6 +80,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
         View root = inflater.inflate(R.layout.fragment_veiculo_form_calcular, container, false);
         spinnerVeiculo = root.findViewById(R.id.spinnerVeiculoFormCalcular);
         setDataSpinner();
+
         spinnerVeiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -106,6 +112,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
         spinnerVeiculo.setAdapter(spinnerAdapter);
         resetDataSpinnerAdapter();
         carregarVeiculos();
+
     }
 
     private void resetDataSpinnerAdapter() {
@@ -124,18 +131,18 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
                     v = veiculos.get(i);
                     spinnerAdapter.add(v.getNome());
                     listVeiculos = veiculos;
-                    selecionarVeiculoRecemCadastrado(i + 2, v);
+                    if ((newVeiculoId != null && v.getId() == newVeiculoId) ||
+                            (veiculoIdUltimoAbastecimento != -1 && v.getId() == veiculoIdUltimoAbastecimento))
+                        autoSelecionarVeiculo(i + 2, v);
                 }
             }
         });
     }
 
-    private void selecionarVeiculoRecemCadastrado(int indexSpinner, Veiculo v) {
-        if (newVeiculoId != null && v.getId() == newVeiculoId) {
-            veiculo = v;
-            spinnerVeiculo.setSelection(indexSpinner);
-            listener.onChangedFormCalcularFragmentListener(veiculo, null, null);
-        }
+    private void autoSelecionarVeiculo(int indexSpinner, Veiculo v) {
+        veiculo = v;
+        spinnerVeiculo.setSelection(indexSpinner);
+        listener.onChangedFormCalcularFragmentListener(veiculo, null, null);
     }
 
 

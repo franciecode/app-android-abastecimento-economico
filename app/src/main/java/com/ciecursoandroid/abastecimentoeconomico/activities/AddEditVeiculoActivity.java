@@ -181,12 +181,20 @@ public class AddEditVeiculoActivity extends BaseMenuActivity {
             errors.add(getString(R.string.form_error_addEditVeiculo__nome_veiculo_nao_informado));
         if (TextUtils.isEmpty(editTextKmsAlcoolCidade.getText()))
             errors.add(getString(R.string.form_error_addEditVeiculo__kmsAlcoolCidade_nao_informado));
+        else if (Float.valueOf(editTextKmsAlcoolCidade.getText().toString()) <= 0)
+            errors.add("Kms/Litro de álcool na cidade deve ser maior que 0");
         if (TextUtils.isEmpty(editTextKmsAlcoolRodovia.getText()))
             errors.add(getString(R.string.form_error_addEditVeiculo__kmsAlcoolRodovia_nao_informado));
+        else if (Float.valueOf(editTextKmsAlcoolRodovia.getText().toString()) <= 0)
+            errors.add("Kms/Litro de álcool na rodovia deve ser maior que 0");
         if (TextUtils.isEmpty(editTextKmsGasolinaCidade.getText()))
             errors.add(getString(R.string.form_error_addEditVeiculo__kmsGasolinaCidade_nao_informado));
+        else if (Float.valueOf(editTextKmsGasolinaCidade.getText().toString()) <= 0)
+            errors.add("Kms/Litro gasolina na cidade deve ser maior que 0");
         if (TextUtils.isEmpty(editTextKmsGasolinaRodovia.getText()))
             errors.add(getString(R.string.form_error_addEditVeiculo__kmsGasolinaRodovia_nao_informado));
+        else if (Float.valueOf(editTextKmsGasolinaRodovia.getText().toString()) <= 0)
+            errors.add("Kms/Litro de gasolina na rodovia deve ser maior que 0");
 
         if (errors.size() == 0)
             return true;
