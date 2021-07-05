@@ -23,14 +23,11 @@ public abstract class UtilsAsyncTask<Param, Progress, Result> {
 
     public void execute(Param param) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result r = doInBackground(param);
-                handler.post(() -> {
-                    onPostResult(r);
-                });
-            }
+        executorService.execute(() -> {
+            Result r = doInBackground(param);
+            handler.post(() -> {
+                onPostResult(r);
+            });
         });
     }
 }
