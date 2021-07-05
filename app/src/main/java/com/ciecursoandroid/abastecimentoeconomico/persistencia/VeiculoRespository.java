@@ -152,6 +152,29 @@ public class VeiculoRespository {
         }.execute(veiculo);
     }
 
+    public void removeFromTrash(Veiculo veiculo, OnDeleteListener listener) {
+        new UtilsAsyncTask<Veiculo, Void, Void>() {
+            Exception exception;
+
+            @Override
+            public Void doInBackground(Veiculo veiculo) {
+                try {
+                    dao.removeFromTrash(veiculo.getId());
+                    abastecimentoDao.removeFromTrashByVeiculoId(veiculo.getId());
+                } catch (Exception e) {
+                    exception = e;
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            public void onPostResult(Void unused) {
+                listener.onComplete(exception);
+            }
+        }.execute(veiculo);
+    }
+
     // LISTENERS
     //-----------------------------------------------------------
     public interface OnInsert {

@@ -46,4 +46,8 @@ public class VeiculoViewModel extends ViewModel {
     public void delete(Veiculo veiculo, VeiculoRespository.OnDeleteListener listener) {
         respository.delete(veiculo, listener);
     }
+
+    public void removeFromTrash(Veiculo veiculo, VeiculoRespository.OnDeleteListener listener) {
+        respository.removeFromTrash(veiculo, listener);
+    }
 }

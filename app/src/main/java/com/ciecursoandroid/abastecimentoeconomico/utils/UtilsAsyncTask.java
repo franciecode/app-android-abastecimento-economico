@@ -7,22 +7,22 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public abstract class UtilsAsyncTask<Param, Progress, Result> {
-    Progress progress;
+    final Handler handler = new Handler(Looper.getMainLooper());
 
     public abstract Result doInBackground(Param param);
 
     public void onProgress(Progress progress) {
 
     }
+
     public void publishProgress(Progress progress) {
-        this.progress = progress;
+        handler.post(() -> onProgress(progress));
     }
 
     public abstract void onPostResult(Result result);
 
     public void execute(Param param) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        final Handler handler = new Handler(Looper.getMainLooper());
         executorService.execute(new Runnable() {
             @Override
             public void run() {

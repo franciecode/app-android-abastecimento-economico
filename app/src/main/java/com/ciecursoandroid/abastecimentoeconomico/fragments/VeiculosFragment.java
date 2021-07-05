@@ -69,7 +69,7 @@ public class VeiculosFragment extends Fragment {
             @Override
             public void onClick(Veiculo veiculo, int position) {
                 if (isTrash) {
-                    restaurarVeiculo(veiculo);
+                    restaurarVeiculo(veiculo, position);
                 } else {
                     editarVeiculo(veiculo);
                 }
@@ -178,7 +178,30 @@ public class VeiculosFragment extends Fragment {
 
     }
 
-    private void restaurarVeiculo(Veiculo veiculo) {
+    private void restaurarVeiculo(Veiculo veiculo, int position) {
+        Alerts.confirm(getActivity(), getString(R.string.restaurar_veiculo),
+                getString(R.string.confirma_restaurar) + veiculo.getNome() + "?")
+                .setPositiveButton(R.string.restaurar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        veiculoViewModel.removeFromTrash(veiculo, new VeiculoRespository.OnDeleteListener() {
+                            @Override
+                            public void onComplete(Exception e) {
+                                if (e != null) {
+                                    Alerts.alertError(getActivity(), getString(R.string.erro_ao_restaurar_veiculo),
+                                            e.getMessage()
+                                    ).setPositiveButton("ok", null)
+                                            .show();
+                                } else {
+                                    Toast.makeText(getActivity(), getString(R.string.veiculo_restaurado_com_sucesso),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
 
     }
 

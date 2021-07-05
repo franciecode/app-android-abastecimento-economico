@@ -71,4 +71,9 @@
     <string name="confirma_deletar">\"Confirma deletar: \"</string>
     <string name="msg_alerta_deletar_veiculo_permanentemente">\n\n Ao deletar este veículo, ele e seus abastecimentos não poderão ser mais restaurados.</string>
     <string name="erro_ao_deletar_veiculo">Erro ao deletar o veículo</string>
+    <string name="restaurar_veiculo">Restaurar veículo</string>
+    <string name="confirma_restaurar">\"Confirma restaurar: \"</string>
+    <string name="restaurar">Restaurar</string>
+    <string name="erro_ao_restaurar_veiculo">Erro ao restaurar veículo</string>
+    <string name="veiculo_restaurado_com_sucesso">Veículo restaurado com sucesso!</string>
 </resources>

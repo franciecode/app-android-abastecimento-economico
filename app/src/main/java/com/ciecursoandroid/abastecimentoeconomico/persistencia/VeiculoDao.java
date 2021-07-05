@@ -27,6 +27,8 @@ public interface VeiculoDao {
 
     @Query("UPDATE table_veiculo SET deleted = 1 WHERE id = :id")
     void trash(long id);
+    @Query("UPDATE table_veiculo SET deleted = 0 WHERE id = :id")
+    void removeFromTrash(long id);
 
     @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 0")
     LiveData<Integer> getTotalCadastrados();

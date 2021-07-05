@@ -21,7 +21,7 @@ public interface AbastecimentoDao {
     void sendTrashByVeiculoId(long veiculoId);
 
     @Query("UPDATE TABLE_ABASTECIMENTO SET deleted = 0 WHERE veiculoId = :veiculoId")
-    void removeOfTrashByVeiculoId(long veiculoId);
+    void removeFromTrashByVeiculoId(long veiculoId);
 
     @Query("DELETE FROM table_abastecimento WHERE veiculoId = :veiculoId")
     void deleteByVeiculoId(long veiculoId);
