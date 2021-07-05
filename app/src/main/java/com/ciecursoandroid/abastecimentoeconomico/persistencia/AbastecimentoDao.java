@@ -14,7 +14,7 @@ public interface AbastecimentoDao {
     @Insert
     long insert(Abastecimento abastecimento);
 
-    @Query("SELECT * FROM TABLE_ABASTECIMENTO ORDER BY dataAbastecimento DESC")
+    @Query("SELECT * FROM TABLE_ABASTECIMENTO WHERE deleted = 0 ORDER BY dataAbastecimento DESC")
     LiveData<List<Abastecimento>> getAll();
 
     @Query("UPDATE TABLE_ABASTECIMENTO SET deleted = 1 WHERE veiculoId = :veiculoId")

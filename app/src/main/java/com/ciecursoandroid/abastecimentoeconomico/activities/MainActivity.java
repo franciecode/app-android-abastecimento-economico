@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
@@ -101,26 +100,33 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     public void calcular(View view) {
         if (!validarFormulario()) return;
-        Intent i;
+        Intent i = new Intent();
         switch (tipoCalculo) {
             case BASICO:
                 i = new Intent(this, CalculoResultadoBasicoActivity.class);
-                i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
-                i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
+                setPrecosCombustiveisForIntentCalculo(i);
                 startActivity(i);
                 break;
             case KMS_LITRO:
                 i = new Intent(this, CalculoResultadoKmsLitroActivity.class);
-                i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
-                i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
+                setPrecosCombustiveisForIntentCalculo(i);
                 i.putExtra("kmsGasolina", Float.valueOf(kmsLitroGasolina));
                 i.putExtra("kmAlcool", Float.valueOf(kmsLitroAlcool));
                 startActivity(i);
                 break;
             case VEICULO:
-                Toast.makeText(this, "calcular por veículo", Toast.LENGTH_SHORT).show();
+                i = new Intent(this, CalculoResultadoVeiculoActivity.class);
+                setPrecosCombustiveisForIntentCalculo(i);
+                i.putExtra("veiculo", veiculo);
+                startActivity(i);
+
 
         }
+    }
+
+    private void setPrecosCombustiveisForIntentCalculo(Intent i) {
+        i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
+        i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
     }
 
     private boolean validarFormulario() {

@@ -76,4 +76,6 @@
     <string name="restaurar">Restaurar</string>
     <string name="erro_ao_restaurar_veiculo">Erro ao restaurar veículo</string>
     <string name="veiculo_restaurado_com_sucesso">Veículo restaurado com sucesso!</string>
+    <string name="combustivel_nao_informado">Combústível não informado!</string>
+    <string name="litros_nao_informados">Total de litros não informado!</string>
 </resources>

@@ -1,309 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/screen_padd">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_round_corner_white"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/grid_space_2x"
-        android:paddingTop="@dimen/grid_space"
-        android:paddingRight="@dimen/grid_space_2x"
-        android:paddingBottom="@dimen/grid_space">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView1"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center_horizontal"
-            android:text="Abasteça com:" />
-
-
-        <TextView
-            android:id="@+id/textViewCombustivelRecomendado"
-            app:drawableLeftCompat="@drawable/ic_bomba_fuel"
-            app:drawableTint="@color/color_gasolina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            android:drawablePadding="8dp"
-            android:gravity="center_horizontal"
-            android:text="@string/gasolina"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/color_gasolina" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewCombustivelRecomendado"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_horizontal">
+            android:background="@drawable/bg_round_corner_white"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/grid_space_2x"
+            android:paddingTop="@dimen/grid_space"
+            android:paddingRight="@dimen/grid_space_2x"
+            android:paddingBottom="@dimen/grid_space">
 
             <TextView
-                android:id="@id/textViewPorcentagemEconomia"
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_horizontal"
+                android:text="Abasteça com:" />
+
+
+            <TextView
+                android:id="@+id/textViewCombustivelRecomendado"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/gasolina"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/color_gasolina"
+                app:drawableLeftCompat="@drawable/ic_bomba_fuel"
+                app:drawableTint="@color/color_gasolina" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewCombustivelRecomendado"
-                android:text="20%"
-                android:textColor="@color/color_text_green" />
+                android:layout_alignParentLeft="true"
+                android:gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/textViewPorcentagemEconomia"
-                android:layout_marginLeft="8dp"
-                android:text="de economia." />
-        </LinearLayout>
+                <TextView
+                    android:id="@id/textViewPorcentagemEconomia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewCombustivelRecomendado"
+                    android:text="20%"
+                    android:textColor="@color/color_text_green" />
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/textViewPorcentagemEconomia"
+                    android:layout_marginLeft="8dp"
+                    android:text="de economia." />
+            </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_space_2x"
-        android:layout_marginBottom="@dimen/grid_space"
-        android:gravity="center_horizontal"
-        android:text="Abastecimento"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0.2"
-        android:background="@color/black" />
-
-    <RadioGroup
-        android:id="@+id/radiogroupAbastecimento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radioButtonGasolina"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/radio_preco_gasolina" />
-
-        <RadioButton
-            android:id="@+id/radioButtonAlcool"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/radio_preco_alcool" />
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total litros abastecidos" />
-
-        <EditText
-            android:id="@+id/editTextLitros"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_space_2x"
+            android:layout_marginBottom="@dimen/grid_space"
             android:gravity="center_horizontal"
-            android:hint="0.0"
-            android:inputType="numberDecimal" />
-        LinearLayout
-    </LinearLayout>
+            android:text="Abastecimento"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_space">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.2"
+            android:background="@color/black" />
 
-        <TableRow >
+        <RadioGroup
+            android:id="@+id/radiogroupAbastecimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <View android:layout_height="1dp"/>
-
-            <TextView
+            <RadioButton
+                android:id="@+id/radioButtonGasolina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/preco_km"
-                android:textStyle="bold" />
+                android:text="@string/radio_preco_gasolina" />
 
-            <TextView
+            <RadioButton
+                android:id="@+id/radioButtonAlcool"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/total_kms"
-                android:textStyle="bold" />
+                android:text="@string/radio_preco_alcool" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/total_pagar"
-                android:textStyle="bold" />
-        </TableRow>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total litros abastecidos" />
 
-        <TableRow>
+            <EditText
+                android:id="@+id/editTextLitros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="0.0"
+                android:inputType="numberDecimal" />
+            LinearLayout
+        </LinearLayout>
 
-            <TextView
-                android:layout_marginRight="@dimen/grid_space"
-                android:text="@string/gasolina" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_space">
 
-            <TextView
-                android:id="@+id/tablePrecoKmGasolina"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/tableTotalKmsGasolina"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="0" />
+                <View android:layout_height="1dp" />
 
-            <TextView
-                android:id="@+id/tableTotalPagarGasolina"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0" />
-        </TableRow>
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/preco_km"
+                    android:textStyle="bold" />
 
-        <TableRow>
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/total_kms"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_marginRight="@dimen/grid_space"
-                android:text="@string/alcool" />
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/total_pagar"
+                    android:textStyle="bold" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/tablePrecoKmAlcool"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/tableTotalKmsAlcool"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="0" />
+                <TextView
+                    android:layout_marginRight="@dimen/grid_space"
+                    android:text="@string/gasolina" />
 
-            <TextView
-                android:id="@+id/tableTotalPagarAlcool"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/tablePrecoKmGasolina"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0" />
 
-        <TableRow>
+                <TextView
+                    android:id="@+id/tableTotalKmsGasolina"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0" />
 
-            <TextView
-                android:layout_marginRight="@dimen/grid_space"
-                android:text="@string/diferenca"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tableTotalPagarGasolina"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/tablePrecoKmDiferenca"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0"
-                android:textStyle="bold" />
+            <TableRow>
 
-            <TextView
-                android:id="@+id/tableTotalKmsDiferenca"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="0"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_marginRight="@dimen/grid_space"
+                    android:text="@string/alcool" />
 
-            <TextView
-                android:id="@+id/tableTotalPagarDiferenca"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="R$0.0"
-                android:textStyle="bold" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/tablePrecoKmAlcool"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0" />
 
-    </TableLayout>
+                <TextView
+                    android:id="@+id/tableTotalKmsAlcool"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_space"
-        android:background="@color/bg_gray"
-        android:orientation="vertical"
-        android:padding="@dimen/grid_space">
+                <TextView
+                    android:id="@+id/tableTotalPagarAlcool"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_marginRight="@dimen/grid_space"
+                    android:text="@string/diferenca"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tablePrecoKmDiferenca"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tableTotalKmsDiferenca"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tableTotalPagarDiferenca"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="R$0.0"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_marginTop="@dimen/grid_space"
+            android:background="@color/bg_gray"
+            android:orientation="vertical"
+            android:padding="@dimen/grid_space">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/total_a_pagar" />
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/textViewTotalAPagar"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_a_pagar" />
+
+                <TextView
+                    android:id="@+id/textViewTotalAPagar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/dinheiro_vazio"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/dinheiro_vazio"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/valor_total_economizado" />
+
+                <TextView
+                    android:id="@+id/textViewValorEconomizado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/dinheiro_vazio"
+                    android:textColor="@color/color_text_green"
+                    android:textSize="24sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_marginTop="@dimen/grid_space">
 
-            <TextView
+            <Button
+                android:id="@+id/btnSalvarAbastecimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/valor_total_economizado" />
+                android:text="SALVAR"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewValorEconomizado"
+            <Button
+                android:id="@+id/btnNaoSalvarAbastecimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/dinheiro_vazio"
-                android:textColor="@color/color_text_green"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:layout_gravity="right"
+                android:backgroundTint="@color/secondary"
+                android:text="NÃO SALVAR"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_space">
-
-        <Button
-            android:id="@+id/btnSalvarAbastecimento"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SALVAR" />
-
-        <Button
-            android:id="@+id/btnNaoSalvarAbastecimento"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:backgroundTint="@color/secondary"
-            android:text="NÃO SALVAR" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</ScrollView>
