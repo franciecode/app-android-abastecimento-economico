@@ -2,6 +2,7 @@ package com.ciecursoandroid.abastecimentoeconomico.persistencia;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -32,4 +33,9 @@ public interface VeiculoDao {
 
     @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 1")
     LiveData<Integer> getTotalRemovidos();
+
+    @Delete
+    void delete(Veiculo veiculo);
+
+
 }

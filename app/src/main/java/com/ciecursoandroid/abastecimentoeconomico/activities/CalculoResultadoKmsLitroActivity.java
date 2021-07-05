@@ -14,7 +14,7 @@ import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
-import com.ciecursoandroid.abastecimentoeconomico.utils.NumeroUtils;
+import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsNumeros;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivity {
@@ -75,8 +75,8 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
                         abastecido, precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
 
         float totalPagar = abastecido == TipoCombustivel.ALCOOL ? result.getRendimentoAlcool().getCustoTotal() : result.getRendimentoGasolina().getCustoTotal();
-        textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, totalPagar));
-        textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, result.getValorEconomizado()));
+        textViewTotalAPagar.setText(UtilsNumeros.formatDinheiro(this, totalPagar));
+        textViewValorEconomizado.setText(UtilsNumeros.formatDinheiro(this, result.getValorEconomizado()));
         if (result.getValorEconomizado() < 0) {
             textViewValorEconomizado.setTextColor(getResources().getColor(R.color.color_text_red));
         } else {

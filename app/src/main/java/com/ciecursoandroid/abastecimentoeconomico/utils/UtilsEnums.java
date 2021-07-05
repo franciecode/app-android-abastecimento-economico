@@ -5,7 +5,7 @@ import android.content.Context;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 
-public class EnumsUtils {
+public class UtilsEnums {
     public static String getTipoCalculo(Context context, TipoCalculo tipoCalculo) {
         switch (tipoCalculo) {
             case BASICO:

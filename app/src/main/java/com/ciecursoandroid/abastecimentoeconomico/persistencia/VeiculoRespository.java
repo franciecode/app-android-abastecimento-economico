@@ -8,6 +8,7 @@ import android.os.Looper;
 import androidx.lifecycle.LiveData;
 
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
+import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsAsyncTask;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -97,6 +98,7 @@ public class VeiculoRespository {
 
         executorService.execute(new Runnable() {
             Exception ex;
+
             @Override
             public void run() {
                 try {
@@ -127,6 +129,31 @@ public class VeiculoRespository {
         return dao.getTotalRemovidos();
     }
 
+    public void delete(Veiculo veiculo, OnDeleteListener listener) {
+        new UtilsAsyncTask<Veiculo, Void, Void>() {
+            Exception exception;
+
+            @Override
+            public Void doInBackground(Veiculo veiculo) {
+                try {
+                    dao.delete(veiculo);
+                    abastecimentoDao.deleteByVeiculoId(veiculo.getId());
+                } catch (Exception e) {
+                    exception = e;
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            public void onPostResult(Void unused) {
+                listener.onComplete(exception);
+            }
+        }.execute(veiculo);
+    }
+
+    // LISTENERS
+    //-----------------------------------------------------------
     public interface OnInsert {
         void onComplete(Exception e, Veiculo veiculo);
     }
@@ -137,5 +164,9 @@ public class VeiculoRespository {
 
     public interface OnTrashListener {
         void onComplete(Exception e, Veiculo veiculo);
+    }
+
+    public interface OnDeleteListener {
+        void onComplete(Exception e);
     }
 }

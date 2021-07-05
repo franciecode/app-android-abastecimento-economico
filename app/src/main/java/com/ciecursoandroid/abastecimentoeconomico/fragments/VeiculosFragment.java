@@ -78,7 +78,7 @@ public class VeiculosFragment extends Fragment {
             @Override
             public boolean onLongClick(Veiculo veiculo, int position) {
                 if (isTrash) {
-                    deletarPermanentemente(veiculo);
+                    deletarPermanentemente(veiculo, position);
                 } else {
                     enviarPraLixeira(veiculo, position);
                 }
@@ -117,7 +117,33 @@ public class VeiculosFragment extends Fragment {
         NavigationInActivities.goAddVeiculo(getActivity());
     }
 
-    private void deletarPermanentemente(Veiculo veiculo) {
+    private void deletarPermanentemente(Veiculo veiculo, int position) {
+        Alerts.alertWaring(getActivity(),
+                getString(R.string.acao_irreversivel),
+                getString(R.string.confirma_deletar) +
+                        veiculo.getNome() + "?" +
+                        getString(R.string.msg_alerta_deletar_veiculo_permanentemente))
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        veiculoViewModel.delete(veiculo, new VeiculoRespository.OnDeleteListener() {
+                            @Override
+                            public void onComplete(Exception e) {
+                                if (e != null) {
+                                    Alerts.alertError(getActivity(),
+                                            getString(R.string.erro_ao_deletar_veiculo),
+                                            e.getMessage())
+                                            .setPositiveButton("ok", null)
+                                            .show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Veiculo deletado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    veiculosAdapter.removeItem(position);
+                                }
+                            }
+                        });
+                    }
+                }).setNegativeButton("Cancelar", null)
+                .show();
 
     }
 
@@ -153,7 +179,7 @@ public class VeiculosFragment extends Fragment {
     }
 
     private void restaurarVeiculo(Veiculo veiculo) {
-        Toast.makeText(getActivity(), "restaurarVeiculo", Toast.LENGTH_SHORT).show();
+
     }
 
     private void editarVeiculo(Veiculo veiculo) {

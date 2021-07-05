@@ -67,4 +67,8 @@
     <string name="atualizar_veiculo">Atualizar Veículo</string>
     <string name="icone_veiculo">icone veiculo</string>
     <string name="msg_alerta_enviar_veiculo_para_lixeira">Todos os abastecimentos desse veículo serão removidos. Ao restaurar este veículo da lixeira, todos os seus abastecimentos tambem serão resautrados.</string>
+    <string name="acao_irreversivel">Ação irreversível</string>
+    <string name="confirma_deletar">\"Confirma deletar: \"</string>
+    <string name="msg_alerta_deletar_veiculo_permanentemente">\n\n Ao deletar este veículo, ele e seus abastecimentos não poderão ser mais restaurados.</string>
+    <string name="erro_ao_deletar_veiculo">Erro ao deletar o veículo</string>
 </resources>

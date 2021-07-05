@@ -42,4 +42,8 @@ public class VeiculoViewModel extends ViewModel {
     public LiveData<Integer> getTotalRemovidos() {
         return respository.getTotalRemovidos();
     }
+
+    public void delete(Veiculo veiculo, VeiculoRespository.OnDeleteListener listener) {
+        respository.delete(veiculo, listener);
+    }
 }

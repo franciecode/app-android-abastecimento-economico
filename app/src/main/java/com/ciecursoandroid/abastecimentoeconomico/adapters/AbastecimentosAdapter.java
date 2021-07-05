@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
-import com.ciecursoandroid.abastecimentoeconomico.utils.EnumsUtils;
+import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsEnums;
 
 import java.util.Formatter;
 import java.util.List;
@@ -66,7 +66,7 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         }
 
         public void setData(Abastecimento abastecimento) {
-            tipoCalculo.setText(EnumsUtils.getTipoCalculo(context, abastecimento.getTipoCalculo()));
+            tipoCalculo.setText(UtilsEnums.getTipoCalculo(context, abastecimento.getTipoCalculo()));
             String dt = DateFormat.format(context.getString(R.string.data_hora),
                     abastecimento.getDataAbastecimento()).toString();
             dataAbastecimento.setText(dt);

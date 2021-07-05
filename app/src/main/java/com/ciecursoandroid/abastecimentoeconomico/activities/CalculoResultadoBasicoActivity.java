@@ -15,7 +15,7 @@ import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
-import com.ciecursoandroid.abastecimentoeconomico.utils.NumeroUtils;
+import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsNumeros;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity {
@@ -35,8 +35,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         setFields();
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
         textViewValorEconomizado = findViewById(R.id.textViewValorEconomizado);
-        textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, 0f));
-        textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, 0f));
+        textViewTotalAPagar.setText(UtilsNumeros.formatDinheiro(this, 0f));
+        textViewValorEconomizado.setText(UtilsNumeros.formatDinheiro(this, 0f));
         Button btnSalvar = findViewById(R.id.btnSalvar);
         Button btnNaoSalvar = findViewById(R.id.btnNaoSalvar);
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, 10, 7);
@@ -55,8 +55,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                         abastecido, precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
 
         float totalPagar = abastecido == TipoCombustivel.ALCOOL ? result.getRendimentoAlcool().getCustoTotal() : result.getRendimentoGasolina().getCustoTotal();
-        textViewTotalAPagar.setText(NumeroUtils.formatDinheiro(this, totalPagar));
-        textViewValorEconomizado.setText(NumeroUtils.formatDinheiro(this, result.getValorEconomizado()));
+        textViewTotalAPagar.setText(UtilsNumeros.formatDinheiro(this, totalPagar));
+        textViewValorEconomizado.setText(UtilsNumeros.formatDinheiro(this, result.getValorEconomizado()));
         if (result.getValorEconomizado() < 0) {
             textViewValorEconomizado.setTextColor(getResources().getColor(R.color.color_text_red));
         } else {
