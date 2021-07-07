@@ -24,7 +24,7 @@ import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 import java.util.List;
 
-public class AbastecimentosActivity extends BaseMenuActivity implements AbastecimentosAdapter.OnItemClickListener {
+public class AbastecimentosActivity extends BaseMenuActivity implements AbastecimentosAdapter.AdapterObserver {
 
 
     private RecyclerView recyclerView;
@@ -56,20 +56,21 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
             @Override
             public void onChanged(List<Abastecimento> abastecimentos) {
                 abastecimentosAdapter.setAbastecimentos(abastecimentos);
-                setViewsResumoTotal(abastecimentos);
             }
         });
 
     }
 
-    private void setViewsResumoTotal(List<Abastecimento> abastecimentos) {
-        if (abastecimentos.size() > 0) {
+    private void setViewsResumoTotal(List<Abastecimento> all, List<Abastecimento> filtrados) {
+        if (all.size() > 0) {
             float totalEconomizado = 0, totalGasto = 0;
-            for (Abastecimento a : abastecimentos) {
+            List<Abastecimento> listCalculo = filtrados != null ? filtrados : all;
+            for (Abastecimento a : listCalculo) {
                 totalGasto += a.getTotalPago();
                 totalEconomizado += a.getValorEconomizado();
             }
-            textViewTotalRegistros.setText(abastecimentos.size() + "/" + abastecimentos.size());
+            int monstrando = filtrados == null ? all.size() : filtrados.size();
+            textViewTotalRegistros.setText(monstrando + "/" + all.size());
             textViewTotaGasto.setText(String.format(getString(R.string.valor_dinheiro), totalGasto));
             textViewTotalEconomizado.setText(String.format(getString(R.string.valor_dinheiro), totalEconomizado));
             if (totalEconomizado < 0) {
@@ -145,5 +146,10 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
         }).setNegativeButton(getString(R.string.cancelar), null)
                 .show();
         return false;
+    }
+
+    @Override
+    public void onChangeListener(List<Abastecimento> filtrados, List<Abastecimento> todos) {
+        setViewsResumoTotal(todos, filtrados);
     }
 }
