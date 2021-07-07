@@ -87,4 +87,9 @@
     <string name="atencao_">Atenção!</string>
     <string name="cancelar">cancelar</string>
     <string name="ok">ok</string>
+    <string name="hint_busca">Pesquisar e filtrar abastecimentos</string>
+    <string name="filtrar_abastecimento">@string/app_name</string>
+    <string name="remover_abastecimento">Remover Abastecimento!</string>
+    <string name="confirma_remover_abastecimento">\"Você confirmar remover o abastecimento feito em \"</string>
+    <string name="abasteciment_removido_com_sucesso">Abastecimento removido com sucesso!</string>
 </resources>

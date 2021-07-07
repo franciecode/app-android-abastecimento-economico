@@ -3,6 +3,9 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +33,12 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     private TextView textViewTotalRegistros;
     private TextView textViewTotaGasto;
     TextView textViewTotalEconomizado;
+    private MenuItem search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abastecimentos);
-        getSupportActionBar().setTitle(R.string.abastecimentos);
 
         textViewTotalRegistros = findViewById(R.id.textViewTotalRegistros);
         textViewTotaGasto = findViewById(R.id.textViewTotalGasto);
@@ -53,30 +56,33 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
             @Override
             public void onChanged(List<Abastecimento> abastecimentos) {
                 abastecimentosAdapter.setAbastecimentos(abastecimentos);
-                abastecimentosAdapter.notifyDataSetChanged();
-                if (abastecimentos.size() > 0) {
-                    float totalEconomizado = 0, totalGasto = 0;
-                    for (Abastecimento a : abastecimentos) {
-                        totalGasto += a.getTotalPago();
-                        totalEconomizado += a.getValorEconomizado();
-                    }
-                    textViewTotalRegistros.setText(abastecimentos.size() + "/" + abastecimentos.size());
-                    textViewTotaGasto.setText(String.format(getString(R.string.valor_dinheiro), totalGasto));
-                    textViewTotalEconomizado.setText(String.format(getString(R.string.valor_dinheiro), totalEconomizado));
-                    if (totalEconomizado < 0) {
-                        textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_red));
-                    } else {
-                        textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
-                    }
-                } else {
-                    textViewTotalRegistros.setText("0/0");
-                    textViewTotaGasto.setText(getString(R.string.dinheiro_vazio));
-                    textViewTotalEconomizado.setText(getString(R.string.dinheiro_vazio));
-                    textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
-                }
+                setViewsResumoTotal(abastecimentos);
             }
         });
 
+    }
+
+    private void setViewsResumoTotal(List<Abastecimento> abastecimentos) {
+        if (abastecimentos.size() > 0) {
+            float totalEconomizado = 0, totalGasto = 0;
+            for (Abastecimento a : abastecimentos) {
+                totalGasto += a.getTotalPago();
+                totalEconomizado += a.getValorEconomizado();
+            }
+            textViewTotalRegistros.setText(abastecimentos.size() + "/" + abastecimentos.size());
+            textViewTotaGasto.setText(String.format(getString(R.string.valor_dinheiro), totalGasto));
+            textViewTotalEconomizado.setText(String.format(getString(R.string.valor_dinheiro), totalEconomizado));
+            if (totalEconomizado < 0) {
+                textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_red));
+            } else {
+                textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
+            }
+        } else {
+            textViewTotalRegistros.setText("0/0");
+            textViewTotaGasto.setText(getString(R.string.dinheiro_vazio));
+            textViewTotalEconomizado.setText(getString(R.string.dinheiro_vazio));
+            textViewTotalEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
+        }
     }
 
     @Override
@@ -85,10 +91,36 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        search = menu.findItem(R.id.app_bar_search);
+        search.setVisible(true);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filtrarAbastecimento(s);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    private void filtrarAbastecimento(String s) {
+        abastecimentosAdapter.getFilter().filter(s);
+    }
+
+    @Override
     public boolean onLongItemClick(Abastecimento abastecimento, int position) {
         String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimento.getDataAbastecimento()).toString();
-        Alerts.alertWaring(this, "Remover Abastecimento!",
-                "Você confirmar remover o abastecimento feito em " + dataAbastecimento
+        Alerts.alertWaring(this, getString(R.string.remover_abastecimento),
+                getString(R.string.confirma_remover_abastecimento) + dataAbastecimento
         ).setPositiveButton(R.string.remover, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -102,7 +134,9 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
                                     .setPositiveButton("ok", null)
                                     .show();
                         } else {
-                            Toast.makeText(AbastecimentosActivity.this, "Abastecimento removido com sucesso!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AbastecimentosActivity.this,
+                                    getString(R.string.abasteciment_removido_com_sucesso),
+                                    Toast.LENGTH_SHORT).show();
                             abastecimentosAdapter.removeItem(position);
                         }
                     }

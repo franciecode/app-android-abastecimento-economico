@@ -39,7 +39,9 @@ public class AddEditVeiculoActivity extends BaseMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_veiculo);
+
         findViewById(R.id.buttonSaveVeiculo).setOnClickListener(v -> save());
+        findViewById(R.id.buttonCancelSaveVeiculo).setOnClickListener(v -> cancelarSalvar());
 
         // INTENT EXTRAS
         veiculoEdit = getIntent().getParcelableExtra("veiculo");
@@ -89,6 +91,10 @@ public class AddEditVeiculoActivity extends BaseMenuActivity {
             editTextKmsGasolinaCidade.setText(veiculoEdit.getKmsLitroCidadeGasolina() + "");
             editTextKmsGasolinaRodovia.setText(veiculoEdit.getKmsLitroRodoviaGasolina() + "");
         }
+    }
+
+    private void cancelarSalvar() {
+        finish();
     }
 
     public void save() {

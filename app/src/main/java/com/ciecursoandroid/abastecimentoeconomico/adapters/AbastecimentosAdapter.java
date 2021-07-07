@@ -5,6 +5,8 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,15 +24,19 @@ import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.Veiculo
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsEnums;
 
 import java.util.Formatter;
+import java.util.LinkedList;
 import java.util.List;
 
-public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAdapter.VH> {
+public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAdapter.VH> implements Filterable {
 
     LayoutInflater inflater;
-    List<Abastecimento> abastecimentos;
+    List<Abastecimento> abastecimentos = new LinkedList<>();
+    List<Abastecimento> abastecimentosAll;
+    List<Abastecimento> abastecimentosFiltrados = new LinkedList<>();
     Context context;
     VeiculoViewModel veiculoViewModel;
     OnItemClickListener listener;
+    private boolean filtered;
 
     public AbastecimentosAdapter(Context context, OnItemClickListener listener) {
         this.listener = listener;
@@ -41,7 +47,31 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     }
 
     public void setAbastecimentos(List<Abastecimento> abastecimentos) {
-        this.abastecimentos = abastecimentos;
+        this.abastecimentosAll = abastecimentos;
+        carregarVeiculosDosAbastecimentos();
+        if (filtered == false) {
+            this.abastecimentos.clear();
+            this.abastecimentos.addAll(abastecimentosAll);
+            notifyDataSetChanged();
+        }
+    }
+
+    private void carregarVeiculosDosAbastecimentos() {
+        for (Abastecimento abastecimento : abastecimentosAll) {
+            if (abastecimento.getTipoCalculo() == TipoCalculo.VEICULO) {
+                veiculoViewModel.getById(abastecimento.getVeiculoId())
+                        .observe((LifecycleOwner) context, veiculo -> {
+                            abastecimento.setVeiculo(veiculo);
+                        });
+            }
+        }
+    }
+
+    public void removeItem(int position) {
+        if (filtered == true) {
+            abastecimentos.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     @NonNull
@@ -55,15 +85,7 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     public void onBindViewHolder(@NonNull AbastecimentosAdapter.VH holder, int position) {
         if (abastecimentos != null && abastecimentos.size() > 0) {
             Abastecimento abastecimento = abastecimentos.get(position);
-            if (abastecimento.getTipoCalculo() == TipoCalculo.VEICULO) {
-                veiculoViewModel.getById(abastecimento.getVeiculoId())
-                        .observe((LifecycleOwner) context, veiculo -> {
-                            abastecimento.setVeiculo(veiculo);
-                            holder.setData(abastecimento);
-                        });
-            } else {
-                holder.setData(abastecimento);
-            }
+            holder.setData(abastecimento);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -84,10 +106,51 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         return abastecimentos == null ? 0 : abastecimentos.size();
     }
 
-    public void removeItem(int position) {
-        abastecimentos.remove(position);
-        notifyItemRemoved(position);
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                abastecimentosFiltrados.clear();
+                FilterResults filterResults = new FilterResults();
+                try {
+                    if (charSequence == null || charSequence.length() == 0) {
+                        filtered = false;
+                        abastecimentosFiltrados.addAll(abastecimentosAll);
+                    } else {
+                        filtered = true;
+                        String search = charSequence.toString().toLowerCase().trim();
+                        String[] words = search.split(" ");
+                        for (Abastecimento a : abastecimentosAll) {
+                            String strAbastecimento = new ShowAbastecimento(a).toString().toLowerCase().trim();
+                            boolean contains = true;
+                            int i = 0;
+                            while (i < words.length && contains == true) {
+                                contains = strAbastecimento.contains(words[i]);
+                                i++;
+                            }
+                            if (contains == true)
+                                abastecimentosFiltrados.add(a);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                filterResults.values = abastecimentosFiltrados;
+                int a = 0;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                abastecimentos.clear();
+                if (filterResults.values != null)
+                    abastecimentos.addAll((List<Abastecimento>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
     }
+
 
     public class VH extends RecyclerView.ViewHolder {
         private TextView tipoCalculo;
@@ -104,11 +167,36 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         }
 
         public void setData(Abastecimento abastecimento) {
-            tipoCalculo.setText(UtilsEnums.getTipoCalculo(context, abastecimento.getTipoCalculo()));
-            String dt = DateFormat.format(context.getString(R.string.data_hora),
+            ShowAbastecimento showAbastecimento = new ShowAbastecimento(abastecimento);
+            tipoCalculo.setText(showAbastecimento.tipoAbastecimento);
+            dataAbastecimento.setText(showAbastecimento.dataAbastecimento);
+            descricaoAbastecimento.setText(showAbastecimento.descricao);
+            detalhesAbastecimento.setText(showAbastecimento.detalhes);
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Abastecimento abastecimento, int position);
+
+        boolean onLongItemClick(Abastecimento abastecimento, int position);
+    }
+
+    private class ShowAbastecimento {
+        String tipoAbastecimento;
+        String dataAbastecimento;
+        String detalhes;
+        String descricao;
+
+        public ShowAbastecimento(Abastecimento abastecimento) {
+            tipoAbastecimento = UtilsEnums.getTipoCalculo(context, abastecimento.getTipoCalculo());
+            dataAbastecimento = DateFormat.format(context.getString(R.string.data_hora),
                     abastecimento.getDataAbastecimento()).toString();
-            dataAbastecimento.setText(dt);
-            String descricao = "";
+            detalhes = String.format(context.getResources().getString(R.string.detalhe_resumo_abastecimento),
+                    abastecimento.getCombustivelAbastecido() == TipoCombustivel.ALCOOL ? context.getString(R.string.alcool) : context.getString(R.string.gasolina),
+                    abastecimento.getTotalLitrosAbastecidos(),
+                    abastecimento.getTotalPago(),
+                    abastecimento.getValorEconomizado());
+            descricao = "";
             switch (abastecimento.getTipoCalculo()) {
                 case BASICO:
                     descricao = new Formatter().format(
@@ -127,19 +215,19 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                     descricao = abastecimento.getVeiculo().getNome();
                     break;
             }
-            descricaoAbastecimento.setText(descricao);
-            String detalhes = String.format(context.getResources().getString(R.string.detalhe_resumo_abastecimento),
-                    abastecimento.getCombustivelAbastecido() == TipoCombustivel.ALCOOL ? context.getString(R.string.alcool) : context.getString(R.string.gasolina),
-                    abastecimento.getTotalLitrosAbastecidos(),
-                    abastecimento.getTotalPago(),
-                    abastecimento.getValorEconomizado());
-            detalhesAbastecimento.setText(detalhes);
         }
-    }
 
-    public interface OnItemClickListener {
-        void onItemClick(Abastecimento abastecimento, int position);
-
-        boolean onLongItemClick(Abastecimento abastecimento, int position);
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(tipoAbastecimento);
+            sb.append(" ");
+            sb.append(dataAbastecimento);
+            sb.append(" ");
+            sb.append(descricao);
+            sb.append(" ");
+            sb.append(detalhes);
+            return sb.toString();
+        }
     }
 }
