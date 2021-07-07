@@ -42,7 +42,6 @@
     <string name="exemplo_resumo_abastecimento">Abastecido com Álcool: Litros 48.7 \nTotal: R$348,35 | Economia: R$ 35,7</string>
     <string name="sucesso">Sucesso</string>
     <string name="erro_ao_salvar_abastecimento">Erro ao salvar abastecimento</string>
-    <string name="ok">ok</string>
     <string name="abastecimento_salvo_com_sucesso">Abastecimento salvo com sucesso!</string>
     <string name="carro">Carro</string>
     <string name="moto">Moto</string>
@@ -79,7 +78,13 @@
     <string name="combustivel_nao_informado">Combústível não informado!</string>
     <string name="litros_nao_informados">Total de litros não informado!</string>
     <string name="descricao_abastecimento_por_kmsLitro">%.2fKMs/litro Álcool - %.2fKMs/litro Gasolina</string>
-    <string name="cancelar">cancelar</string>
     <string name="remover">remover</string>
     <string name="erro_ao_remover_abastecimento">Erro ao remover abastecimento!</string>
+    <string name="confirma_remover_veiculo">Você confirma remover \"</string>
+    <string name="remover_veiculo">Remover Veiculo</string>
+    <string name="erro_ao_remover_veiculo">Erro ao remover o veículo</string>
+    <string name="confirmar_remover">Confirmar remover</string>
+    <string name="atencao_">Atenção!</string>
+    <string name="cancelar">cancelar</string>
+    <string name="ok">ok</string>
 </resources>

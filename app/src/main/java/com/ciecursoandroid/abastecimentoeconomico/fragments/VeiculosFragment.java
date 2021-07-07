@@ -148,19 +148,21 @@ public class VeiculosFragment extends Fragment {
     }
 
     private void enviarPraLixeira(Veiculo veiculo, int position) {
-        AlertDialog.Builder al = new AlertDialog.Builder(getActivity());
-        al.setTitle("Veiculo")
-                .setMessage(veiculo.getNome())
-                .setPositiveButton("Remover", (dialogInterface, i) -> {
-                    Alerts.alertWaring(getActivity(), "Atenção!",
+
+        Alerts.alertWaring(
+                getActivity(),
+                getString(R.string.remover_veiculo),
+                getString(R.string.confirma_remover_veiculo) + veiculo.getNome() + "\"?")
+                .setPositiveButton(getString(R.string.remover), (dialogInterface, i) -> {
+                    Alerts.alertWaring(getActivity(), getString(R.string.atencao_),
                             getString(R.string.msg_alerta_enviar_veiculo_para_lixeira))
-                            .setPositiveButton("Confirmar remover", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.confirmar_remover, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     veiculoViewModel.trash(veiculo, (e, veiculo1) -> {
                                         if (e != null) {
                                             Alerts.alertWaring(getActivity(),
-                                                    "Erro ao remover o veículo",
+                                                    getString(R.string.erro_ao_remover_veiculo),
                                                     e.getMessage())
                                                     .setPositiveButton("ok", null)
                                                     .show();
@@ -169,11 +171,11 @@ public class VeiculosFragment extends Fragment {
                                         }
                                     });
                                 }
-                            }).setNegativeButton("cancelar", null)
+                            }).setNegativeButton(R.string.cancelar, null)
                             .show();
 
                 })
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton(getString(R.string.cancelar), null)
                 .show();
 
     }
@@ -190,7 +192,7 @@ public class VeiculosFragment extends Fragment {
                                 if (e != null) {
                                     Alerts.alertError(getActivity(), getString(R.string.erro_ao_restaurar_veiculo),
                                             e.getMessage()
-                                    ).setPositiveButton("ok", null)
+                                    ).setPositiveButton(R.string.ok, null)
                                             .show();
                                 } else {
                                     Toast.makeText(getActivity(), getString(R.string.veiculo_restaurado_com_sucesso),
