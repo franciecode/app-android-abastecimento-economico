@@ -10,11 +10,17 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
-        android:id="@+id/menu_veiculos"
-        android:title="@string/veiculos" />
+        android:id="@+id/menu_chart"
+        android:icon="@drawable/ic_baseline_bar_chart_24"
+        android:title="@string/grafico"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/menu_abastecer"
         android:title="@string/abastecer" />
+    <item
+        android:id="@+id/menu_veiculos"
+        android:title="@string/veiculos" />
     <item
         android:id="@+id/menu_abastecimentos"
         android:title="@string/abastecimentos" />

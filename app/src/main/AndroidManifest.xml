@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
+        <activity android:name=".activities.ChartActivity"
+            android:label="@string/grafico"></activity>
         <activity
             android:name=".activities.CalculoResultadoVeiculoActivity"
-            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar"></activity>
+            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
             android:name=".activities.VeiculosActivity"
             android:label="@string/veiculos" />
@@ -20,7 +22,7 @@
             android:label="@string/adicionar_veiculo" />
         <activity
             android:name=".activities.AbastecimentosActivity"
-            android:label="@string/abastecimentos"></activity>
+            android:label="@string/abastecimentos" />
         <activity
             android:name=".activities.CalculoResultadoKmsLitroActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />

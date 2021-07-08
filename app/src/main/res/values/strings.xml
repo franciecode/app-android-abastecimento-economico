@@ -92,4 +92,31 @@
     <string name="remover_abastecimento">Remover Abastecimento!</string>
     <string name="confirma_remover_abastecimento">\"Você confirmar remover o abastecimento feito em \"</string>
     <string name="abasteciment_removido_com_sucesso">Abastecimento removido com sucesso!</string>
+    <string name="grafico">Gráfico</string>
+    <string name="gastos">Gastos</string>
+    <string name="economias">Economias</string>
+    <string name="total_economizado_chart">Total Economizado: R$%.2f</string>
+    <string name="total_gasto_chart">Total Gasto: R$%.2f</string>
+    <string name="ano_anterior">ano anterior</string>
+    <string name="proximo_ano">próximo ano</string>
+    <string-array name="meses_chart">
+        <item>jan</item>
+        <item>fev</item>
+        <item>mar</item>
+        <item>abr</item>
+        <item>mai</item>
+        <item>jun</item>
+        <item>jul</item>
+        <item>ago</item>
+        <item>set</item>
+        <item>out</item>
+        <item>nov</item>
+        <item>dez</item>
+    </string-array>
+    <string-array name="filtrar_grafico">
+        <item>todos</item>
+        <item>veículos</item>
+        <item>Kms/Litro</item>
+        <item>Básico</item>
+    </string-array>
 </resources>

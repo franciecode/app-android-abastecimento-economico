@@ -36,6 +36,11 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                 i = new Intent(this, VeiculosActivity.class);
                 startActivity(i);
                 break;
+            case R.id.menu_chart:
+                if (this instanceof ChartActivity) return false;
+                i = new Intent(this, ChartActivity.class);
+                startActivity(i);
+                break;
         }
 
         return true;
