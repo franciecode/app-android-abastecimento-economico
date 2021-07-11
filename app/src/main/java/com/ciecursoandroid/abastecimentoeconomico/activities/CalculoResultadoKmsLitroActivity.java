@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
@@ -12,8 +13,11 @@ import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsNumeros;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
@@ -32,12 +36,16 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     private TextView textViewTablePrecoKmDiferenca;
     private TextView textViewTableTotalKmsDiferenca;
     private TextView textViewTableTotalPagarDiferenca;
+    private Veiculo veiculo;
+    Button btnSalvar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_kms_litro);
         setFields();
+
+        abastecimento = new Abastecimento();
 
         kmsGasolina = getIntent().getFloatExtra("kmsGasolina", 0);
         kmsAlcool = getIntent().getFloatExtra("kmAlcool", 0);
@@ -55,7 +63,8 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         textViewTableTotalKmsDiferenca = findViewById(R.id.tableTotalKmsDiferenca);
         textViewTableTotalPagarDiferenca = findViewById(R.id.tableTotalPagarDiferenca);
 
-        Button btnSalvar = findViewById(R.id.btnSalvarAbastecimento);
+        btnSalvar = findViewById(R.id.btnSalvarAbastecimento);
+        btnSalvar.setEnabled(false);
         btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
 
         Button btnNaoSalvar = findViewById(R.id.btnNaoSalvarAbastecimento);
@@ -63,7 +72,24 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         viewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         viewModel.setRepository(new AbastecimentoRepository(this));
 
+        radioGroupAbastecimento.setEnabled(false);
+        editTextLitros.setEnabled(false);
+
+        VeiculoViewModel veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
+        veiculoViewModel.setRespository(new VeiculoRespository(this));
+        veiculoViewModel.getByTipo(Veiculo.TIPO_VEICULO_KMSLITRO).observe(this, new Observer<Veiculo>() {
+            @Override
+            public void onChanged(Veiculo v) {
+                veiculo = v;
+                btnSalvar.setEnabled(true);
+                abastecimento.setVeiculoId(v.getId());
+                radioGroupAbastecimento.setEnabled(true);
+                editTextLitros.setEnabled(true);
+            }
+        });
+
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, kmsGasolina, kmsAlcool);
+
 
     }
 
@@ -106,7 +132,6 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     }
 
     private void setAbastecimento(TipoCombustivel abastecido, float totalPagar, float valorEconomizado) {
-        abastecimento = new Abastecimento();
         abastecimento.setTipoCalculo(TipoCalculo.KMS_LITRO);
         abastecimento.setPorcentagemEconomia(combustivelMaisBarato.getPorcentagemEconomia());
         abastecimento.setCombustivelRecomendado(combustivelRecomendado);

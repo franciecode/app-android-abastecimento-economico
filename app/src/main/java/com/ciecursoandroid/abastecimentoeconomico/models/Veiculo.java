@@ -30,7 +30,7 @@ public class Veiculo implements Parcelable {
     @Ignore
     int totalRegistros;
     /**
-     * modelo de veicul falso para os calculos do tipo Basico e Kms/Litro
+     * modelo de veiculo falso para os calculos do tipo Basico e Kms/Litro
      */
     boolean fakeModel = false;
 

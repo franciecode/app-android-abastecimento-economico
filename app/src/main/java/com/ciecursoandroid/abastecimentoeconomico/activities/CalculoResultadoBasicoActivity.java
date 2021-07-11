@@ -28,6 +28,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     Abastecimento abastecimento;
     AbastecimentoViewModel abastecimentoViewModel;
     VeiculoViewModel veiculoViewModel;
+    Button btnSalvar;
+    Button btnNaoSalvar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,9 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         textViewValorEconomizado = findViewById(R.id.textViewValorEconomizado);
         textViewTotalAPagar.setText(UtilsNumeros.formatDinheiro(this, 0f));
         textViewValorEconomizado.setText(UtilsNumeros.formatDinheiro(this, 0f));
-        Button btnSalvar = findViewById(R.id.btnSalvar);
-        Button btnNaoSalvar = findViewById(R.id.btnNaoSalvar);
+        btnSalvar = findViewById(R.id.btnSalvar);
+        btnNaoSalvar = findViewById(R.id.btnNaoSalvar);
+
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, 10, 7);
 
         abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
@@ -55,12 +58,17 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
         btnNaoSalvar.setOnClickListener(v -> finish());
 
+        radioGroupAbastecimento.setEnabled(false);
+        editTextLitros.setEnabled(false);
+
         veiculoViewModel.getByTipo(Veiculo.TIPO_VEICULO_BASICO).observe(this,
                 veiculo -> {
                     btnSalvar.setEnabled(true);
                     abastecimento.setVeiculoId(veiculo.getId());
                     kmsGasolina = veiculo.getKmsLitroCidadeGasolina();
                     kmsAlcool = veiculo.getKmsLitroCidadeAlcool();
+                    radioGroupAbastecimento.setEnabled(true);
+                    editTextLitros.setEnabled(true);
                 }
         );
     }
