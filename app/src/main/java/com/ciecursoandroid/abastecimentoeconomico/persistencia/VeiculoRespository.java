@@ -179,6 +179,10 @@ public class VeiculoRespository {
         return dao.getById(veiculoId);
     }
 
+    public LiveData<Veiculo> getByTipo(String veiculoConstantTipo) {
+       return dao.getByTipo(veiculoConstantTipo);
+    }
+
     // LISTENERS
     //-----------------------------------------------------------
     public interface OnInsert {
@@ -197,7 +201,7 @@ public class VeiculoRespository {
         void onComplete(Exception e);
     }
 
-    public interface OnGetById {
+    public interface OnReadSingleVeiculo {
         void onComplete(Exception e, Veiculo veiculo);
     }
 }

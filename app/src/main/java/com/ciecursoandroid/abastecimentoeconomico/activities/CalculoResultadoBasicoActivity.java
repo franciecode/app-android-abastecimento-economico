@@ -1,6 +1,5 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,24 +11,30 @@ import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
+import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsNumeros;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 
 public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity {
 
-    float kmsGasolina = 10;
-    float kmsAlcool = 7;
+    float kmsGasolina;
+    float kmsAlcool;
     TextView textViewTotalAPagar;
     TextView textViewValorEconomizado;
     Abastecimento abastecimento;
-    AbastecimentoViewModel viewModel;
+    AbastecimentoViewModel abastecimentoViewModel;
+    VeiculoViewModel veiculoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_basico);
+
+        abastecimento = new Abastecimento();
 
         setFields();
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
@@ -40,11 +45,24 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         Button btnNaoSalvar = findViewById(R.id.btnNaoSalvar);
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, 10, 7);
 
-        viewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
-        viewModel.setRepository(new AbastecimentoRepository(this));
+        abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
+        abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
 
+        veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
+        veiculoViewModel.setRespository(new VeiculoRespository(this));
+
+        btnSalvar.setEnabled(false);
         btnSalvar.setOnClickListener(v -> salvarAbastecimento(abastecimento));
         btnNaoSalvar.setOnClickListener(v -> finish());
+
+        veiculoViewModel.getByTipo(Veiculo.TIPO_VEICULO_BASICO).observe(this,
+                veiculo -> {
+                    btnSalvar.setEnabled(true);
+                    abastecimento.setVeiculoId(veiculo.getId());
+                    kmsGasolina = veiculo.getKmsLitroCidadeGasolina();
+                    kmsAlcool = veiculo.getKmsLitroCidadeAlcool();
+                }
+        );
     }
 
     @Override
@@ -63,7 +81,6 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
             textViewValorEconomizado.setTextColor(getResources().getColor(R.color.color_text_green));
         }
 
-        abastecimento = new Abastecimento();
         abastecimento.setPorcentagemEconomia(combustivelMaisBarato.getPorcentagemEconomia());
         abastecimento.setTipoCalculo(TipoCalculo.BASICO);
         abastecimento.setCombustivelRecomendado(combustivelRecomendado);
@@ -80,18 +97,15 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     @Override
     public void salvarAbastecimento(Abastecimento abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
-        viewModel.insert(abastecimento, (e, abastecimento1) -> {
+        abastecimentoViewModel.insert(abastecimento, (e, abastecimento1) -> {
             if (e != null)
-                Alerts.alertWaring(this, "Erro ao salvar", e.getMessage())
-                        .setPositiveButton("ok", null).show();
+                Alerts.alertWaring(this, getString(R.string.erro_ao_salvar), e.getMessage())
+                        .setPositiveButton(R.string.ok, null).show();
             else
-                Alerts.alertSuccess(this, "Sucesso", "Abastecimento salvo com sucesso")
-                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
-                                finish();
-                            }
+                Alerts.alertSuccess(this, getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+                        .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                            NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
+                            finish();
                         }).show();
         });
     }

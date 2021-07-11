@@ -14,6 +14,10 @@ public class Veiculo implements Parcelable {
     public static final String TIPO_VEICULO_CARRO = "carro";
     @Ignore
     public static final String TIPO_VEICULO_MOTO = "moto";
+    @Ignore
+    public static final String TIPO_VEICULO_BASICO = "basico";
+    @Ignore
+    public static final String TIPO_VEICULO_KMSLITRO = "kmslitro";
     @PrimaryKey(autoGenerate = true)
     long id;
     String nome;
@@ -25,8 +29,20 @@ public class Veiculo implements Parcelable {
     Boolean deleted = false;
     @Ignore
     int totalRegistros;
+    /**
+     * modelo de veicul falso para os calculos do tipo Basico e Kms/Litro
+     */
+    boolean fakeModel = false;
 
     public Veiculo() {
+    }
+
+    public boolean isFakeModel() {
+        return fakeModel;
+    }
+
+    public void setFakeModel(boolean fakeModel) {
+        this.fakeModel = fakeModel;
     }
 
     public int getTotalRegistros() {

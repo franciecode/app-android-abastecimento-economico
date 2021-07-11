@@ -54,4 +54,8 @@ public class VeiculoViewModel extends ViewModel {
     public LiveData<Veiculo> getById(long veiculoId) {
         return respository.getById(veiculoId);
     }
+
+    public LiveData<Veiculo> getByTipo(String tipo) {
+        return respository.getByTipo(tipo);
+    }
 }

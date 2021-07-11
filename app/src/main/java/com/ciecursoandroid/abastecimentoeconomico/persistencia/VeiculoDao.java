@@ -16,11 +16,17 @@ public interface VeiculoDao {
     @Insert
     long insert(Veiculo veiculo);
 
-    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 0")
+    @Insert
+    void insertAll(Veiculo... veiculos);
+
+    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 0 AND fakeModel = 0")
     LiveData<List<Veiculo>> getAll();
 
-    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 1")
+    @Query("SELECT * FROM TABLE_VEICULO WHERE deleted = 1 AND fakeModel = 0")
     LiveData<List<Veiculo>> getAllDeleted();
+
+    @Query("SELECT * FROM TABLE_VEICULO WHERE tipo = :veiculoConstantTipo")
+    LiveData<Veiculo> getByTipo(String veiculoConstantTipo);
 
     @Update
     void update(Veiculo veiculo);
@@ -34,7 +40,7 @@ public interface VeiculoDao {
     @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 0")
     LiveData<Integer> getTotalCadastrados();
 
-    @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 1")
+    @Query("SELECT COUNT(*) FROM TABLE_VEICULO WHERE deleted = 1 AND fakeModel = 0")
     LiveData<Integer> getTotalRemovidos();
 
     @Delete
@@ -42,4 +48,6 @@ public interface VeiculoDao {
 
     @Query("SELECT * FROM table_veiculo WHERE id =:veiculoId")
     LiveData<Veiculo> getById(long veiculoId);
+
+
 }
