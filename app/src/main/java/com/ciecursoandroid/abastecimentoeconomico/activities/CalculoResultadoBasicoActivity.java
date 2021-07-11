@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
@@ -25,7 +25,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     float kmsAlcool;
     TextView textViewTotalAPagar;
     TextView textViewValorEconomizado;
-    Abastecimento abastecimento;
+    Abaste abastecimento;
     AbastecimentoViewModel abastecimentoViewModel;
     VeiculoViewModel veiculoViewModel;
     Button btnSalvar;
@@ -36,7 +36,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_basico);
 
-        abastecimento = new Abastecimento();
+        abastecimento = new Abaste();
 
         setFields();
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
@@ -103,7 +103,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     }
 
     @Override
-    public void salvarAbastecimento(Abastecimento abastecimento) {
+    public void salvarAbastecimento(Abaste abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
         abastecimentoViewModel.insert(abastecimento, (e, abastecimento1) -> {
             if (e != null)

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.models.VeiculoTipCalculoKMsLitro;
 import com.ciecursoandroid.abastecimentoeconomico.models.VeiculoTipoCalculoBasico;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Veiculo.class, Abastecimento.class}, version = 7, exportSchema = false)
+@Database(entities = {Veiculo.class, Abaste.class}, version = 7, exportSchema = false)
 @TypeConverters({RoomTypeConverters.class})
 public abstract class AppDBRoom extends RoomDatabase {
     public static final String DATABASE_NAME = "appDatabase";

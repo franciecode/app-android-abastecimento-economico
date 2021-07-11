@@ -19,7 +19,7 @@ import com.ciecursoandroid.abastecimentoeconomico.activities.NavigationInActivit
 import com.ciecursoandroid.abastecimentoeconomico.enums.LocalViagem;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
@@ -49,7 +49,7 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
     private float precoAlcool;
     private TextView textViewTotalAPagar;
     private TextView textViewValorEconomizado;
-    private Abastecimento abastecimento;
+    private Abaste abastecimento;
     private AbastecimentoViewModel viewModel;
     private TextView textViewTablePrecoKmGasolina;
     private TextView textViewTableTotalKmsGasolina;
@@ -176,7 +176,7 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
     }
 
     private void setAbastecimento(TipoCombustivel abastecido, float totalPagar, float valorEconomizado) {
-        abastecimento = new Abastecimento();
+        abastecimento = new Abaste();
         abastecimento.setTipoCalculo(TipoCalculo.VEICULO);
         abastecimento.setVeiculoId(veiculo.getId());
         abastecimento.setPorcentagemEconomia(baseCalculoResult.combustivelMaisBarato.getPorcentagemEconomia());
@@ -193,11 +193,11 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
 
     }
 
-    public void salvarAbastecimento(Abastecimento abastecimento) {
+    public void salvarAbastecimento(Abaste abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
         viewModel.insert(abastecimento, new AbastecimentoRepository.OnInsert() {
             @Override
-            public void onComplete(Exception e, Abastecimento abastecimento) {
+            public void onComplete(Exception e, Abaste abastecimento) {
                 if (e != null) {
                     Alerts.alertWaring(getActivity(),
                             getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())

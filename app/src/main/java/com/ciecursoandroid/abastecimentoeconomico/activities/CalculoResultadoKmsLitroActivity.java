@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
@@ -25,7 +25,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     private float kmsGasolina, kmsAlcool;
     private TextView textViewTotalAPagar;
     private TextView textViewValorEconomizado;
-    private Abastecimento abastecimento;
+    private Abaste abastecimento;
     private AbastecimentoViewModel viewModel;
     private TextView textViewTablePrecoKmGasolina;
     private TextView textViewTableTotalKmsGasolina;
@@ -45,7 +45,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         setContentView(R.layout.activity_calculo_resultado_kms_litro);
         setFields();
 
-        abastecimento = new Abastecimento();
+        abastecimento = new Abaste();
 
         kmsGasolina = getIntent().getFloatExtra("kmsGasolina", 0);
         kmsAlcool = getIntent().getFloatExtra("kmAlcool", 0);
@@ -146,11 +146,11 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     }
 
     @Override
-    public void salvarAbastecimento(Abastecimento abastecimento) {
+    public void salvarAbastecimento(Abaste abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
         viewModel.insert(abastecimento, new AbastecimentoRepository.OnInsert() {
             @Override
-            public void onComplete(Exception e, Abastecimento abastecimento) {
+            public void onComplete(Exception e, Abaste abastecimento) {
                 if (e != null) {
                     Alerts.alertWaring(CalculoResultadoKmsLitroActivity.this,
                             getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())

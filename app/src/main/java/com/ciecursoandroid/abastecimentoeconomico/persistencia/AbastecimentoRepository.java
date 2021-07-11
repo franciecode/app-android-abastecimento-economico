@@ -6,7 +6,8 @@ import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsAsyncTask;
 
 import java.sql.Timestamp;
@@ -21,7 +22,7 @@ public class AbastecimentoRepository {
         this.db = AppDBRoom.getInstance(context);
     }
 
-    public void insert(Abastecimento abastecimento, OnInsert listener) {
+    public void insert(Abaste abastecimento, OnInsert listener) {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         final Handler handler = new Handler(Looper.getMainLooper());
@@ -47,10 +48,10 @@ public class AbastecimentoRepository {
         });
     }
 
-    public void delete(Abastecimento abastecimento, VeiculoRespository.OnDeleteListener listener) {
-        new UtilsAsyncTask<Abastecimento, Void, Exception>() {
+    public void delete(Abaste abastecimento, VeiculoRespository.OnDeleteListener listener) {
+        new UtilsAsyncTask<Abaste, Void, Exception>() {
             @Override
-            public Exception doInBackground(Abastecimento abastecimento) {
+            public Exception doInBackground(Abaste abastecimento) {
                 try {
                     db.abastecimentoDao().delete(abastecimento);
                     return null;
@@ -67,11 +68,15 @@ public class AbastecimentoRepository {
         }.execute(abastecimento);
     }
 
-    public LiveData<List<Abastecimento>> getAll() {
+    public LiveData<List<Abaste>> getAll() {
         return db.abastecimentoDao().getAll();
     }
 
     public interface OnInsert {
-        void onComplete(Exception e, Abastecimento abastecimento);
+        void onComplete(Exception e, Abaste abastecimento);
+    }
+
+    public LiveData<List<AbastecimentoComVeiculo>> getAbastecimentoComVeiculos() {
+        return db.abastecimentoDao().getAbastecimentosComVeiculos();
     }
 }

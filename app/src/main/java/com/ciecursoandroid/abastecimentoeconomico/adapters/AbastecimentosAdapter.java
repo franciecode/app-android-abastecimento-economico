@@ -10,34 +10,29 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.LocalViagem;
-import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsEnums;
 
 import java.util.Formatter;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAdapter.VH> implements Filterable {
 
-    private Map<Abastecimento, ShowAbastecimento> abastecimentosAguardandoCarregarVeiculos = new HashMap<>();
     LayoutInflater inflater;
-    List<Abastecimento> abastecimentos = new LinkedList<>();
-    List<Abastecimento> abastecimentosAll;
-    List<Abastecimento> abastecimentosFiltrados = new LinkedList<>();
+    List<AbastecimentoComVeiculo> abastecimentos = new LinkedList<>();
+    List<AbastecimentoComVeiculo> abastecimentosAll;
+    List<AbastecimentoComVeiculo> abastecimentosFiltrados = new LinkedList<>();
     Context context;
     VeiculoViewModel veiculoViewModel;
     AdapterObserver listener;
@@ -52,10 +47,9 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         this.veiculoViewModel.setRespository(new VeiculoRespository(context));
     }
 
-    public void setAbastecimentos(List<Abastecimento> list) {
+    public void setAbastecimentos(List<AbastecimentoComVeiculo> list) {
         this.abastecimentosAll = list;
-        carregarVeiculosDosAbastecimentos();
-        if (filtered == false) {
+        if (!filtered) {
             this.abastecimentos.clear();
             this.abastecimentos.addAll(abastecimentosAll);
             notifyDataSetChanged();
@@ -63,21 +57,8 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         listener.onChangeListener(this.abastecimentos, abastecimentosAll);
     }
 
-    private void carregarVeiculosDosAbastecimentos() {
-        for (Abastecimento abastecimento : abastecimentosAll) {
-            if (abastecimento.getTipoCalculo() == TipoCalculo.VEICULO) {
-                veiculoViewModel.getById(abastecimento.getVeiculoId())
-                        .observe((LifecycleOwner) context, veiculo -> {
-                            abastecimento.setVeiculo(veiculo);
-                            notificarViewVeiculoCarregado(abastecimento);
-                        });
-            }
-        }
-    }
-
-
     public void removeItem(int position) {
-        if (filtered == true) {
+        if (filtered) {
             abastecimentos.remove(position);
             notifyItemRemoved(position);
         }
@@ -93,20 +74,10 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     @Override
     public void onBindViewHolder(@NonNull AbastecimentosAdapter.VH holder, int position) {
         if (abastecimentos != null && abastecimentos.size() > 0) {
-            Abastecimento abastecimento = abastecimentos.get(position);
-            holder.setData(abastecimento, position);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onItemClick(abastecimento, position);
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    return listener.onLongItemClick(abastecimento, position);
-                }
-            });
+            AbastecimentoComVeiculo abastecimentoComVeiculo = abastecimentos.get(position);
+            holder.setData(abastecimentoComVeiculo);
+            holder.itemView.setOnClickListener(view -> listener.onItemClick(abastecimentoComVeiculo, position));
+            holder.itemView.setOnLongClickListener(view -> listener.onLongItemClick(abastecimentoComVeiculo, position));
         }
     }
 
@@ -130,15 +101,15 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                         filtered = true;
                         String search = charSequence.toString().toLowerCase().trim();
                         String[] words = search.split(" ");
-                        for (Abastecimento a : abastecimentosAll) {
+                        for (AbastecimentoComVeiculo a : abastecimentosAll) {
                             String strAbastecimento = new ShowAbastecimento(a).toString().toLowerCase().trim();
                             boolean contains = true;
                             int i = 0;
-                            while (i < words.length && contains == true) {
+                            while (i < words.length && contains) {
                                 contains = strAbastecimento.contains(words[i]);
                                 i++;
                             }
-                            if (contains == true)
+                            if (contains)
                                 abastecimentosFiltrados.add(a);
                         }
                     }
@@ -146,7 +117,6 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
                     e.printStackTrace();
                 }
                 filterResults.values = abastecimentosFiltrados;
-                int a = 0;
                 return filterResults;
             }
 
@@ -154,7 +124,7 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 abastecimentos.clear();
                 if (filterResults.values != null)
-                    abastecimentos.addAll((List<Abastecimento>) filterResults.values);
+                    abastecimentos.addAll((List<AbastecimentoComVeiculo>) filterResults.values);
                 notifyDataSetChanged();
                 listener.onChangeListener(abastecimentos, abastecimentosAll);
             }
@@ -163,10 +133,10 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
 
 
     public class VH extends RecyclerView.ViewHolder {
-        private TextView tipoCalculo;
-        private TextView dataAbastecimento;
-        private TextView descricaoAbastecimento;
-        private TextView detalhesAbastecimento;
+        private final TextView detalhesAbastecimento;
+        private final TextView tipoCalculo;
+        private final TextView dataAbastecimento;
+        private final TextView descricaoAbastecimento;
 
         public VH(@NonNull View itemView) {
             super(itemView);
@@ -176,8 +146,8 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
             detalhesAbastecimento = itemView.findViewById(R.id.detalhesAbastecimento);
         }
 
-        public void setData(Abastecimento abastecimento, int position) {
-            ShowAbastecimento showAbastecimento = new ShowAbastecimento(abastecimento);
+        public void setData(AbastecimentoComVeiculo abastecimentoComVeiculo) {
+            ShowAbastecimento showAbastecimento = new ShowAbastecimento(abastecimentoComVeiculo);
             showAbastecimento.setViewHolder(this);
             tipoCalculo.setText(showAbastecimento.tipoAbastecimento);
             dataAbastecimento.setText(showAbastecimento.dataAbastecimento);
@@ -187,11 +157,11 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
     }
 
     public interface AdapterObserver {
-        void onItemClick(Abastecimento abastecimento, int position);
+        void onItemClick(AbastecimentoComVeiculo abastecimento, int position);
 
-        boolean onLongItemClick(Abastecimento abastecimento, int position);
+        boolean onLongItemClick(AbastecimentoComVeiculo abastecimento, int position);
 
-        void onChangeListener(List<Abastecimento> listed, List<Abastecimento> all);
+        void onChangeListener(List<AbastecimentoComVeiculo> listed, List<AbastecimentoComVeiculo> all);
     }
 
     private class ShowAbastecimento {
@@ -202,39 +172,34 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         String localViagem = "";
         VH viewHolder;
 
-        public ShowAbastecimento(Abastecimento abastecimento) {
-            tipoAbastecimento = UtilsEnums.getTipoCalculo(context, abastecimento.getTipoCalculo());
+        public ShowAbastecimento(AbastecimentoComVeiculo abastecimentoComVeiculo) {
+            tipoAbastecimento = UtilsEnums.getTipoCalculo(context, abastecimentoComVeiculo.abastecimento.getTipoCalculo());
             dataAbastecimento = DateFormat.format(context.getString(R.string.data_hora),
-                    abastecimento.getDataAbastecimento()).toString();
+                    abastecimentoComVeiculo.abastecimento.getDataAbastecimento()).toString();
             detalhes = String.format(context.getResources().getString(R.string.detalhe_resumo_abastecimento),
-                    abastecimento.getCombustivelAbastecido() == TipoCombustivel.ALCOOL ? context.getString(R.string.alcool) : context.getString(R.string.gasolina),
-                    abastecimento.getTotalLitrosAbastecidos(),
-                    abastecimento.getTotalPago(),
-                    abastecimento.getValorEconomizado());
+                    abastecimentoComVeiculo.abastecimento.getCombustivelAbastecido() == TipoCombustivel.ALCOOL ? context.getString(R.string.alcool) : context.getString(R.string.gasolina),
+                    abastecimentoComVeiculo.abastecimento.getTotalLitrosAbastecidos(),
+                    abastecimentoComVeiculo.abastecimento.getTotalPago(),
+                    abastecimentoComVeiculo.abastecimento.getValorEconomizado());
             descricao = "";
-            switch (abastecimento.getTipoCalculo()) {
+            switch (abastecimentoComVeiculo.abastecimento.getTipoCalculo()) {
                 case BASICO:
                     descricao = new Formatter().format(
                             context.getResources().getString(R.string.alcool_sobre_gasolina),
-                            (abastecimento.getKmsLitroAlcool() / abastecimento.getKmsLitroGasolina() * 100),
+                            (abastecimentoComVeiculo.abastecimento.getKmsLitroAlcool() / abastecimentoComVeiculo.abastecimento.getKmsLitroGasolina() * 100),
                             context.getResources().getString(R.string.porcent_sobre_gasolina)
                     ).toString();
                     break;
                 case KMS_LITRO:
                     descricao = new Formatter().format(
                             context.getResources().getString(R.string.descricao_abastecimento_por_kmsLitro),
-                            abastecimento.getKmsLitroAlcool(),
-                            abastecimento.getKmsLitroGasolina()).toString();
+                            abastecimentoComVeiculo.abastecimento.getKmsLitroAlcool(),
+                            abastecimentoComVeiculo.abastecimento.getKmsLitroGasolina()).toString();
                     break;
                 case VEICULO:
-                    localViagem = abastecimento.getLocalViagem() == LocalViagem.CIDADE ?
+                    localViagem = abastecimentoComVeiculo.abastecimento.getLocalViagem() == LocalViagem.CIDADE ?
                             context.getString(R.string.cidade) : context.getString(R.string.rodovia);
-                    if (abastecimento.getVeiculo() == null) {
-                        ViewAguardarCarregarVeiculo(abastecimento, this);
-                        descricao = "";
-                    } else {
-                        setDescricaoVeiculo(abastecimento.getVeiculo());
-                    }
+                    setDescricaoVeiculo(abastecimentoComVeiculo.veiculo);
                     break;
             }
         }
@@ -251,29 +216,17 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(tipoAbastecimento);
-            sb.append(" ");
-            sb.append(dataAbastecimento);
-            sb.append(" ");
-            sb.append(descricao);
-            sb.append(" ");
-            sb.append(detalhes);
-            return sb.toString();
+            String sb = tipoAbastecimento +
+                    " " +
+                    dataAbastecimento +
+                    " " +
+                    descricao +
+                    " " +
+                    detalhes;
+            return sb;
         }
 
     }
 
-    private void ViewAguardarCarregarVeiculo(Abastecimento abastecimento, ShowAbastecimento showAbastecimento) {
-        abastecimentosAguardandoCarregarVeiculos.put(abastecimento, showAbastecimento);
-    }
-
-    private void notificarViewVeiculoCarregado(Abastecimento abastecimento) {
-        Veiculo veiculo = abastecimento.getVeiculo();
-        ShowAbastecimento showAbastecimento =
-                abastecimentosAguardandoCarregarVeiculos.get(abastecimento);
-        if (showAbastecimento != null)
-            showAbastecimento.setDescricaoVeiculo(veiculo);
-    }
 
 }

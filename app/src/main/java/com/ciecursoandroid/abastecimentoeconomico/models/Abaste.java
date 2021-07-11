@@ -11,7 +11,7 @@ import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import java.sql.Timestamp;
 
 @Entity(tableName = "table_abastecimento")
-public class Abastecimento {
+public class Abaste {
     @PrimaryKey(autoGenerate = true)
     long id;
     @Ignore

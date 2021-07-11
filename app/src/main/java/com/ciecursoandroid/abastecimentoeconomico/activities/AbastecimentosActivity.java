@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.AbastecimentosAdapter;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
@@ -52,22 +53,22 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
 
         abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
-        abastecimentoViewModel.getAll().observe(this, new Observer<List<Abastecimento>>() {
+        abastecimentoViewModel.getAbastecimentoComVeiculos().observe(this, new Observer<List<AbastecimentoComVeiculo>>() {
             @Override
-            public void onChanged(List<Abastecimento> abastecimentos) {
-                abastecimentosAdapter.setAbastecimentos(abastecimentos);
+            public void onChanged(List<AbastecimentoComVeiculo> abastecimentoComVeiculos) {
+                abastecimentosAdapter.setAbastecimentos(abastecimentoComVeiculos);
             }
         });
 
     }
 
-    private void setViewsResumoTotal(List<Abastecimento> all, List<Abastecimento> filtrados) {
+    private void setViewsResumoTotal(List<AbastecimentoComVeiculo> all, List<AbastecimentoComVeiculo> filtrados) {
         if (all.size() > 0) {
             float totalEconomizado = 0, totalGasto = 0;
-            List<Abastecimento> listCalculo = filtrados != null ? filtrados : all;
-            for (Abastecimento a : listCalculo) {
-                totalGasto += a.getTotalPago();
-                totalEconomizado += a.getValorEconomizado();
+            List<AbastecimentoComVeiculo> listCalculo = filtrados != null ? filtrados : all;
+            for (AbastecimentoComVeiculo abastecimentoComVeiculos : listCalculo) {
+                totalGasto += abastecimentoComVeiculos.abastecimento.getTotalPago();
+                totalEconomizado += abastecimentoComVeiculos.abastecimento.getValorEconomizado();
             }
             int monstrando = filtrados == null ? all.size() : filtrados.size();
             textViewTotalRegistros.setText(monstrando + "/" + all.size());
@@ -87,7 +88,7 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     }
 
     @Override
-    public void onItemClick(Abastecimento abastecimento, int position) {
+    public void onItemClick(AbastecimentoComVeiculo abastecimento, int position) {
 
     }
 
@@ -118,14 +119,15 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     }
 
     @Override
-    public boolean onLongItemClick(Abastecimento abastecimento, int position) {
-        String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimento.getDataAbastecimento()).toString();
+    public boolean onLongItemClick(AbastecimentoComVeiculo abastecimentoComVeiculo, int position) {
+
+        String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimentoComVeiculo.abastecimento.getDataAbastecimento()).toString();
         Alerts.alertWaring(this, getString(R.string.remover_abastecimento),
                 getString(R.string.confirma_remover_abastecimento) + dataAbastecimento
         ).setPositiveButton(R.string.remover, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                abastecimentoViewModel.delete(abastecimento, new VeiculoRespository.OnDeleteListener() {
+                abastecimentoViewModel.delete(abastecimentoComVeiculo.abastecimento, new VeiculoRespository.OnDeleteListener() {
                     @Override
                     public void onComplete(Exception e) {
                         if (e != null) {
@@ -149,7 +151,7 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     }
 
     @Override
-    public void onChangeListener(List<Abastecimento> filtrados, List<Abastecimento> todos) {
+    public void onChangeListener(List<AbastecimentoComVeiculo> filtrados, List<AbastecimentoComVeiculo> todos) {
         setViewsResumoTotal(todos, filtrados);
     }
 }
