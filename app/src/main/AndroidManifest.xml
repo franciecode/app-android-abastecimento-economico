@@ -19,7 +19,8 @@
         </activity>
         <activity
             android:name=".activities.ChartActivity"
-            android:label="@string/grafico" />
+            android:label="@string/grafico"
+            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar"/>
         <activity
             android:name=".activities.CalculoResultadoVeiculoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />

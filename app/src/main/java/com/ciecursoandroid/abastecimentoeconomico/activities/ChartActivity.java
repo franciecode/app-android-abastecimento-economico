@@ -3,6 +3,7 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -12,9 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
+import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.databaseViews.AbastecimentoRelatorioGraficoView;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -42,6 +46,10 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
     private TipoCalculo tipoCalculo = TipoCalculo.TODOS;
     private long veiculoId = TODOS_VEICULO;
     private Spinner spinnerFiltrarGrafico;
+    private Spinner spinnerGraficoVeiculos;
+    private VeiculoViewModel veiculoViewModel;
+    private ArrayAdapter spinnerVeiculosAdapter;
+    private List<Veiculo> veiculos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +64,14 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
         imageViewAnoProximo = findViewById(R.id.imageViewAnoProximo);
         textViewAno = findViewById(R.id.textViewAno);
         spinnerFiltrarGrafico = findViewById(R.id.spinnerFiltrarGrafico);
+        spinnerGraficoVeiculos = findViewById(R.id.spinnerGraficoVeiculos);
+
 
         abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
 
+        veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
+        veiculoViewModel.setRespository(new VeiculoRespository(this));
 
         // CHART
         // -------------------------------------------------------
@@ -70,6 +82,15 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
         xAxis.setGranularity(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setCenterAxisLabels(false);
+
+        veiculoViewModel.getAll().observe(this, new Observer<List<Veiculo>>() {
+            @Override
+            public void onChanged(List<Veiculo> list) {
+                veiculos = list;
+                setDataSpinnerViculos(veiculos);
+            }
+        });
+
 
         imageViewAnoAnterior.setOnClickListener(view -> carregarDados(--ano, tipoCalculo, veiculoId));
         imageViewAnoProximo.setOnClickListener(view -> carregarDados(++ano, tipoCalculo, veiculoId));
@@ -100,6 +121,33 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
 
             }
         });
+
+        spinnerGraficoVeiculos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                    carregarDados(ano, TipoCalculo.VEICULO, TODOS_VEICULO);
+                else
+                    carregarDados(ano, TipoCalculo.VEICULO, veiculos.get(position - 1).getId());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setDataSpinnerViculos(List<Veiculo> veiculos) {
+        spinnerVeiculosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
+        spinnerGraficoVeiculos.setAdapter(spinnerVeiculosAdapter);
+        spinnerVeiculosAdapter.clear();
+        spinnerVeiculosAdapter.add(getString(R.string.todos_os_veiculos));
+        if (veiculos == null) return;
+        for (int i = 0; i < veiculos.size(); i++) {
+            spinnerVeiculosAdapter.add(veiculos.get(i).getNome());
+        }
+
     }
 
 
@@ -109,6 +157,7 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
         this.veiculoId = veiculoId;
         String strAno = String.valueOf(ano);
         textViewAno.setText(strAno);
+        int showVeiculos = View.GONE;
         switch (tipoCalculo) {
             case TODOS:
                 abastecimentoViewModel.getRelatorioGraficoAnual(strAno)
@@ -116,7 +165,11 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
                 break;
             case BASICO:
             case KMS_LITRO:
+                abastecimentoViewModel.getRelatorioGraficoAnualPorTipoCalculo(strAno, tipoCalculo)
+                        .observe(this, this);
+                break;
             case VEICULO:
+                showVeiculos = View.VISIBLE;
                 if (veiculoId == TODOS_VEICULO) {
                     abastecimentoViewModel.getRelatorioGraficoAnualPorTipoCalculo(strAno, tipoCalculo)
                             .observe(this, this);
@@ -126,7 +179,7 @@ public class ChartActivity extends BaseMenuActivity implements Observer<List<Aba
                 }
 
         }
-
+        spinnerGraficoVeiculos.setVisibility(showVeiculos);
     }
 
 

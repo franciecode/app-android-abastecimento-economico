@@ -7,7 +7,7 @@
     tools:context=".activities.ChartActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -58,6 +58,18 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Spinner
+        android:id="@+id/spinnerGraficoVeiculos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/screen_padd"
+        android:paddingRight="@dimen/screen_padd"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filter"
+        tools:visibility="visible" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
@@ -65,7 +77,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewTotalGastoChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGraficoVeiculos" />
 
     <TextView
         android:id="@+id/textViewTotalGastoChart"

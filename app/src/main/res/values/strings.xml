@@ -106,6 +106,7 @@
     <string name="preco_alcool">Preço Álcool</string>
     <string name="preco_gasolina">Preço gasolina</string>
     <string name="titulo_abastecer">Abastecer:</string>
+    <string name="todos_os_veiculos">Todos os veículos..</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>
