@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
@@ -25,7 +25,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     float kmsAlcool;
     TextView textViewTotalAPagar;
     TextView textViewValorEconomizado;
-    Abaste abastecimento;
+    Abastecimento abastecimento;
     AbastecimentoViewModel abastecimentoViewModel;
     VeiculoViewModel veiculoViewModel;
     Button btnSalvar;
@@ -36,7 +36,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_basico);
 
-        abastecimento = new Abaste();
+        abastecimento = new Abastecimento();
 
         setFields();
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
@@ -103,7 +103,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
     }
 
     @Override
-    public void salvarAbastecimento(Abaste abastecimento) {
+    public void salvarAbastecimento(Abastecimento abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
         abastecimentoViewModel.insert(abastecimento, (e, abastecimento1) -> {
             if (e != null)
@@ -111,6 +111,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                         .setPositiveButton(R.string.ok, null).show();
             else
                 Alerts.alertSuccess(this, getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+                        .setCancelable(false)
                         .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
                             NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
                             finish();

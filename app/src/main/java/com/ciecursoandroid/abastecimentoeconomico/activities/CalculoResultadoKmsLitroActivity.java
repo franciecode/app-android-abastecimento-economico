@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.RendimentoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
@@ -25,7 +25,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     private float kmsGasolina, kmsAlcool;
     private TextView textViewTotalAPagar;
     private TextView textViewValorEconomizado;
-    private Abaste abastecimento;
+    private Abastecimento abastecimento;
     private AbastecimentoViewModel viewModel;
     private TextView textViewTablePrecoKmGasolina;
     private TextView textViewTableTotalKmsGasolina;
@@ -45,7 +45,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
         setContentView(R.layout.activity_calculo_resultado_kms_litro);
         setFields();
 
-        abastecimento = new Abaste();
+        abastecimento = new Abastecimento();
 
         kmsGasolina = getIntent().getFloatExtra("kmsGasolina", 0);
         kmsAlcool = getIntent().getFloatExtra("kmAlcool", 0);
@@ -146,11 +146,11 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     }
 
     @Override
-    public void salvarAbastecimento(Abaste abastecimento) {
+    public void salvarAbastecimento(Abastecimento abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
         viewModel.insert(abastecimento, new AbastecimentoRepository.OnInsert() {
             @Override
-            public void onComplete(Exception e, Abaste abastecimento) {
+            public void onComplete(Exception e, Abastecimento abastecimento) {
                 if (e != null) {
                     Alerts.alertWaring(CalculoResultadoKmsLitroActivity.this,
                             getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())
@@ -159,6 +159,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
                 } else {
                     Alerts.alertSuccess(CalculoResultadoKmsLitroActivity.this,
                             getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+                            .setCancelable(false)
                             .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
                                 NavigationInActivities.goAbastecimentos(getApplicationContext());
                                 finish();

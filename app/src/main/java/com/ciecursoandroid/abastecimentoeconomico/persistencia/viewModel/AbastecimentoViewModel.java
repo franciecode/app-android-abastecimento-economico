@@ -3,7 +3,7 @@ package com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
@@ -18,15 +18,15 @@ public class AbastecimentoViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public void insert(Abaste abastecimento, AbastecimentoRepository.OnInsert listener) {
+    public void insert(Abastecimento abastecimento, AbastecimentoRepository.OnInsert listener) {
         repository.insert(abastecimento, listener);
     }
 
-    public LiveData<List<Abaste>> getAll() {
+    public LiveData<List<Abastecimento>> getAll() {
         return repository.getAll();
     }
 
-    public void delete(Abaste abastecimento, VeiculoRespository.OnDeleteListener listener) {
+    public void delete(Abastecimento abastecimento, VeiculoRespository.OnDeleteListener listener) {
         repository.delete(abastecimento, listener);
     }
 

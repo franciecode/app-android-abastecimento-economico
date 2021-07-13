@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 
@@ -127,7 +127,7 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
     public abstract void calcularAbastecimento(TipoCombustivel abastecer, float precoCombustivel, float litrosAbastecidos);
 
-    public abstract void salvarAbastecimento(Abaste abastecimento);
+    public abstract void salvarAbastecimento(Abastecimento abastecimento);
 
     protected boolean validarFormSalvarAbastecimento() {
         boolean erro = false;

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.AbastecimentosAdapter;
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;

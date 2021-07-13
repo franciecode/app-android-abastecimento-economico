@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.ciecursoandroid.abastecimentoeconomico.models.Abaste;
+import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 
 import java.util.List;
@@ -15,10 +15,10 @@ import java.util.List;
 @Dao
 public interface AbastecimentoDao {
     @Insert
-    long insert(Abaste abastecimento);
+    long insert(Abastecimento abastecimento);
 
     @Query("SELECT * FROM table_abastecimento WHERE deleted = 0 ORDER BY dataAbastecimento DESC")
-    LiveData<List<Abaste>> getAll();
+    LiveData<List<Abastecimento>> getAll();
 
     @Transaction
     @Query("SELECT * FROM table_abastecimento")
@@ -34,7 +34,7 @@ public interface AbastecimentoDao {
     void deleteByVeiculoId(long veiculoId);
 
     @Delete
-    void delete(Abaste abastecimento);
+    void delete(Abastecimento abastecimento);
 
 
 }
