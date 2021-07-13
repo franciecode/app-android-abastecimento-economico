@@ -13,12 +13,12 @@
         android:orientation="vertical"
         android:padding="@dimen/screen_padd">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginBottom="24dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo_completo" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/titulo_calcular_abastecimento"
+            android:textSize="@dimen/text_body_medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:hint="@string/hint_edit_text_dinheiro"
+                        android:hint="@string/preco_gasolina"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:padding="6dp"
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:hint="@string/hint_edit_text_dinheiro"
+                        android:hint="@string/preco_alcool"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:padding="6dp"

@@ -9,8 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
-        <activity android:name=".activities.ChartActivity"
-            android:label="@string/grafico"></activity>
+        <activity android:name=".activities.HomeActivity"
+            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ChartActivity"
+            android:label="@string/grafico" />
         <activity
             android:name=".activities.CalculoResultadoVeiculoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
@@ -30,11 +39,7 @@
             android:name=".activities.CalculoResultadoBasicoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity android:name=".activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
