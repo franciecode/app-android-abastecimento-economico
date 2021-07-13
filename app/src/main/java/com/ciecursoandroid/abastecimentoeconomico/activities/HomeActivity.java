@@ -16,9 +16,8 @@ public class HomeActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.activity_home);
 
         Handler handler = new Handler();
-        handler.postDelayed(this, 1000);
+        handler.postDelayed(this, 500);
     }
-
 
     @Override
     public void run() {

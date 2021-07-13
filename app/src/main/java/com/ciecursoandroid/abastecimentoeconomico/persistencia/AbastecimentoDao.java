@@ -7,8 +7,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.databaseViews.AbastecimentoRelatorioGraficoView;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public interface AbastecimentoDao {
     LiveData<List<Abastecimento>> getAll();
 
     @Transaction
-    @Query("SELECT * FROM table_abastecimento")
+    @Query("SELECT * FROM table_abastecimento  WHERE deleted = 0 ORDER BY dataAbastecimento DESC")
     LiveData<List<AbastecimentoComVeiculo>> getAbastecimentosComVeiculos();
 
     @Query("UPDATE table_abastecimento SET deleted = 1 WHERE veiculoId = :veiculoId")
@@ -35,6 +37,9 @@ public interface AbastecimentoDao {
 
     @Delete
     void delete(Abastecimento abastecimento);
+
+    @Query("SELECT * FROM abastecimentorelatoriograficoview WHERE ano = :ano and tipoCalculo = :tipoCalculo || tipoCalculo != tipoCalculo")
+    LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGrafico(String ano, TipoCalculo tipoCalculo);
 
 
 }

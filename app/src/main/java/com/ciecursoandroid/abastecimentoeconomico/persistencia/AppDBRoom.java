@@ -7,35 +7,27 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.Veiculo;
 import com.ciecursoandroid.abastecimentoeconomico.models.VeiculoTipCalculoKMsLitro;
 import com.ciecursoandroid.abastecimentoeconomico.models.VeiculoTipoCalculoBasico;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.databaseViews.AbastecimentoRelatorioGraficoView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Veiculo.class, Abastecimento.class}, version = 7, exportSchema = false)
+@Database(entities = {Veiculo.class, Abastecimento.class},
+        views = {AbastecimentoRelatorioGraficoView.class},
+        version = 1, exportSchema = false)
 @TypeConverters({RoomTypeConverters.class})
 public abstract class AppDBRoom extends RoomDatabase {
     public static final String DATABASE_NAME = "appDatabase";
     public static AppDBRoom INSTANCE;
 
     public abstract AbastecimentoDao abastecimentoDao();
-
-    public static Migration migration_7_8 = new Migration(7, 8) {
-        @Override
-        public void migrate(@NonNull @NotNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE VIEW AbastecimentoRelatorioGrafico " +
-                    "AS SELECT sum(totalPago) as somaTotalGasto, " +
-                    "sum(valorEconomizado) as somaValorEconomizado, " +
-                    "");
-        }
-    };
 
     public abstract VeiculoDao veiculoDao();
 
@@ -68,9 +60,26 @@ public abstract class AppDBRoom extends RoomDatabase {
     }
 
     private static void prePopulateVeiculos(AppDBRoom appDatabase) {
+        Veiculo v1 = new Veiculo();
+        v1.setTipo(Veiculo.TIPO_VEICULO_CARRO);
+        v1.setNome("FIAT Mobi 1.0\u00AD6V Drive ");
+        v1.setKmsLitroCidadeAlcool(9.7f);
+        v1.setKmsLitroRodoviaAlcool(11.5f);
+        v1.setKmsLitroCidadeGasolina(13.8f);
+        v1.setKmsLitroRodoviaGasolina(16.4f);
+        Veiculo v2 = new Veiculo();
+        v2.setTipo(Veiculo.TIPO_VEICULO_CARRO);
+        v2.setNome("PEUGEOT 208");
+        v2.setKmsLitroCidadeAlcool(9.6f);
+        v2.setKmsLitroRodoviaAlcool(10.7f);
+        v2.setKmsLitroCidadeGasolina(13.9f);
+        v2.setKmsLitroRodoviaGasolina(15.5f);
+
+
         Veiculo[] veiculos = new Veiculo[]{
                 new VeiculoTipoCalculoBasico(),
-                new VeiculoTipCalculoKMsLitro()
+                new VeiculoTipCalculoKMsLitro(),
+                v1, v2
         };
         appDatabase.veiculoDao().insertAll(veiculos);
     }

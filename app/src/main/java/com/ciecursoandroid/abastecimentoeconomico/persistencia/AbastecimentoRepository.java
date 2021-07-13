@@ -6,8 +6,10 @@ import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 
+import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
+import com.ciecursoandroid.abastecimentoeconomico.persistencia.databaseViews.AbastecimentoRelatorioGraficoView;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsAsyncTask;
 
 import java.sql.Timestamp;
@@ -17,6 +19,10 @@ import java.util.concurrent.Executors;
 
 public class AbastecimentoRepository {
     AppDBRoom db;
+
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGrafico(String ano, TipoCalculo tipoCalculo) {
+        return db.abastecimentoDao().getRelatorioGrafico(ano, tipoCalculo);
+    }
 
     public AbastecimentoRepository(Context context) {
         this.db = AppDBRoom.getInstance(context);

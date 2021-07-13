@@ -102,9 +102,10 @@
     <string name="erro_ao_salvar">Erro ao salvar</string>
     <string name="sucesso">Sucesso</string>
     <string name="ok">ok</string>
-    <string name="titulo_calcular_abastecimento">Calcule Qual Combústivel É Mais Barato para Abastecer</string>
+    <string name="titulo_calcular_abastecimento">Calcular Economia:</string>
     <string name="preco_alcool">Preço Álcool</string>
     <string name="preco_gasolina">Preço gasolina</string>
+    <string name="titulo_abastecer">Abastecer:</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

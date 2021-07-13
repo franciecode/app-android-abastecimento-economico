@@ -78,7 +78,7 @@
             android:layout_marginTop="@dimen/grid_space_2x"
             android:layout_marginBottom="@dimen/grid_space"
             android:gravity="center_horizontal"
-            android:text="Abastecimento"
+            android:text="@string/titulo_abastecer"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <View
