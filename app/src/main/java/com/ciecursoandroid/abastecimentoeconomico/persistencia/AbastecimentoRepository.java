@@ -20,8 +20,17 @@ import java.util.concurrent.Executors;
 public class AbastecimentoRepository {
     AppDBRoom db;
 
-    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGrafico(String ano, TipoCalculo tipoCalculo) {
-        return db.abastecimentoDao().getRelatorioGrafico(ano, tipoCalculo);
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnual(String ano) {
+        return db.abastecimentoDao().getRelatorioGraficoAnual(ano);
+    }
+
+
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorTipoCalculo(String ano, TipoCalculo tipoCalculo) {
+        return db.abastecimentoDao().getRelatorioGraficoAnualPorTipoCalculo(ano, tipoCalculo);
+    }
+
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorVeiculo(String ano, Long veiculoId) {
+        return db.abastecimentoDao().getRelatorioGraficoAnualPorVeiculo(ano, veiculoId);
     }
 
     public AbastecimentoRepository(Context context) {

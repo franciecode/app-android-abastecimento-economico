@@ -1,7 +1,10 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
@@ -23,8 +26,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ChartActivity extends BaseMenuActivity {
+public class ChartActivity extends BaseMenuActivity implements Observer<List<AbastecimentoRelatorioGraficoView>> {
     private final String TAG = ChartActivity.class.getSimpleName();
+    private final long TODOS_VEICULO = -1;
     private BarChart chart;
     private TextView textViewTotalGasto;
     private TextView textViewTotalEconomizado;
@@ -36,6 +40,8 @@ public class ChartActivity extends BaseMenuActivity {
     private TextView textViewAno;
     private int ano;
     private TipoCalculo tipoCalculo = TipoCalculo.TODOS;
+    private long veiculoId = TODOS_VEICULO;
+    private Spinner spinnerFiltrarGrafico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public class ChartActivity extends BaseMenuActivity {
         imageViewAnoAnterior = findViewById(R.id.imageViewAnoAnterior);
         imageViewAnoProximo = findViewById(R.id.imageViewAnoProximo);
         textViewAno = findViewById(R.id.textViewAno);
+        spinnerFiltrarGrafico = findViewById(R.id.spinnerFiltrarGrafico);
 
         abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
@@ -64,29 +71,64 @@ public class ChartActivity extends BaseMenuActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setCenterAxisLabels(false);
 
-        carregarDados(ano, tipoCalculo);
+        imageViewAnoAnterior.setOnClickListener(view -> carregarDados(--ano, tipoCalculo, veiculoId));
+        imageViewAnoProximo.setOnClickListener(view -> carregarDados(++ano, tipoCalculo, veiculoId));
 
-        imageViewAnoAnterior.setOnClickListener(view -> carregarDados(--ano, tipoCalculo));
-        imageViewAnoProximo.setOnClickListener(view -> carregarDados(++ano, tipoCalculo));
+        spinnerFiltrarGrafico.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        carregarDados(ano, TipoCalculo.TODOS, TODOS_VEICULO);
+                        break;
+                    case 1:
+                        carregarDados(ano, TipoCalculo.VEICULO, TODOS_VEICULO);
+                        break;
+                    case 2:
+                        carregarDados(ano, TipoCalculo.KMS_LITRO, TODOS_VEICULO);
+                        break;
+                    case 3:
+                        carregarDados(ano, TipoCalculo.BASICO, TODOS_VEICULO);
+                        break;
+                    default:
+                        carregarDados(ano, TipoCalculo.VEICULO, 1);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
-    private void carregarDados(int ano, TipoCalculo tipoCalculo) {
+
+    private void carregarDados(int ano, TipoCalculo tipoCalculo, long veiculoId) {
         this.ano = ano;
         this.tipoCalculo = tipoCalculo;
+        this.veiculoId = veiculoId;
         String strAno = String.valueOf(ano);
         textViewAno.setText(strAno);
-        carregarDados(strAno, tipoCalculo);
+        switch (tipoCalculo) {
+            case TODOS:
+                abastecimentoViewModel.getRelatorioGraficoAnual(strAno)
+                        .observe(this, this);
+                break;
+            case BASICO:
+            case KMS_LITRO:
+            case VEICULO:
+                if (veiculoId == TODOS_VEICULO) {
+                    abastecimentoViewModel.getRelatorioGraficoAnualPorTipoCalculo(strAno, tipoCalculo)
+                            .observe(this, this);
+                } else {
+                    abastecimentoViewModel.getRelatorioGraficoAnualPorVeiculo(strAno, veiculoId)
+                            .observe(this, this);
+                }
+
+        }
+
     }
 
-    private void carregarDados(String ano, TipoCalculo tipoCalculo) {
-        abastecimentoViewModel.getRelatorioGrafico(ano, tipoCalculo)
-                .observe(this, new Observer<List<AbastecimentoRelatorioGraficoView>>() {
-                    @Override
-                    public void onChanged(List<AbastecimentoRelatorioGraficoView> list) {
-                        setChartData(list);
-                    }
-                });
-    }
 
     private void setChartData(List<AbastecimentoRelatorioGraficoView> relatorios) {
         entryGastos.clear();
@@ -130,5 +172,10 @@ public class ChartActivity extends BaseMenuActivity {
         textViewTotalGasto.setText(String.format(getString(R.string.total_gasto_chart), totalGasto));
         textViewTotalEconomizado.setText(String.format(getString(R.string.total_economizado_chart), totalEconomizado));
 
+    }
+
+    @Override
+    public void onChanged(List<AbastecimentoRelatorioGraficoView> list) {
+        setChartData(list);
     }
 }

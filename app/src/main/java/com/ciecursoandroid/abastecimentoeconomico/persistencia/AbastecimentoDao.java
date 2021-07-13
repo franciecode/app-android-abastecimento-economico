@@ -38,8 +38,24 @@ public interface AbastecimentoDao {
     @Delete
     void delete(Abastecimento abastecimento);
 
-    @Query("SELECT * FROM abastecimentorelatoriograficoview WHERE ano = :ano and tipoCalculo = :tipoCalculo || tipoCalculo != tipoCalculo")
-    LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGrafico(String ano, TipoCalculo tipoCalculo);
+    @Query("SELECT *, sum(somaTotalPago) as somaTotalPago," +
+            " sum(somaTotalEconomizado) as somaTotalEconomizado" +
+            " FROM abastecimentorelatoriograficoview WHERE ano = :ano and deleted = 0 GROUP BY mes")
+    LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnual(String ano);
+
+    @Query("SELECT *, sum(somaTotalPago) as somaTotalPago," +
+            " sum(somaTotalEconomizado) as somaTotalEconomizado" +
+            " FROM abastecimentorelatoriograficoview " +
+            "WHERE ano = :ano " +
+            "AND tipoCalculo = :tipoCalculo and deleted = 0  GROUP BY mes")
+    LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorTipoCalculo(String ano, TipoCalculo tipoCalculo);
+
+    @Query("SELECT *, sum(somaTotalPago) as somaTotalPago," +
+            " sum(somaTotalEconomizado) as somaTotalEconomizado" +
+            " FROM abastecimentorelatoriograficoview " +
+            "WHERE ano = :ano " +
+            "AND veiculoId = :veiculoId and deleted = 0  GROUP BY mes")
+    LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorVeiculo(String ano, Long veiculoId);
 
 
 }

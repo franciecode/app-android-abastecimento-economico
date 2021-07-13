@@ -16,8 +16,17 @@ public class AbastecimentoViewModel extends ViewModel {
 
     AbastecimentoRepository repository;
 
-    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGrafico(String ano, TipoCalculo tipoCalculo) {
-        return repository.getRelatorioGrafico(ano, tipoCalculo);
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnual(String ano) {
+        return repository.getRelatorioGraficoAnual(ano);
+    }
+
+
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorTipoCalculo(String ano, TipoCalculo tipoCalculo) {
+        return repository.getRelatorioGraficoAnualPorTipoCalculo(ano, tipoCalculo);
+    }
+
+    public LiveData<List<AbastecimentoRelatorioGraficoView>> getRelatorioGraficoAnualPorVeiculo(String ano, Long veiculoId) {
+        return repository.getRelatorioGraficoAnualPorVeiculo(ano, veiculoId);
     }
 
     public void setRepository(AbastecimentoRepository repository) {
