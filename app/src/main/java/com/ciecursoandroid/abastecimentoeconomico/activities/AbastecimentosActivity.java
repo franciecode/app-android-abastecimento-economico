@@ -3,12 +3,14 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,17 +18,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.AbastecimentosAdapter;
+import com.ciecursoandroid.abastecimentoeconomico.enums.LogTAGS;
 import com.ciecursoandroid.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AbastecimentoRepository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.List;
 
 public class AbastecimentosActivity extends BaseMenuActivity implements AbastecimentosAdapter.AdapterObserver {
 
-
+    private final static String TAG = AbastecimentosActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private AbastecimentosAdapter abastecimentosAdapter;
     private AbastecimentoViewModel abastecimentoViewModel;
@@ -34,11 +46,15 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     private TextView textViewTotaGasto;
     TextView textViewTotalEconomizado;
     private MenuItem search;
+    private InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abastecimentos);
+
+        adicinarAcuncio();
 
         textViewTotalRegistros = findViewById(R.id.textViewTotalRegistros);
         textViewTotaGasto = findViewById(R.id.textViewTotalGasto);
@@ -59,6 +75,60 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    private void adicinarAcuncio() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this, "ca-app-pub-2036643128150326/8305722355", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d(LogTAGS.TAG_ADMOB.name(), "The ad was dismissed.");
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d(LogTAGS.TAG_ADMOB.name(), "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d(LogTAGS.TAG_ADMOB.name(), "The ad was shown.");
+                            }
+                        });
+                        mInterstitialAd.show(AbastecimentosActivity.this);
+                        Log.i(LogTAGS.TAG_ADMOB.name(), "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(LogTAGS.TAG_ADMOB.name(), loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     private void setViewsResumoTotal(List<AbastecimentoComVeiculo> all, List<AbastecimentoComVeiculo> filtrados) {

@@ -2,14 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ciecursoandroid.abastecimentoeconomico">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
-        <activity android:name=".activities.HomeActivity"
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2036643128150326~3322603382" />
+
+        <activity
+            android:name=".activities.HomeActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +27,7 @@
         <activity
             android:name=".activities.ChartActivity"
             android:label="@string/grafico"
-            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar"/>
+            android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
             android:name=".activities.CalculoResultadoVeiculoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
