@@ -1,6 +1,7 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -10,8 +11,15 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.adapters.VeiculosViewPager2Adapeter;
+import com.ciecursoandroid.abastecimentoeconomico.enums.LogTAGS;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -23,14 +31,18 @@ public class VeiculosActivity extends BaseMenuActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private VeiculoViewModel veiculoViewModel;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veiculos);
 
+        adicionarAnuncio(null);
+
         veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
         veiculoViewModel.setRespository(new VeiculoRespository(this));
+
 
 
         // field views
@@ -67,6 +79,23 @@ public class VeiculosActivity extends BaseMenuActivity {
             }
         });
         mediator.attach();
+    }
+
+    private void adicionarAnuncio(AdListener listener) {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                Log.d(LogTAGS.TAG_ADMOB.name(), "onInitializationComplete: " + initializationStatus.getAdapterStatusMap().toString());
+            }
+
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
+        if (listener != null) {
+            mAdView.setAdListener(listener);
+        }
     }
 
 }

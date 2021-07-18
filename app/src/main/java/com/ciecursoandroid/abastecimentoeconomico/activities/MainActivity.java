@@ -3,7 +3,6 @@ package com.ciecursoandroid.abastecimentoeconomico.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
-import com.ciecursoandroid.abastecimentoeconomico.enums.LogTAGS;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBaseFragment;
 import com.ciecursoandroid.abastecimentoeconomico.fragments.FormCalcularBasicoFragment;
@@ -23,18 +21,12 @@ import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.ciecursoandroid.abastecimentoeconomico.widgets.Alerts;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
-
     private FragmentManager fragmentManager;
     private RadioGroup radioGroupTipoCalculo;
     private ActionBar actionBar;
@@ -52,7 +44,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_calculo);
 
-        adicionarAnuncio();
+        adicionarAnuncio(null);
 
         actionBar = getSupportActionBar();
         actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));
@@ -79,49 +71,14 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     }
 
-    private void adicionarAnuncio() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onInitializationComplete: " + initializationStatus.getAdapterStatusMap().toString());
-            }
-
-        });
+    private void adicionarAnuncio(AdListener listener) {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
         mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onAdLoaded: ");
-            }
-
-            @Override
-            public void onAdFailedToLoad(LoadAdError adError) {
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onAdFailedToLoad: "+adError.getMessage());
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onAdOpened: ");
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onAdClicked: ");
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-                Log.d(LogTAGS.TAG_ADMOB.name(), "onAdClosed: ");
-            }
-        });
+        if (listener != null) {
+            mAdView.setAdListener(listener);
+        }
     }
 
     @Override

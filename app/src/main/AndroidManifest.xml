@@ -33,7 +33,8 @@
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
             android:name=".activities.VeiculosActivity"
-            android:label="@string/veiculos" />
+            android:label="@string/veiculos"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.AddEditVeiculoActivity"
             android:label="@string/adicionar_veiculo" />
@@ -46,7 +47,9 @@
         <activity
             android:name=".activities.CalculoResultadoBasicoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ChartActivity extends BaseMenuActivity implements Observer<List<AbastecimentoRelatorioGraficoView>> {
+public class ChartActivity extends AppCompatActivity implements Observer<List<AbastecimentoRelatorioGraficoView>> {
     private final String TAG = ChartActivity.class.getSimpleName();
     private final long TODOS_VEICULO = -1;
     private BarChart chart;
