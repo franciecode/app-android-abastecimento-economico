@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CalculoResultadoVeiculoFragment">
+    tools:context=".fragments.CalculoResultadoVeiculoFragment"
+    android:background="@color/screen_background">
 
     <include layout="@layout/layout_calculo_abastecimento_detalhado" />
 </FrameLayout>
