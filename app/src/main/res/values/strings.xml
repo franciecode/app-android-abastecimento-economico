@@ -107,6 +107,8 @@
     <string name="preco_gasolina">Preço gasolina</string>
     <string name="titulo_abastecer">Abastecer:</string>
     <string name="todos_os_veiculos">Todos os veículos..</string>
+    <string name="kms_litro_gasolina">KMs/Litro Gasolina</string>
+    <string name="kms_litro_alcool">KMs/litro Álcool</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

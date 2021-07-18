@@ -102,10 +102,10 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
                 iconVeiculo.setImageResource(R.drawable.ic_motorcycle_solid);
             }
             nomeVeiculo.setText(veiculo.getNome());
-            kmsAlcoolCidade.setText(veiculo.getKmsLitroCidadeAlcool() + "KMs");
-            kmsAlcoolRodovia.setText(veiculo.getKmsLitroRodoviaAlcool() + "KMs");
-            kmsGasolinaCidade.setText(veiculo.getKmsLitroCidadeGasolina() + "KMs");
-            kmsGasolinaCidade.setText(veiculo.getKmsLitroRodoviaGasolina() + "KMs");
+            kmsAlcoolCidade.setText(veiculo.getKmsLitroCidadeAlcool() + "");
+            kmsAlcoolRodovia.setText(veiculo.getKmsLitroRodoviaAlcool() + "");
+            kmsGasolinaCidade.setText(veiculo.getKmsLitroCidadeGasolina() + "");
+            kmsGasolinaRodovia.setText(veiculo.getKmsLitroRodoviaGasolina() + "");
 
         }
     }

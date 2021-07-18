@@ -75,34 +75,35 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:text="@string/alcool" />
+                        android:text="@string/kms_litro_alcool" />
 
                     <TextView
                         android:id="@+id/textViewKmsAlcoolCidade"
                         android:layout_weight="1"
-                        android:text="7.8kms" />
+                        android:text="7.8" />
 
                     <TextView
                         android:id="@+id/textViewKmsAlcoolRodovia"
                         android:layout_weight="1"
-                        android:text="10.4Kms" />
+                        android:text="10.4
+" />
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
                         android:layout_weight="1"
-                        android:text="@string/gasolina" />
+                        android:text="@string/kms_litro_gasolina" />
 
                     <TextView
                         android:id="@+id/textViewKmsGasolinaCidade"
                         android:layout_weight="1"
-                        android:text="9.2kms" />
+                        android:text="9.2" />
 
                     <TextView
                         android:id="@+id/textViewKmsGasolinaRodovia"
                         android:layout_weight="1"
-                        android:text="12.7Kms" />
+                        android:text="12.7" />
                 </TableRow>
             </TableLayout>
 
