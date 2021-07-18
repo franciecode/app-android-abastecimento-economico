@@ -152,7 +152,9 @@ public class VeiculosFragment extends Fragment {
         Alerts.alertWaring(
                 getActivity(),
                 getString(R.string.remover_veiculo),
-                getString(R.string.confirma_remover_veiculo) + veiculo.getNome() + "\"?")
+                String.format(
+                        getString(R.string.confirma_remover_veiculo),
+                        veiculo.getNome()))
                 .setPositiveButton(getString(R.string.remover), (dialogInterface, i) -> {
                     Alerts.alertWaring(getActivity(), getString(R.string.atencao_),
                             getString(R.string.msg_alerta_enviar_veiculo_para_lixeira))
@@ -182,7 +184,9 @@ public class VeiculosFragment extends Fragment {
 
     private void restaurarVeiculo(Veiculo veiculo, int position) {
         Alerts.confirm(getActivity(), getString(R.string.restaurar_veiculo),
-                getString(R.string.confirma_restaurar) + veiculo.getNome() + "?")
+                String.format(
+                        getString(R.string.confirma_restaurar_veiculo_da_lixeira),
+                        veiculo.getNome()))
                 .setPositiveButton(R.string.restaurar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

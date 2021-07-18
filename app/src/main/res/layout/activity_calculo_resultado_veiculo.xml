@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CalculoResultadoVeiculoActivity">
+    tools:context=".activities.CalculoResultadoVeiculoActivity"
+    android:background="@color/screen_background">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutCalculoAbastecimentoVeiculo"
@@ -26,6 +27,19 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+    <TextView
+        android:id="@+id/textViewDetalheVeiculo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_grid"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/screen_padd"
+        android:layout_marginRight="@dimen/screen_padd"
+        android:text="Fiat Mob 1.6 Drive:\n kms álcool 9.7/13.8 | kms gasolina 13.8/16.9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutCalculoAbastecimentoVeiculo" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2CalculoAbastecimentoVeiculo"
         android:layout_width="match_parent"
@@ -33,5 +47,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayoutCalculoAbastecimentoVeiculo" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetalheVeiculo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

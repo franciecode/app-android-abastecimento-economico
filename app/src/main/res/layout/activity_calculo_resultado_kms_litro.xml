@@ -6,6 +6,21 @@
     android:background="@color/screen_background"
     tools:context=".activities.CalculoResultadoKmsLitroActivity">
 
-    <include layout="@layout/layout_calculo_abastecimento_detalhado" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textViewDetalheVeiculo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/screen_padd"
+            android:layout_marginTop="@dimen/small_grid"
+            android:layout_marginRight="@dimen/screen_padd"
+            android:gravity="center_horizontal"
+            android:text="Fiat Mob 1.6 Drive:\n kms álcool 9.7/13.8 | kms gasolina 13.8/16.9" />
+
+        <include layout="@layout/layout_calculo_abastecimento_detalhado" />
+    </LinearLayout>
 </ScrollView>

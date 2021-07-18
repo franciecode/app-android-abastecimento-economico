@@ -43,7 +43,7 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_kms_litro);
-        setFields();
+        setBaseFields();
 
         abastecimento = new Abastecimento();
 
@@ -85,11 +85,12 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
                 abastecimento.setVeiculoId(v.getId());
                 radioGroupAbastecimento.setEnabled(true);
                 editTextLitros.setEnabled(true);
+
             }
         });
 
+        setDetalheVeiculo(String.format(getString(R.string.detalhe_veiculo_calculo_kmslitro), kmsAlcool, kmsGasolina));
         calcularCombustivelMaisBarato(precoAlcool, precoGAsolina, kmsGasolina, kmsAlcool);
-
 
     }
 

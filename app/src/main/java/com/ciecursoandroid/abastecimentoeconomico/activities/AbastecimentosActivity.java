@@ -128,7 +128,7 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
 
         String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimentoComVeiculo.abastecimento.getDataAbastecimento()).toString();
         Alerts.alertWaring(this, getString(R.string.remover_abastecimento),
-                getString(R.string.confirma_remover_abastecimento) + dataAbastecimento
+                String.format( getString(R.string.confirma_remover_abastecimento), dataAbastecimento)
         ).setPositiveButton(R.string.remover, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

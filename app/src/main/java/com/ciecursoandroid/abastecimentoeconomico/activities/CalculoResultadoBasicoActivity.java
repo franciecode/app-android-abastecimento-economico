@@ -38,7 +38,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
 
         abastecimento = new Abastecimento();
 
-        setFields();
+        setBaseFields();
+
         textViewTotalAPagar = findViewById(R.id.textViewTotalAPagar);
         textViewValorEconomizado = findViewById(R.id.textViewValorEconomizado);
         textViewTotalAPagar.setText(UtilsNumeros.formatDinheiro(this, 0f));
@@ -69,6 +70,10 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                     kmsAlcool = veiculo.getKmsLitroCidadeAlcool();
                     radioGroupAbastecimento.setEnabled(true);
                     editTextLitros.setEnabled(true);
+                    setDetalheVeiculo(String.format(
+                            getString(R.string.detalhe_veiculo_docalculo_basico),
+                            100*veiculo.getKmsLitroCidadeAlcool() / veiculo.getKmsLitroCidadeGasolina(),
+                            "%"));
                 }
         );
     }

@@ -35,6 +35,7 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     protected TipoCombustivel abastecer;
     protected float litrosAbastecidos = 0f;
     protected AppPreferencias appPreferencias;
+    protected TextView textViewDetalheVeiculo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,8 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
     }
 
-    protected void setFields() {
+    protected void setBaseFields() {
+        textViewDetalheVeiculo = findViewById(R.id.textViewDetalheVeiculo);
         radioGroupAbastecimento = findViewById(R.id.radiogroupAbastecimento);
         radioButtonGasolina = findViewById(R.id.radioButtonGasolina);
         radioButtonAlcool = findViewById(R.id.radioButtonAlcool);
@@ -85,6 +87,10 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
         // calcular abasteciento <<<<<<<<<<<<<<<<<<<
 
         salvarPrecosCombustiveis();
+    }
+
+    void setDetalheVeiculo(String detalhes) {
+        textViewDetalheVeiculo.setText(detalhes);
     }
 
     void calcularCombustivelMaisBarato(float precoAlcool, float precoGAsolina, float kmsGasolina, float kmsAlcool) {

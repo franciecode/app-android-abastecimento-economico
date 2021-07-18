@@ -1,6 +1,7 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     Veiculo veiculo;
     Float precoGasolina, precoAlcool;
+    TextView textViewDetalhesVeiculo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayoutCalculoAbastecimentoVeiculo);
         viewPager2 = findViewById(R.id.viewPager2CalculoAbastecimentoVeiculo);
         viewPager2.setAdapter(new AbastecimentoViculoViewPager2Adapter(this));
+        textViewDetalhesVeiculo = findViewById(R.id.textViewDetalheVeiculo);
 
         veiculo = getIntent().getParcelableExtra("veiculo");
         precoGasolina = getIntent().getFloatExtra("precoGasolina", 0);
@@ -46,6 +49,13 @@ public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
             }
         });
         tabLayoutMediator.attach();
+
+        textViewDetalhesVeiculo.setText(String.format(getString(R.string.detalhe_veiculo_calculo_veiculo),
+                veiculo.getNome(),
+                veiculo.getKmsLitroCidadeAlcool(),
+                veiculo.getKmsLitroRodoviaAlcool(),
+                veiculo.getKmsLitroCidadeGasolina(),
+                veiculo.getKmsLitroRodoviaGasolina()));
 
     }
 

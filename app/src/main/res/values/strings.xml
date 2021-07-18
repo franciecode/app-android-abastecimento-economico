@@ -67,11 +67,11 @@
     <string name="icone_veiculo">icone veiculo</string>
     <string name="msg_alerta_enviar_veiculo_para_lixeira">Todos os abastecimentos desse veículo serão removidos. Ao restaurar este veículo da lixeira, todos os seus abastecimentos tambem serão resautrados.</string>
     <string name="acao_irreversivel">Ação irreversível</string>
-    <string name="confirma_deletar">\"Confirma deletar: \"</string>
+    <string name="confirma_deletar">Confirma deletar: </string>
     <string name="msg_alerta_deletar_veiculo_permanentemente">\n\n Ao deletar este veículo, ele e seus abastecimentos não poderão ser mais restaurados.</string>
     <string name="erro_ao_deletar_veiculo">Erro ao deletar o veículo</string>
     <string name="restaurar_veiculo">Restaurar veículo</string>
-    <string name="confirma_restaurar">\"Confirma restaurar: \"</string>
+    <string name="confirma_restaurar_veiculo_da_lixeira">Veículo: %s</string>
     <string name="restaurar">Restaurar</string>
     <string name="erro_ao_restaurar_veiculo">Erro ao restaurar veículo</string>
     <string name="veiculo_restaurado_com_sucesso">Veículo restaurado com sucesso!</string>
@@ -80,7 +80,7 @@
     <string name="descricao_abastecimento_por_kmsLitro">%.2fKMs/litro Álcool - %.2fKMs/litro Gasolina</string>
     <string name="remover">remover</string>
     <string name="erro_ao_remover_abastecimento">Erro ao remover abastecimento!</string>
-    <string name="confirma_remover_veiculo">Você confirma remover \"</string>
+    <string name="confirma_remover_veiculo">Veículo: %s </string>
     <string name="remover_veiculo">Remover Veiculo</string>
     <string name="erro_ao_remover_veiculo">Erro ao remover o veículo</string>
     <string name="confirmar_remover">Confirmar remover</string>
@@ -89,7 +89,7 @@
     <string name="hint_busca">Pesquisar e filtrar abastecimentos</string>
     <string name="filtrar_abastecimento">@string/app_name</string>
     <string name="remover_abastecimento">Remover Abastecimento!</string>
-    <string name="confirma_remover_abastecimento">\"Você confirmar remover o abastecimento feito em \"</string>
+    <string name="confirma_remover_abastecimento">Abastecimento feito em %s</string>
     <string name="abasteciment_removido_com_sucesso">Abastecimento removido com sucesso!</string>
     <string name="grafico">Gráfico</string>
     <string name="gastos">Gastos</string>
@@ -101,7 +101,7 @@
     <string name="por_favor_informe_este_erro_ao_desenvolvedor">\n Por favor, informe este erro ao desenvolvedor.</string>
     <string name="erro_ao_salvar">Erro ao salvar</string>
     <string name="sucesso">Sucesso</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="titulo_calcular_abastecimento">Calcular Economia:</string>
     <string name="preco_alcool">Preço Álcool</string>
     <string name="preco_gasolina">Preço gasolina</string>
@@ -109,6 +109,9 @@
     <string name="todos_os_veiculos">Todos os veículos..</string>
     <string name="kms_litro_gasolina">KMs/Litro Gasolina</string>
     <string name="kms_litro_alcool">KMs/litro Álcool</string>
+    <string name="detalhe_veiculo_docalculo_basico">Básico %.2f%s/Gasolina</string>
+    <string name="detalhe_veiculo_calculo_kmslitro">KMs/Litro: Álcool %.2f | Gasolina %.2f</string>
+    <string name="detalhe_veiculo_calculo_veiculo">%s:\n kms álcool %.1f/%.1f | kms gasolina %.1f/%.1f</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>
