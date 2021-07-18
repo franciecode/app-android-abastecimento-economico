@@ -29,7 +29,7 @@ public class CalculadoraCombustivel {
 
         RendimentoCombustivel rendimentoGasolina = calcularRendimento(precoGasolina, kmsGasolina, litros);
         RendimentoCombustivel rendimentoAlcool = calcularRendimento(precoAlcool, kmsAlcool, litros);
-        float valorEconomizado = 0f;
+        float valorEconomizado;
         if (abastecido == TipoCombustivel.ALCOOL) {
             valorEconomizado = rendimentoGasolina.getPrecoKm() * rendimentoAlcool.getTotalKms() - rendimentoAlcool.getCustoTotal();
         } else {
@@ -62,9 +62,9 @@ public class CalculadoraCombustivel {
         }
     }
 
-    public class CombustivelMaisBarato {
+    public static class CombustivelMaisBarato {
         TipoCombustivel combustivelMaisBarato;
-        float porcentagemEconomia = 0f;
+        float porcentagemEconomia;
         RendimentoCombustivel rendimentoCombustivel;
 
         public CombustivelMaisBarato(TipoCombustivel combustivel, float porcentagemEconomia, RendimentoCombustivel rendimentoCombustivel) {

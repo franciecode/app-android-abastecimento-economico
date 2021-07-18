@@ -23,6 +23,8 @@ import com.ciecursoandroid.abastecimentoeconomico.persistencia.VeiculoRespositor
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.ciecursoandroid.abastecimentoeconomico.utils.UtilsEnums;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.List;
@@ -214,6 +216,7 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
             this.viewHolder = viewHolder;
         }
 
+        @NotNull
         @Override
         public String toString() {
             String sb = tipoAbastecimento +

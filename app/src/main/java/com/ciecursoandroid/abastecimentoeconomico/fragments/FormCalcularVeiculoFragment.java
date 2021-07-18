@@ -126,7 +126,7 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
             @Override
             public void onChanged(List<Veiculo> veiculos) {
                 resetDataSpinnerAdapter();
-                Veiculo v = null;
+                Veiculo v;
                 for (int i = 0; i < veiculos.size(); i++) {
                     v = veiculos.get(i);
                     spinnerAdapter.add(v.getNome());

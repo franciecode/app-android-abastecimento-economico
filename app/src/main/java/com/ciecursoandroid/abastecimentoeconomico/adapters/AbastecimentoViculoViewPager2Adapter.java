@@ -20,7 +20,6 @@ public class AbastecimentoViculoViewPager2Adapter extends FragmentStateAdapter {
     }
 
     @NonNull
-    @NotNull
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
@@ -30,7 +29,7 @@ public class AbastecimentoViculoViewPager2Adapter extends FragmentStateAdapter {
                         calculoResultadoVeiculoActivity.getPrecoGasolina(),
                         calculoResultadoVeiculoActivity.getPreoAlcool(),
                         calculoResultadoVeiculoActivity.getVeiculo());
-            case 1:
+            default:
                 return CalculoResultadoVeiculoFragment.newInstance(
                         LocalViagem.RODOVIA,
                         calculoResultadoVeiculoActivity.getPrecoGasolina(),
@@ -38,7 +37,6 @@ public class AbastecimentoViculoViewPager2Adapter extends FragmentStateAdapter {
                         calculoResultadoVeiculoActivity.getVeiculo());
 
         }
-        return null;
     }
 
     @Override

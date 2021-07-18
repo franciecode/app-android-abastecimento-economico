@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
 import com.ciecursoandroid.abastecimentoeconomico.activities.BaseCalculoResult;
+import com.ciecursoandroid.abastecimentoeconomico.activities.CalculoResultadoBaseActivity;
 import com.ciecursoandroid.abastecimentoeconomico.activities.NavigationInActivities;
 import com.ciecursoandroid.abastecimentoeconomico.enums.LocalViagem;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCalculo;
@@ -208,8 +209,13 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
                             getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                             .setCancelable(false)
                             .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                NavigationInActivities.goAbastecimentos(getActivity());
-                                getActivity().finish();
+                                CalculoResultadoBaseActivity.mostrarAnuncioTelaCheia(getActivity(), new CalculoResultadoBaseActivity.OnFullScreenADListener() {
+                                    @Override
+                                    public void done() {
+                                        NavigationInActivities.goAbastecimentos(getActivity());
+                                        getActivity().finish();
+                                    }
+                                });
                             }).show();
                 }
             }
@@ -219,11 +225,11 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
     protected boolean validarFormSalvarAbastecimento() {
         boolean erro = false;
         if (baseCalculoResult.radioGroupAbastecimento.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(getActivity(), "Combústível não informado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.combustivel_nao_informado, Toast.LENGTH_SHORT).show();
             erro = true;
         }
         if (baseCalculoResult.litrosAbastecidos == 0) {
-            Toast.makeText(getActivity(), "Total de litros não informado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.total_litros_nao_informado), Toast.LENGTH_SHORT).show();
             erro = true;
         }
 

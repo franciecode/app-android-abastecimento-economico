@@ -43,6 +43,9 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_kms_litro);
+
+        carregarAnuncioTelaCheia(this);
+
         setBaseFields();
 
         abastecimento = new Abastecimento();
@@ -162,9 +165,15 @@ public class CalculoResultadoKmsLitroActivity extends CalculoResultadoBaseActivi
                             getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                             .setCancelable(false)
                             .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                NavigationInActivities.goAbastecimentos(getApplicationContext());
-                                finish();
+                                mostrarAnuncioTelaCheia(CalculoResultadoKmsLitroActivity.this, new OnFullScreenADListener() {
+                                    @Override
+                                    public void done() {
+                                        NavigationInActivities.goAbastecimentos(getApplicationContext());
+                                        finish();
+                                    }
+                                });
                             }).show();
+
                 }
             }
         });

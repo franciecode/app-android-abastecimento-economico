@@ -22,7 +22,6 @@ public class CalcularCombustivel {
         CalculadoraCombustivel calculadora = new CalculadoraCombustivel();
         CalculadoraCombustivel.CombustivelMaisBarato result = calculadora
                 .calcularCombustivelMaisBarato(precoGasolina, precoAlcool, kmsGasolina, kmsAlcool);
-        result.getCombustivelMaisBarato();
         assertEquals(TipoCombustivel.ALCOOL, result.getCombustivelMaisBarato());
         assertEquals(14.285713f, result.getPorcentagemEconomia(), 0);
         assertEquals(0.4285714328289032f, result.getRendimentoCombustivel().getPrecoKm(), 0);

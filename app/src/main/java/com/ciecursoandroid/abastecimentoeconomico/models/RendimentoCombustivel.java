@@ -1,12 +1,12 @@
 package com.ciecursoandroid.abastecimentoeconomico.models;
 
 public class RendimentoCombustivel {
-    float precoCombustivel = 0;
-    float litrosCombustivel = 0;
-    float kmsLitro = 0;
-    float precoKm = 0;
-    float totalKms = 0;
-    float custoTotal = 0;
+    float precoCombustivel;
+    float litrosCombustivel;
+    float kmsLitro;
+    float precoKm;
+    float totalKms;
+    float custoTotal;
 
     public RendimentoCombustivel(float precoCombustivel, float litrosCombustivel, float kmsLitro, float precoKm, float totalKms, float custoTotal) {
         this.precoCombustivel = precoCombustivel;

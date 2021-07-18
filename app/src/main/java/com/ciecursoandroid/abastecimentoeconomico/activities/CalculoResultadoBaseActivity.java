@@ -1,26 +1,42 @@
 package com.ciecursoandroid.abastecimentoeconomico.activities;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ciecursoandroid.abastecimentoeconomico.R;
+import com.ciecursoandroid.abastecimentoeconomico.enums.LogTAGS;
 import com.ciecursoandroid.abastecimentoeconomico.enums.TipoCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.models.Abastecimento;
 import com.ciecursoandroid.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.ciecursoandroid.abastecimentoeconomico.persistencia.AppPreferencias;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
+import org.jetbrains.annotations.NotNull;
 
 public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
+    private static InterstitialAd mInterstitialAd;
     protected float precoGAsolina;
     protected float precoAlcool;
     protected CalculadoraCombustivel calculadoraCombustivel = new CalculadoraCombustivel();
@@ -43,6 +59,35 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
         appPreferencias = new AppPreferencias(this);
 
+    }
+
+    public static void carregarAnuncioTelaCheia(Activity activity) {
+        Log.d(LogTAGS.TAG_ADMOB.name(), "loadAdFullScreen: ");
+        MobileAds.initialize(activity, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
+
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(activity, "ca-app-pub-2036643128150326/8305722355", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        Log.d(LogTAGS.TAG_ADMOB.name(), "onAdLoaded: ");
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(LogTAGS.TAG_ADMOB.name(), "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(LogTAGS.TAG_ADMOB.name(), loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     protected void setBaseFields() {
@@ -149,5 +194,42 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
         return erro == false;
     }
 
+    public static void mostrarAnuncioTelaCheia(Activity activity, OnFullScreenADListener listener) {
+        if (mInterstitialAd != null && BaseMenuActivity.contagemRegressivaMotrarAnuncioTelaCheia <= 0) {
+            BaseMenuActivity.contagemRegressivaMotrarAnuncioTelaCheia = 2;
+            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull @NotNull AdError adError) {
+                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdFailedToShowFullScreenContent");
+                    listener.done();
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdShowedFullScreenContent");
+
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdDismissedFullScreenContent");
+                    listener.done();
+                }
+
+                @Override
+                public void onAdImpression() {
+                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdImpression");
+                }
+            });
+            mInterstitialAd.show(activity);
+        } else {
+            listener.done();
+            Log.d(LogTAGS.TAG_ADMOB.name(), "The interstitial ad wasn't ready yet.");
+        }
+    }
+
+    public interface OnFullScreenADListener {
+        void done();
+    }
 
 }

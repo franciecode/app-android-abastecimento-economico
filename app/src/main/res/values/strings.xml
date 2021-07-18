@@ -75,7 +75,6 @@
     <string name="restaurar">Restaurar</string>
     <string name="erro_ao_restaurar_veiculo">Erro ao restaurar veículo</string>
     <string name="veiculo_restaurado_com_sucesso">Veículo restaurado com sucesso!</string>
-    <string name="combustivel_nao_informado">Combústível não informado!</string>
     <string name="litros_nao_informados">Total de litros não informado!</string>
     <string name="descricao_abastecimento_por_kmsLitro">%.2fKMs/litro Álcool - %.2fKMs/litro Gasolina</string>
     <string name="remover">remover</string>
@@ -112,6 +111,8 @@
     <string name="detalhe_veiculo_docalculo_basico">Básico %.2f%s/Gasolina</string>
     <string name="detalhe_veiculo_calculo_kmslitro">KMs/Litro: Álcool %.2f | Gasolina %.2f</string>
     <string name="detalhe_veiculo_calculo_veiculo">%s:\n kms álcool %.1f/%.1f | kms gasolina %.1f/%.1f</string>
+    <string name="combustivel_nao_informado">Combústível não informado!</string>
+    <string name="total_litros_nao_informado">Total de litros não informado!</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

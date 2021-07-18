@@ -36,6 +36,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_basico);
 
+        carregarAnuncioTelaCheia(this);
+
         abastecimento = new Abastecimento();
 
         setBaseFields();
@@ -72,7 +74,7 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                     editTextLitros.setEnabled(true);
                     setDetalheVeiculo(String.format(
                             getString(R.string.detalhe_veiculo_docalculo_basico),
-                            100*veiculo.getKmsLitroCidadeAlcool() / veiculo.getKmsLitroCidadeGasolina(),
+                            100 * veiculo.getKmsLitroCidadeAlcool() / veiculo.getKmsLitroCidadeGasolina(),
                             "%"));
                 }
         );
@@ -115,12 +117,20 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                 Alerts.alertWaring(this, getString(R.string.erro_ao_salvar), e.getMessage())
                         .setPositiveButton(R.string.ok, null).show();
             else
-                Alerts.alertSuccess(this, getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+
+                Alerts.alertSuccess(CalculoResultadoBasicoActivity.this, getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                         .setCancelable(false)
                         .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                            NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
-                            finish();
+                            mostrarAnuncioTelaCheia(CalculoResultadoBasicoActivity.this, new OnFullScreenADListener() {
+                                @Override
+                                public void done() {
+                                    NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
+                                    finish();
+                                }
+                            });
                         }).show();
+
+
         });
     }
 }

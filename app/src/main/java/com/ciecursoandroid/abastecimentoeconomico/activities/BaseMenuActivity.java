@@ -25,7 +25,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class BaseMenuActivity extends AppCompatActivity {
-    private static int contagemRegressivaMotrarAnuncioTelaCheia = 0;
+    public static int contagemRegressivaMotrarAnuncioTelaCheia = 0;
     private static InterstitialAd mInterstitialAd;
 
     @Override
@@ -33,7 +33,7 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
 
             }
         });

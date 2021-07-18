@@ -44,6 +44,8 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_calculo);
 
+        CalculoResultadoBaseActivity.carregarAnuncioTelaCheia(this);
+
         adicionarAnuncio(null);
 
         actionBar = getSupportActionBar();
@@ -116,7 +118,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     public void calcular(View view) {
         if (!validarFormulario()) return;
-        Intent i = new Intent();
+        Intent i;
         switch (tipoCalculo) {
             case BASICO:
                 i = new Intent(this, CalculoResultadoBasicoActivity.class);
@@ -126,8 +128,8 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
             case KMS_LITRO:
                 i = new Intent(this, CalculoResultadoKmsLitroActivity.class);
                 setPrecosCombustiveisForIntentCalculo(i);
-                i.putExtra("kmsGasolina", Float.valueOf(kmsLitroGasolina));
-                i.putExtra("kmAlcool", Float.valueOf(kmsLitroAlcool));
+                i.putExtra("kmsGasolina", kmsLitroGasolina);
+                i.putExtra("kmAlcool", kmsLitroAlcool);
                 startActivity(i);
                 break;
             case VEICULO:

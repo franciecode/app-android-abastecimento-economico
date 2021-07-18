@@ -84,7 +84,7 @@ public class VeiculosActivity extends BaseMenuActivity {
     private void adicionarAnuncio(AdListener listener) {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
                 Log.d(LogTAGS.TAG_ADMOB.name(), "onInitializationComplete: " + initializationStatus.getAdapterStatusMap().toString());
             }
 
