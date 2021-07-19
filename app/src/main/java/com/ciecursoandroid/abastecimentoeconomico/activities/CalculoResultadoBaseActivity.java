@@ -62,7 +62,6 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
     }
 
     public static void carregarAnuncioTelaCheia(Activity activity) {
-        Log.d(LogTAGS.TAG_ADMOB.name(), "loadAdFullScreen: ");
         MobileAds.initialize(activity, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
@@ -74,17 +73,17 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        Log.d(LogTAGS.TAG_ADMOB.name(), "onAdLoaded: ");
+
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         mInterstitialAd = interstitialAd;
-                        Log.i(LogTAGS.TAG_ADMOB.name(), "onAdLoaded");
+
                     }
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error
-                        Log.i(LogTAGS.TAG_ADMOB.name(), loadAdError.getMessage());
+
                         mInterstitialAd = null;
                     }
                 });
@@ -200,31 +199,26 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
             mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                 @Override
                 public void onAdFailedToShowFullScreenContent(@NonNull @NotNull AdError adError) {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdFailedToShowFullScreenContent");
                     listener.done();
                 }
 
                 @Override
                 public void onAdShowedFullScreenContent() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdShowedFullScreenContent");
 
                 }
 
                 @Override
                 public void onAdDismissedFullScreenContent() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdDismissedFullScreenContent");
                     listener.done();
                 }
 
                 @Override
                 public void onAdImpression() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdImpression");
                 }
             });
             mInterstitialAd.show(activity);
         } else {
             listener.done();
-            Log.d(LogTAGS.TAG_ADMOB.name(), "The interstitial ad wasn't ready yet.");
         }
     }
 

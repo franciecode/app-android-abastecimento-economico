@@ -37,7 +37,6 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
 
             }
         });
-        Log.d(LogTAGS.TAG_ADMOB.name(), "contagemRegressivaMotrarAnuncioTelaCheia: " + contagemRegressivaMotrarAnuncioTelaCheia);
     }
 
     @Override
@@ -47,23 +46,20 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
     }
 
     private void loadAdFullScreen() {
-        Log.d(LogTAGS.TAG_ADMOB.name(), "loadAdFullScreen: ");
+
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(this, "ca-app-pub-2036643128150326/8305722355", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        Log.d(LogTAGS.TAG_ADMOB.name(), "onAdLoaded: ");
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         mInterstitialAd = interstitialAd;
-                        Log.i(LogTAGS.TAG_ADMOB.name(), "onAdLoaded");
                     }
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error
-                        Log.i(LogTAGS.TAG_ADMOB.name(), loadAdError.getMessage());
                         mInterstitialAd = null;
                     }
                 });
@@ -81,7 +77,6 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
             case R.id.menu_abastecimentos:
                 if (this instanceof AbastecimentosActivity) return false;
                 mostrarAnuncioTelaCheia(() -> {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "actionHere: ");
                     Intent iAbastecimento = new Intent(BaseMenuActivity.this, AbastecimentosActivity.class);
                     BaseMenuActivity.this.startActivity(iAbastecimento);
                 });
@@ -98,7 +93,6 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                 break;
             case R.id.menu_chart:
                 mostrarAnuncioTelaCheia(() -> {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "actionHere: ");
                     Intent iChart = new Intent(this, ChartActivity.class);
                     startActivity(iChart);
                 });
@@ -114,31 +108,27 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
             mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                 @Override
                 public void onAdFailedToShowFullScreenContent(@NonNull @NotNull AdError adError) {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdFailedToShowFullScreenContent");
                     listener.done();
                 }
 
                 @Override
                 public void onAdShowedFullScreenContent() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdShowedFullScreenContent");
 
                 }
 
                 @Override
                 public void onAdDismissedFullScreenContent() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdDismissedFullScreenContent");
                     listener.done();
                 }
 
                 @Override
                 public void onAdImpression() {
-                    Log.d(LogTAGS.TAG_ADMOB.name(), "onAdImpression");
+
                 }
             });
             mInterstitialAd.show(BaseMenuActivity.this);
         } else {
             listener.done();
-            Log.d(LogTAGS.TAG_ADMOB.name(), "The interstitial ad wasn't ready yet.");
         }
     }
 

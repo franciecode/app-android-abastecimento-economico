@@ -34,7 +34,6 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
 
     public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-        Log.d(TAG, "setVeiculos: " + veiculos.size());
         notifyDataSetChanged();
     }
 

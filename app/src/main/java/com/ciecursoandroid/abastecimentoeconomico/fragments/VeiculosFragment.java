@@ -223,7 +223,6 @@ public class VeiculosFragment extends Fragment {
     }
 
     private void carregarVeiculos() {
-        Log.d(TAG, "carregarVeiculos: istrash " + isTrash);
         if (!isTrash) {
             veiculoViewModel.getAll().observe(getActivity(), new Observer<List<Veiculo>>() {
                 @Override
