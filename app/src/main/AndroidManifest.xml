@@ -42,7 +42,8 @@
             android:label="@string/adicionar_veiculo" />
         <activity
             android:name="com.franciecode.abastecimentoeconomico.activities.AbastecimentosActivity"
-            android:label="@string/abastecimentos" />
+            android:label="@string/abastecimentos"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoKmsLitroActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />

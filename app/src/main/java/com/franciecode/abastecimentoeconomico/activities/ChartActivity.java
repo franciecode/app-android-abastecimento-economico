@@ -40,6 +40,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ChartActivity extends AppCompatActivity implements Observer<List<AbastecimentoRelatorioGraficoView>> {
+    private final float CHART_GROUP_SPACE = 0.06f;
+    private final float CHART_BAR_SPACE = 0.02f; // x2 dataset
+    private final float CHART_BAR_WIDTH = 0.45f; // x2 dataset
     private final String TAG = ChartActivity.class.getSimpleName();
     private final long TODOS_VEICULO = -1;
     private BarChart chart;
@@ -72,7 +75,9 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
 
             }
         });
+
         adicionarAnuncio(null);
+
 
         ano = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -158,8 +163,7 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
 
     private void adicionarAnuncio(AdListener listener) {
         mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         if (listener != null) {
             mAdView.setAdListener(listener);
@@ -211,7 +215,7 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
     }
 
 
-    private void setChartData(List<AbastecimentoRelatorioGraficoView> relatorios) {
+    private void setDataChart(List<AbastecimentoRelatorioGraficoView> relatorios) {
         entryGastos.clear();
         entryEconomias.clear();
         float totalGasto = 0f;
@@ -239,14 +243,10 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
         BarDataSet set2 = new BarDataSet(entryEconomias, getString(R.string.economias));
         set2.setColor(getResources().getColor(R.color.color_chart_economia));
 
-        float groupSpace = 0.06f;
-        float barSpace = 0.02f; // x2 dataset
-        float barWidth = 0.45f; // x2 dataset
-
         BarData barData = new BarData(set1, set2);
-        barData.setBarWidth(barWidth); // set the width of each bar
+        barData.setBarWidth(CHART_BAR_WIDTH); // set the width of each bar
         chart.setData(barData);
-        chart.groupBars(-0.5f, groupSpace, barSpace); // perform the "explicit" grouping
+        chart.groupBars(-0.5f, CHART_GROUP_SPACE, CHART_BAR_SPACE); // perform the "explicit" grouping
         chart.animateY(500);
         chart.invalidate(); // refresh
 
@@ -257,6 +257,6 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
 
     @Override
     public void onChanged(List<AbastecimentoRelatorioGraficoView> list) {
-        setChartData(list);
+        setDataChart(list);
     }
 }
