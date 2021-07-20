@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tipoCalculo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/grid_space"
+            android:layout_marginTop="@dimen/small_grid"
             android:text="@string/descricao"
             tools:ignore="UseCompatTextViewDrawableXml" />
 
@@ -47,11 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/descricaoAbastecimento"
-            android:layout_marginTop="@dimen/grid_space"
+            android:layout_marginTop="@dimen/small_grid"
             android:gravity="center_horizontal"
             android:text="@string/exemplo_resumo_abastecimento"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="@dimen/text_body_medium" />
+            android:textSize="@dimen/text_body_medium"/>
 
     </RelativeLayout>
 

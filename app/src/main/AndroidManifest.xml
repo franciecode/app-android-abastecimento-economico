@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ciecursoandroid.abastecimentoeconomico"
+    package="com.franciecode.abastecimentoeconomico"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -18,7 +18,7 @@
             android:value="ca-app-pub-2036643128150326~3322603382" />
 
         <activity
-            android:name=".activities.HomeActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.HomeActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,30 +27,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ChartActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.ChartActivity"
             android:label="@string/grafico"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name=".activities.CalculoResultadoVeiculoActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoVeiculoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name=".activities.VeiculosActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.VeiculosActivity"
             android:label="@string/veiculos"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.AddEditVeiculoActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.AddEditVeiculoActivity"
             android:label="@string/adicionar_veiculo" />
         <activity
-            android:name=".activities.AbastecimentosActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.AbastecimentosActivity"
             android:label="@string/abastecimentos" />
         <activity
-            android:name=".activities.CalculoResultadoKmsLitroActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoKmsLitroActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name=".activities.CalculoResultadoBasicoActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoBasicoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.franciecode.abastecimentoeconomico.activities.MainActivity"
             android:screenOrientation="portrait">
 
         </activity>

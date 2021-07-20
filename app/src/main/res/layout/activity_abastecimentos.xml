@@ -1,124 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:toolbarId="@+id/toolbar">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-            <TableLayout
-                android:id="@+id/tableLayout"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="@dimen/grid_space">
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:toolbarId="@+id/toolbar">
 
-                <TableRow
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/grid_space">
 
-                    <TextView
-                        android:id="@+id/textViewTotalRegistros"
+                    <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center_horizontal"
-                        android:text="0/0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                </TableRow>
+                        android:orientation="horizontal">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewTotalRegistros"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="0/0"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Total Gasto:"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewTotalGasto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/dinheiro_vazio"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                </TableRow>
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Total Gasto:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewTotalGasto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/dinheiro_vazio"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                    </TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Total Economizado:"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewTotalEconomizado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/dinheiro_vazio"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/color_text_green" />
-                </TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Total Economizado:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            </TableLayout>
+                        <TextView
+                            android:id="@+id/textViewTotalEconomizado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/dinheiro_vazio"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textColor="@color/color_text_green" />
+                    </TableRow>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                </TableLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/abatecimento_item_list" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                android:orientation="vertical">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    tools:listitem="@layout/abatecimento_item_list" />
+            </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_space"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-2036643128150326/4025203166"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
