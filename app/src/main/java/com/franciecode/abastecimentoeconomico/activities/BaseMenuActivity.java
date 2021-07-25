@@ -29,12 +29,14 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
 
             }
         });
+         */
     }
 
     @Override
@@ -45,7 +47,7 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
     }
 
     private void loadAdFullScreen() {
-
+        /*
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(this, "ca-app-pub-2036643128150326/8305722355", adRequest,
                 new InterstitialAdLoadCallback() {
@@ -59,6 +61,8 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
+
+         */
     }
 
     @Override

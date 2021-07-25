@@ -76,7 +76,7 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
             }
         });
 
-        adicionarAnuncio(null);
+       // adicionarAnuncio(null);
 
 
         ano = Calendar.getInstance().get(Calendar.YEAR);
@@ -223,8 +223,8 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
         int relatorioIndex = 0;
         // fill the lists
         for (int i = 0; i <= 11; i++) {
-            float gasto = 0f;
-            float economizado = 0f;
+            float gasto = (float) Math.floor(Math.random() * 999);
+            float economizado = gasto * 0.2f;
             int mes = i + 1;
             if (relatorios != null
                     && relatorioIndex < relatorios.size()

@@ -43,9 +43,9 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_calculo);
 
-        CalculoResultadoBaseActivity.carregarAnuncioTelaCheia(this);
+        //CalculoResultadoBaseActivity.carregarAnuncioTelaCheia(this);
 
-        adicionarAnuncio(null);
+        // adicionarAnuncio(null);
 
         actionBar = getSupportActionBar();
         actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));

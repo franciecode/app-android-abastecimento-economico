@@ -44,7 +44,7 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abastecimentos);
 
-        adicionarAnuncio(null);
+        //adicionarAnuncio(null);
 
         textViewTotalRegistros = findViewById(R.id.textViewTotalRegistros);
         textViewTotaGasto = findViewById(R.id.textViewTotalGasto);
