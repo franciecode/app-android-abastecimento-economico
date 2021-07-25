@@ -56,7 +56,6 @@
         <activity
             android:name="com.franciecode.abastecimentoeconomico.activities.MainActivity"
             android:screenOrientation="portrait">
-
         </activity>
     </application>
 
