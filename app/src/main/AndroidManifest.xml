@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.franciecode.abastecimentoeconomico"
     android:versionCode="4"
-    android:versionName="1.00">
+    android:versionName="1.00"
+    xmlns:dist="http://schemas.android.com/apk/distribution">
 
+    <dist:module dist:instant="true" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="androidx.multidex.MultiDexApplication"

@@ -113,6 +113,10 @@
     <string name="detalhe_veiculo_calculo_veiculo">%s:\n kms álcool %.1f/%.1f | kms gasolina %.1f/%.1f</string>
     <string name="combustivel_nao_informado">Combústível não informado!</string>
     <string name="total_litros_nao_informado">Total de litros não informado!</string>
+    <string name="nome_de_identifica_o_do_ve_culo">Nome de identificação do veículo:</string>
+    <string name="exemplo_jos_fiat_mobi_drive">Exemplo: José - Fiat Mobi Drive</string>
+    <string name="_0_0">0.0</string>
+    <string name="salvar">Salvar</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

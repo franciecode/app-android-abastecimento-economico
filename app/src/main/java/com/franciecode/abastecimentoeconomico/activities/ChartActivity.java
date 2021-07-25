@@ -48,8 +48,8 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
     private BarChart chart;
     private TextView textViewTotalGasto;
     private TextView textViewTotalEconomizado;
-    private ArrayList<BarEntry> entryGastos = new ArrayList<BarEntry>(12);
-    private ArrayList<BarEntry> entryEconomias = new ArrayList<BarEntry>(12);
+    private final ArrayList<BarEntry> entryGastos = new ArrayList<BarEntry>(12);
+    private final ArrayList<BarEntry> entryEconomias = new ArrayList<BarEntry>(12);
     private AbastecimentoViewModel abastecimentoViewModel;
     private ImageView imageViewAnoAnterior;
     private ImageView imageViewAnoProximo;

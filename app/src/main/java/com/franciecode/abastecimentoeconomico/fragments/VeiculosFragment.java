@@ -41,7 +41,7 @@ public class VeiculosFragment extends Fragment {
     private RecyclerView recyclerView;
     private VeiculoViewModel veiculoViewModel;
     private VeiculosAdapter veiculosAdapter;
-    private String TAG = VeiculosFragment.class.getSimpleName();
+    private final String TAG = VeiculosFragment.class.getSimpleName();
     private FloatingActionButton floatingActionButton;
 
     public VeiculosFragment() {

@@ -15,9 +15,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class VeiculoRespository {
-    private AbastecimentoDao abastecimentoDao;
-    private AppDBRoom db;
-    private VeiculoDao dao;
+    private final AbastecimentoDao abastecimentoDao;
+    private final AppDBRoom db;
+    private final VeiculoDao dao;
     private Context context;
 
     public VeiculoRespository(Context context) {

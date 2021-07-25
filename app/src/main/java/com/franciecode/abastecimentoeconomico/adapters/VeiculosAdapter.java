@@ -21,8 +21,8 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
 
     private static final String TAG = VeiculosAdapter.class.getSimpleName();
     private List<Veiculo> veiculos;
-    private Context context;
-    private LayoutInflater layoutInflater;
+    private final Context context;
+    private final LayoutInflater layoutInflater;
     private final OnItemClickListener listener;
 
     public VeiculosAdapter(Context context, OnItemClickListener listener) {
