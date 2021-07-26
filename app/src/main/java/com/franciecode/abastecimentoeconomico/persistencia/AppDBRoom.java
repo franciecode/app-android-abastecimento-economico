@@ -60,6 +60,7 @@ public abstract class AppDBRoom extends RoomDatabase {
     }
 
     private static void prePopulateVeiculos(AppDBRoom appDatabase) {
+        /*
         Veiculo v1 = new Veiculo();
         v1.setTipo(Veiculo.TIPO_VEICULO_CARRO);
         v1.setNome("FIAT Mobi 1.0\u00AD6V Drive ");
@@ -74,12 +75,11 @@ public abstract class AppDBRoom extends RoomDatabase {
         v2.setKmsLitroRodoviaAlcool(10.7f);
         v2.setKmsLitroCidadeGasolina(13.9f);
         v2.setKmsLitroRodoviaGasolina(15.5f);
-
-
+        */
         Veiculo[] veiculos = new Veiculo[]{
                 new VeiculoTipoCalculoBasico(),
-                new VeiculoTipCalculoKMsLitro(),
-                v1, v2
+                new VeiculoTipCalculoKMsLitro()
+                //,v1, v2
         };
         appDatabase.veiculoDao().insertAll(veiculos);
     }

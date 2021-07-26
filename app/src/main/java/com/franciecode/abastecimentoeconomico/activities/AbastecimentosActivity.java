@@ -21,7 +21,6 @@ import com.franciecode.abastecimentoeconomico.persistencia.AbastecimentoReposito
 import com.franciecode.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
-import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 
@@ -67,8 +66,6 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     protected void onStart() {
         super.onStart();
     }
-
-    private AdView mAdView;
 
     private void setViewsResumoTotal(List<AbastecimentoComVeiculo> all, List<AbastecimentoComVeiculo> filtrados) {
         if (all.size() > 0) {

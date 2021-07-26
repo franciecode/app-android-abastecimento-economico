@@ -1,13 +1,7 @@
 package com.franciecode.abastecimentoeconomico.utils;
 
 import android.app.Activity;
-import android.view.View;
 import android.widget.FrameLayout;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 public class ADMob {
     private final boolean mostrarAnuncioTelaMain = false;
@@ -19,6 +13,7 @@ public class ADMob {
     Activity activity;
 
     public ADMob(Activity activity) {
+        this.activity = activity;
         if (mostrarAnuncioTelaMain ||
                 mostrarAnuncioTelaAbastecimentos ||
                 mostrarAnuncioTelaVeiculos ||
@@ -26,16 +21,18 @@ public class ADMob {
                 mostrarAnuncioTelaChart ||
                 mostrarAnuncioTelaAddVeiculo
         ) {
-            this.activity = activity;
-            MobileAds.initialize(activity, initializationStatus -> {
+           /* MobileAds.initialize(activity, initializationStatus -> {
             });
+            */
         }
+
     }
 
     public void ancunioMain(FrameLayout frameLayout) {
     }
 
     public void anuncioChart(FrameLayout frame) {
+        /*
         if (mostrarAnuncioTelaMain == false) return;
         AdView adView = new AdView(activity);
         adView.setAdSize(AdSize.BANNER);
@@ -44,6 +41,7 @@ public class ADMob {
         adView.loadAd(adRequest);
         frame.addView(adView);
         frame.setVisibility(View.INVISIBLE);
+        */
     }
 
     public void anuncioVeiculos() {

@@ -12,12 +12,6 @@ import com.franciecode.abastecimentoeconomico.R;
 import com.franciecode.abastecimentoeconomico.adapters.VeiculosViewPager2Adapeter;
 import com.franciecode.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -29,7 +23,6 @@ public class VeiculosActivity extends BaseMenuActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private VeiculoViewModel veiculoViewModel;
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
