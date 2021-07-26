@@ -1,6 +1,5 @@
 package com.franciecode.abastecimentoeconomico.activities;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.franciecode.abastecimentoeconomico.R;
@@ -20,21 +18,9 @@ import com.franciecode.abastecimentoeconomico.enums.TipoCombustivel;
 import com.franciecode.abastecimentoeconomico.models.Abastecimento;
 import com.franciecode.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-
-import org.jetbrains.annotations.NotNull;
 
 public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
-    private static InterstitialAd mInterstitialAd;
     protected float precoGAsolina;
     protected float precoAlcool;
     protected CalculadoraCombustivel calculadoraCombustivel = new CalculadoraCombustivel();
@@ -59,33 +45,6 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
     }
 
-    public static void carregarAnuncioTelaCheia(Activity activity) {
-        MobileAds.initialize(activity, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
-
-            }
-        });
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity, "ca-app-pub-2036643128150326/8305722355", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-
-                        mInterstitialAd = null;
-                    }
-                });
-    }
 
     protected void setBaseFields() {
         textViewDetalheVeiculo = findViewById(R.id.textViewDetalheVeiculo);
@@ -189,39 +148,6 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
         }
 
         return erro == false;
-    }
-
-    public static void mostrarAnuncioTelaCheia(Activity activity, OnFullScreenADListener listener) {
-        if (mInterstitialAd != null && BaseMenuActivity.contagemRegressivaMotrarAnuncioTelaCheia <= 0) {
-            BaseMenuActivity.contagemRegressivaMotrarAnuncioTelaCheia = 2;
-            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                @Override
-                public void onAdFailedToShowFullScreenContent(@NonNull @NotNull AdError adError) {
-                    listener.done();
-                }
-
-                @Override
-                public void onAdShowedFullScreenContent() {
-
-                }
-
-                @Override
-                public void onAdDismissedFullScreenContent() {
-                    listener.done();
-                }
-
-                @Override
-                public void onAdImpression() {
-                }
-            });
-            mInterstitialAd.show(activity);
-        } else {
-            listener.done();
-        }
-    }
-
-    public interface OnFullScreenADListener {
-        void done();
     }
 
 }

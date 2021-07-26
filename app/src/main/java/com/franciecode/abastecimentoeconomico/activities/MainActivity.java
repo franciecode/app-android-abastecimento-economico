@@ -38,14 +38,11 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     private EditText editTextPrecoAlcool;
     private AppPreferencias appPreferencias;
     private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_calculo);
-
-        //CalculoResultadoBaseActivity.carregarAnuncioTelaCheia(this);
-
-        // adicionarAnuncio(null);
 
         actionBar = getSupportActionBar();
         actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));
@@ -117,7 +114,6 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     public void calcular(View view) {
         if (!validarFormulario()) return;
-        BaseMenuActivity.contagemRegressivaMotrarAnuncioTelaCheia = 0;
         Intent i;
         switch (tipoCalculo) {
             case BASICO:

@@ -36,8 +36,6 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo_resultado_basico);
 
-        carregarAnuncioTelaCheia(this);
-
         abastecimento = new Abastecimento();
 
         setBaseFields();
@@ -121,13 +119,8 @@ public class CalculoResultadoBasicoActivity extends CalculoResultadoBaseActivity
                 Alerts.alertSuccess(CalculoResultadoBasicoActivity.this, getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                         .setCancelable(false)
                         .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                            mostrarAnuncioTelaCheia(CalculoResultadoBasicoActivity.this, new OnFullScreenADListener() {
-                                @Override
-                                public void done() {
-                                    NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
-                                    finish();
-                                }
-                            });
+                            NavigationInActivities.goAbastecimentos(CalculoResultadoBasicoActivity.this);
+                            finish();
                         }).show();
 
 

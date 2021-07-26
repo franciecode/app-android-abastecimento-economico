@@ -21,8 +21,6 @@ import com.franciecode.abastecimentoeconomico.persistencia.AbastecimentoReposito
 import com.franciecode.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.List;
@@ -43,8 +41,6 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abastecimentos);
-
-        //adicionarAnuncio(null);
 
         textViewTotalRegistros = findViewById(R.id.textViewTotalRegistros);
         textViewTotaGasto = findViewById(R.id.textViewTotalGasto);
@@ -73,16 +69,6 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
     }
 
     private AdView mAdView;
-
-    private void adicionarAnuncio(AdListener listener) {
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
-        if (listener != null) {
-            mAdView.setAdListener(listener);
-        }
-    }
 
     private void setViewsResumoTotal(List<AbastecimentoComVeiculo> all, List<AbastecimentoComVeiculo> filtrados) {
         if (all.size() > 0) {

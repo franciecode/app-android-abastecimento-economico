@@ -36,8 +36,6 @@ public class VeiculosActivity extends BaseMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_veiculos);
 
-        adicionarAnuncio(null);
-
         veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
         veiculoViewModel.setRespository(new VeiculoRespository(this));
 
@@ -75,23 +73,6 @@ public class VeiculosActivity extends BaseMenuActivity {
             }
         });
         mediator.attach();
-    }
-
-    private void adicionarAnuncio(AdListener listener) {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
-
-            }
-
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
-        if (listener != null) {
-            mAdView.setAdListener(listener);
-        }
     }
 
 }

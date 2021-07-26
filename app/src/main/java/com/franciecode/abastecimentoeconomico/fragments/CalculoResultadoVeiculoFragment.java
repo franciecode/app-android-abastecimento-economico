@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.franciecode.abastecimentoeconomico.R;
 import com.franciecode.abastecimentoeconomico.activities.BaseCalculoResult;
-import com.franciecode.abastecimentoeconomico.activities.CalculoResultadoBaseActivity;
 import com.franciecode.abastecimentoeconomico.activities.NavigationInActivities;
 import com.franciecode.abastecimentoeconomico.enums.LocalViagem;
 import com.franciecode.abastecimentoeconomico.enums.TipoCalculo;
@@ -208,13 +207,8 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
                             getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
                             .setCancelable(false)
                             .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                CalculoResultadoBaseActivity.mostrarAnuncioTelaCheia(getActivity(), new CalculoResultadoBaseActivity.OnFullScreenADListener() {
-                                    @Override
-                                    public void done() {
-                                        NavigationInActivities.goAbastecimentos(getActivity());
-                                        getActivity().finish();
-                                    }
-                                });
+                                NavigationInActivities.goAbastecimentos(getActivity());
+                                getActivity().finish();
                             }).show();
                 }
             }

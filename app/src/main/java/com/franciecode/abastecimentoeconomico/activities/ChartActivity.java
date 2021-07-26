@@ -26,14 +26,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,16 +61,6 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
-
-            }
-        });
-
-       // adicionarAnuncio(null);
-
 
         ano = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -159,15 +142,6 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
 
             }
         });
-    }
-
-    private void adicionarAnuncio(AdListener listener) {
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        if (listener != null) {
-            mAdView.setAdListener(listener);
-        }
     }
 
     private void setDataSpinnerViculos(List<Veiculo> veiculos) {
