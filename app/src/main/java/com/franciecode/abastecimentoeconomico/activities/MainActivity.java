@@ -3,7 +3,6 @@ package com.franciecode.abastecimentoeconomico.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -18,6 +17,7 @@ import com.franciecode.abastecimentoeconomico.fragments.FormCalcularKmsLitroFrag
 import com.franciecode.abastecimentoeconomico.fragments.FormCalcularVeiculoFragment;
 import com.franciecode.abastecimentoeconomico.models.Veiculo;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
+import com.franciecode.abastecimentoeconomico.utils.ADMob;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
 
 import java.util.LinkedList;
@@ -34,12 +34,16 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     private EditText editTextPrecoGasolina;
     private EditText editTextPrecoAlcool;
     private AppPreferencias appPreferencias;
+    private ADMob adMob;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        adMob = new ADMob(this);
+        adMob.ancunioMain(findViewById(R.id.frameAnuncioMain));
 
         actionBar = getSupportActionBar();
         actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));

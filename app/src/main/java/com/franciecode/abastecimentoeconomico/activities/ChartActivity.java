@@ -191,8 +191,8 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
         int relatorioIndex = 0;
         // fill the lists
         for (int i = 0; i <= 11; i++) {
-            float gasto = (float) Math.floor(Math.random() * 999);
-            float economizado = gasto * 0.2f;
+            float gasto = 0f;
+            float economizado = 0f;
             int mes = i + 1;
             if (relatorios != null
                     && relatorioIndex < relatorios.size()
