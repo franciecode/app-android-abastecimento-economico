@@ -117,6 +117,7 @@
     <string name="exemplo_jos_fiat_mobi_drive">Exemplo: José - Fiat Mobi Drive</string>
     <string name="_0_0">0.0</string>
     <string name="salvar">Salvar</string>
+    <string name="ano_exemplo">2021</string>
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

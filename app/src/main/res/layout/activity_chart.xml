@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChartActivity">
+    tools:context=".activities.ChartActivity"    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,14 +26,15 @@
             android:padding="@dimen/grid_space"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            app:tint="@color/iconDark" />
 
         <TextView
             android:id="@+id/textViewAno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/grid_space"
-            android:text="2021"
+            android:text="@string/ano_exemplo"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintEnd_toStartOf="@+id/imageViewAnoProximo"
             app:layout_constraintStart_toEndOf="@+id/imageViewAnoAnterior"
@@ -47,7 +48,8 @@
             android:padding="@dimen/grid_space"
             app:layout_constraintRight_toLeftOf="@id/spinnerFiltrarGrafico"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:tint="@color/iconDark" />
 
         <Spinner
             android:id="@+id/spinnerFiltrarGrafico"

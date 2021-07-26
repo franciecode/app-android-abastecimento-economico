@@ -58,7 +58,7 @@ public class VeiculosActivity extends BaseMenuActivity {
                         public void onChanged(Integer integer) {
                             BadgeDrawable badge = tab.getOrCreateBadge();
                             badge.setNumber(integer);
-                            badge.setBackgroundColor(ContextCompat.getColor(VeiculosActivity.this, R.color.black));
+                            badge.setBackgroundColor(ContextCompat.getColor(VeiculosActivity.this, R.color.badgeDark));
                         }
                     });
                 } else {

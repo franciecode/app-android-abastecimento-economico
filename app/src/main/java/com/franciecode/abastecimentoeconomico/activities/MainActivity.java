@@ -19,9 +19,6 @@ import com.franciecode.abastecimentoeconomico.fragments.FormCalcularVeiculoFragm
 import com.franciecode.abastecimentoeconomico.models.Veiculo;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +34,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     private EditText editTextPrecoGasolina;
     private EditText editTextPrecoAlcool;
     private AppPreferencias appPreferencias;
-    private AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +66,6 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     }
 
-    private void adicionarAnuncio(AdListener listener) {
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
-        if (listener != null) {
-            mAdView.setAdListener(listener);
-        }
-    }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int item) {

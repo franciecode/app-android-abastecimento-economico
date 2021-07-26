@@ -25,9 +25,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/ic_baseline_directions_car_24"
                 android:drawableLeft="@drawable/ic_baseline_directions_car_24"
-                android:text="@string/carro"
-                android:drawableStart="@drawable/ic_baseline_directions_car_24" />
+                android:text="@string/carro" />
 
             <RadioButton
                 android:id="@+id/radioButtonMoto"
@@ -52,8 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/grid_space"
             android:hint="@string/exemplo_jos_fiat_mobi_drive"
-            android:inputType="text"
-            android:autofillHints="" />
+            android:inputType="text" />
 
 
         <TableLayout
@@ -87,17 +86,14 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:hint="@string/_0_0"
-                    android:inputType="numberDecimal"
-                    android:importantForAutofill="no"
-                    />
+                    android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/editTextKmsAlcoolRodovia"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:hint="@string/_0_0"
-                    android:inputType="numberDecimal"
-                    android:importantForAutofill="no" />
+                    android:inputType="numberDecimal" />
 
             </TableRow>
 
@@ -110,16 +106,14 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:hint="@string/_0_0"
-                    android:inputType="numberDecimal"
-                    android:importantForAutofill="no" />
+                    android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/editTextKmsGasolinaRodovia"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:hint="@string/_0_0"
-                    android:inputType="numberDecimal"
-                    android:importantForAutofill="no" />
+                    android:inputType="numberDecimal" />
 
             </TableRow>
 

@@ -21,12 +21,13 @@ import com.franciecode.abastecimentoeconomico.persistencia.databaseViews.Abastec
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.VeiculoViewModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,7 +56,6 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
     private VeiculoViewModel veiculoViewModel;
     private ArrayAdapter spinnerVeiculosAdapter;
     private List<Veiculo> veiculos = new ArrayList<>();
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +81,7 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
 
         // CHART
         // -------------------------------------------------------
-        chart = findViewById(R.id.chart);
-        XAxis xAxis = chart.getXAxis();
-        String[] meses = getResources().getStringArray(R.array.meses_chart);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
-        xAxis.setGranularity(1f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setCenterAxisLabels(false);
+        configChart();
 
         veiculoViewModel.getAll().observe(this, new Observer<List<Veiculo>>() {
             @Override
@@ -232,5 +226,25 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
     @Override
     public void onChanged(List<AbastecimentoRelatorioGraficoView> list) {
         setDataChart(list);
+    }
+
+    private void configChart() {
+        chart = findViewById(R.id.chart);
+        XAxis xAxis = chart.getXAxis();
+        String[] meses = getResources().getStringArray(R.array.meses_chart);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
+        xAxis.setGranularity(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setCenterAxisLabels(false);
+
+        YAxis yAxisRight = chart.getAxisRight();
+        YAxis yAxisLeft = chart.getAxisLeft();
+        Legend l = chart.getLegend();
+
+        int textColor = getResources().getColor(R.color.text_chart);
+        xAxis.setTextColor(textColor);
+        l.setTextColor(textColor);
+        yAxisRight.setTextColor(textColor);
+        yAxisLeft.setTextColor(textColor);
     }
 }
