@@ -14,8 +14,8 @@
     <color name="secondaryDark">#222222</color>
     <color name="screen_background">#333</color>
     <color name="screen_backgroundGray">#222</color>
-    <color name="color_gasolina">#ED5F12</color>
-    <color name="color_alcool">#008474</color>
+    <color name="color_gasolina">#FFA472</color>
+    <color name="color_alcool">#00CDB4</color>
     <color name="color_text_green">#00B09B</color>
     <color name="color_green">#00845C</color>
     <color name="bg_gray">#E8E8E8</color>
