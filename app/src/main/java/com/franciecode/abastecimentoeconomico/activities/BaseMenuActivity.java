@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.franciecode.abastecimentoeconomico.R;
 
@@ -32,6 +33,8 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_trocar_tema:
+                return trocarTema();
             case R.id.menu_abastecimentos:
                 if (this instanceof AbastecimentosActivity) return false;
                 Intent iAbastecimento = new Intent(BaseMenuActivity.this, AbastecimentosActivity.class);
@@ -52,6 +55,17 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                 startActivity(iChart);
                 break;
         }
+        return true;
+    }
+
+    protected boolean trocarTema() {
+        int nightMode = AppCompatDelegate.getDefaultNightMode();
+        if (nightMode == AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        // Recreate the activity for the theme change to take effect.
+        recreate();
         return true;
     }
 

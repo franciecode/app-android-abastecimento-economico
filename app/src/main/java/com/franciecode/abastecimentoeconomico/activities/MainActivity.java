@@ -39,10 +39,12 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_calculo);
+        setContentView(R.layout.activity_main);
 
         actionBar = getSupportActionBar();
         actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));
+
+        findViewById(R.id.btnCalcular).setOnClickListener(v -> calcular());
 
         radioGroupTipoCalculo = findViewById(R.id.radioGroupTipoCalculo);
         radioGroupTipoCalculo.setOnCheckedChangeListener(this);
@@ -100,7 +102,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     }
 
 
-    public void calcular(View view) {
+    public void calcular() {
         if (!validarFormulario()) return;
         Intent i;
         switch (tipoCalculo) {
