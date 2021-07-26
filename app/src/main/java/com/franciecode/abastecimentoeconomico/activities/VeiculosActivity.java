@@ -41,8 +41,6 @@ public class VeiculosActivity extends BaseMenuActivity {
         veiculoViewModel = new ViewModelProvider(this).get(VeiculoViewModel.class);
         veiculoViewModel.setRespository(new VeiculoRespository(this));
 
-
-
         // field views
         tabLayout = findViewById(R.id.tabLayoutVeiculos);
         viewPager2 = findViewById(R.id.viewPager2Veiculos);

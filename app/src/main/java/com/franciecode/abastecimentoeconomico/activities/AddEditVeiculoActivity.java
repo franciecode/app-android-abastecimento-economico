@@ -80,6 +80,7 @@ public class AddEditVeiculoActivity extends BaseMenuActivity {
         ActionBar actionBar = getSupportActionBar();
         // Preencher formulário com dados do veiculo a ser editado
         if (veiculoEdit != null) {
+            if(actionBar != null)
             actionBar.setTitle(R.string.atualizar_veiculo);
             editTextNomeVeiculo.setText(veiculoEdit.getNome());
             if (veiculoEdit.getTipo().equals(Veiculo.TIPO_VEICULO_CARRO)) {

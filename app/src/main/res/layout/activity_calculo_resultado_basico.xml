@@ -139,7 +139,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:hint="0.0"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                tools:ignore="Autofill" />
             LinearLayout
         </LinearLayout>
 
