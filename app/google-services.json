@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "556984356483",
+    "project_id": "app-abastecimento-economico",
+    "storage_bucket": "app-abastecimento-economico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556984356483:android:334b460bf26d762c0295b6",
+        "android_client_info": {
+          "package_name": "com.franciecode.abastecimentoeconomico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556984356483-stqv7a131k140fmahkgq4u7lgfrju473.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.franciecode.abastecimentoeconomico",
+            "certificate_hash": "31b11a4a1696288a96d4e2d503c6a134c3015327"
+          }
+        },
+        {
+          "client_id": "556984356483-d0l0joorqg8l5hr8d9vkba1k9csvq3gs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCBxQa5_AP96PAcKmwCUNd8hhL0SMFQJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556984356483-d0l0joorqg8l5hr8d9vkba1k9csvq3gs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
