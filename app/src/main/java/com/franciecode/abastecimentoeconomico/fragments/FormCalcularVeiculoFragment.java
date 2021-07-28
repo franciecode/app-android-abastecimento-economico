@@ -14,7 +14,6 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,11 +26,6 @@ import com.franciecode.abastecimentoeconomico.persistencia.viewModel.VeiculoView
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FormCalcularVeiculoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
     // TODO: Rename and change types of parameters
     private Spinner spinnerVeiculo;
@@ -54,13 +48,6 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
 
     public FormCalcularVeiculoFragment() {
         // Required empty public constructor
-    }
-
-    public static FormCalcularVeiculoFragment newInstance() {
-        FormCalcularVeiculoFragment fragment = new FormCalcularVeiculoFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -122,19 +109,16 @@ public class FormCalcularVeiculoFragment extends FormCalcularBaseFragment {
     }
 
     private void carregarVeiculos() {
-        veiculoViewModel.getAll().observe(getActivity(), new Observer<List<Veiculo>>() {
-            @Override
-            public void onChanged(List<Veiculo> veiculos) {
-                resetDataSpinnerAdapter();
-                Veiculo v;
-                for (int i = 0; i < veiculos.size(); i++) {
-                    v = veiculos.get(i);
-                    spinnerAdapter.add(v.getNome());
-                    listVeiculos = veiculos;
-                    if ((newVeiculoId != null && v.getId() == newVeiculoId) ||
-                            (veiculoIdUltimoAbastecimento != -1 && v.getId() == veiculoIdUltimoAbastecimento))
-                        autoSelecionarVeiculo(i + 2, v);
-                }
+        veiculoViewModel.getAll().observe(getActivity(), veiculos -> {
+            resetDataSpinnerAdapter();
+            Veiculo v;
+            for (int i = 0; i < veiculos.size(); i++) {
+                v = veiculos.get(i);
+                spinnerAdapter.add(v.getNome());
+                listVeiculos = veiculos;
+                if ((newVeiculoId != null && v.getId() == newVeiculoId) ||
+                        (veiculoIdUltimoAbastecimento != -1 && v.getId() == veiculoIdUltimoAbastecimento))
+                    autoSelecionarVeiculo(i + 2, v);
             }
         });
     }

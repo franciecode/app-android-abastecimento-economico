@@ -18,15 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHolder> {
-
-    private static final String TAG = VeiculosAdapter.class.getSimpleName();
     private List<Veiculo> veiculos;
-    private final Context context;
     private final LayoutInflater layoutInflater;
     private final OnItemClickListener listener;
 
     public VeiculosAdapter(Context context, OnItemClickListener listener) {
-        this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.listener = listener;
     }
@@ -50,18 +46,8 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         if (getItemCount() > 0) {
             holder.setData(veiculos.get(position));
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onClick(veiculos.get(position), position);
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    return listener.onLongClick(veiculos.get(position), position);
-                }
-            });
+            holder.itemView.setOnClickListener(view -> listener.onClick(veiculos.get(position), position));
+            holder.itemView.setOnLongClickListener(view -> listener.onLongClick(veiculos.get(position), position));
         }
     }
 

@@ -30,6 +30,8 @@ import com.franciecode.abastecimentoeconomico.widgets.Alerts;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CalculoResultadoVeiculoFragment#newInstance} factory method to
@@ -160,17 +162,17 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
         RendimentoCombustivel rGasolina = result.getRendimentoGasolina();
         RendimentoCombustivel rAlcool = result.getRendimentoAlcool();
 
-        textViewTablePrecoKmGasolina.setText(String.format(getString(R.string.valor_dinheiro), rGasolina.getPrecoKm()));
-        textViewTableTotalKmsGasolina.setText(String.format("%.2f", rGasolina.getTotalKms()));
-        textViewTableTotalPagarGasolina.setText(String.format(getString(R.string.valor_dinheiro), rGasolina.getCustoTotal()));
+        textViewTablePrecoKmGasolina.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), rGasolina.getPrecoKm()));
+        textViewTableTotalKmsGasolina.setText(String.format(Locale.getDefault(), "%.2f", rGasolina.getTotalKms()));
+        textViewTableTotalPagarGasolina.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), rGasolina.getCustoTotal()));
 
-        textViewTablePrecoKmAlcool.setText(String.format(getString(R.string.valor_dinheiro), rAlcool.getPrecoKm()));
-        textViewTableTotalKmsAlcool.setText(String.format("%.2f", rAlcool.getTotalKms()));
-        textViewTableTotalPagarAlcool.setText(String.format(getString(R.string.valor_dinheiro), rAlcool.getCustoTotal()));
+        textViewTablePrecoKmAlcool.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), rAlcool.getPrecoKm()));
+        textViewTableTotalKmsAlcool.setText(String.format(Locale.getDefault(), "%.2f", rAlcool.getTotalKms()));
+        textViewTableTotalPagarAlcool.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), rAlcool.getCustoTotal()));
 
-        textViewTablePrecoKmDiferenca.setText(String.format(getString(R.string.valor_dinheiro), Math.abs(rAlcool.getPrecoKm() - rGasolina.getPrecoKm())));
-        textViewTableTotalKmsDiferenca.setText(String.format("%.2f", Math.abs(rAlcool.getTotalKms() - rGasolina.getTotalKms())));
-        textViewTableTotalPagarDiferenca.setText(String.format(getString(R.string.valor_dinheiro), Math.abs(rAlcool.getCustoTotal() - rGasolina.getCustoTotal())));
+        textViewTablePrecoKmDiferenca.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), Math.abs(rAlcool.getPrecoKm() - rGasolina.getPrecoKm())));
+        textViewTableTotalKmsDiferenca.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(rAlcool.getTotalKms() - rGasolina.getTotalKms())));
+        textViewTableTotalPagarDiferenca.setText(String.format(Locale.getDefault(), getString(R.string.valor_dinheiro), Math.abs(rAlcool.getCustoTotal() - rGasolina.getCustoTotal())));
 
     }
 
@@ -194,23 +196,20 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
 
     public void salvarAbastecimento(Abastecimento abastecimento) {
         if (!validarFormSalvarAbastecimento()) return;
-        viewModel.insert(abastecimento, new AbastecimentoRepository.OnInsert() {
-            @Override
-            public void onComplete(Exception e, Abastecimento abastecimento) {
-                if (e != null) {
-                    Alerts.alertWaring(getActivity(),
-                            getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())
-                            .setPositiveButton(R.string.ok, null)
-                            .show();
-                } else {
-                    Alerts.alertSuccess(getActivity(),
-                            getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                NavigationInActivities.goAbastecimentos(getActivity());
-                                getActivity().finish();
-                            }).show();
-                }
+        viewModel.insert(abastecimento, (e, abastecimento1) -> {
+            if (e != null) {
+                Alerts.alertWaring(getActivity(),
+                        getString(R.string.erro_ao_salvar_abastecimento), e.getMessage())
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+            } else {
+                Alerts.alertSuccess(getActivity(),
+                        getString(R.string.sucesso), getString(R.string.abastecimento_salvo_com_sucesso))
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                            NavigationInActivities.goAbastecimentos(getActivity());
+                            getActivity().finish();
+                        }).show();
             }
         });
     }
@@ -226,7 +225,7 @@ public class CalculoResultadoVeiculoFragment extends Fragment {
             erro = true;
         }
 
-        return erro == false;
+        return !erro;
     }
 
 }

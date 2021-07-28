@@ -34,16 +34,15 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ChartActivity extends AppCompatActivity implements Observer<List<AbastecimentoRelatorioGraficoView>> {
-    private final float CHART_GROUP_SPACE = 0.06f;
-    private final float CHART_BAR_SPACE = 0.02f; // x2 dataset
-    private final float CHART_BAR_WIDTH = 0.45f; // x2 dataset
-    private final String TAG = ChartActivity.class.getSimpleName();
+    private final Float CHART_GROUP_SPACE = 0.06f;
+    private final Float CHART_BAR_SPACE = 0.02f; // x2 dataset
+    private final Float CHART_BAR_WIDTH = 0.45f; // x2 dataset
     private final long TODOS_VEICULO = -1;
     private BarChart chart;
     private TextView textViewTotalGasto;
     private TextView textViewTotalEconomizado;
-    private final ArrayList<BarEntry> entryGastos = new ArrayList<BarEntry>(12);
-    private final ArrayList<BarEntry> entryEconomias = new ArrayList<BarEntry>(12);
+    private final ArrayList<BarEntry> entryGastos = new ArrayList<>(12);
+    private final ArrayList<BarEntry> entryEconomias = new ArrayList<>(12);
     private AbastecimentoViewModel abastecimentoViewModel;
     private ImageView imageViewAnoAnterior;
     private ImageView imageViewAnoProximo;
@@ -83,12 +82,9 @@ public class ChartActivity extends AppCompatActivity implements Observer<List<Ab
         // -------------------------------------------------------
         configChart();
 
-        veiculoViewModel.getAll().observe(this, new Observer<List<Veiculo>>() {
-            @Override
-            public void onChanged(List<Veiculo> list) {
-                veiculos = list;
-                setDataSpinnerViculos(veiculos);
-            }
+        veiculoViewModel.getAll().observe(this, list -> {
+            veiculos = list;
+            setDataSpinnerViculos(veiculos);
         });
 
 

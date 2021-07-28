@@ -19,6 +19,8 @@ import com.franciecode.abastecimentoeconomico.models.Abastecimento;
 import com.franciecode.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
 
+import java.util.Locale;
+
 public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
     protected float precoGAsolina;
@@ -75,7 +77,7 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                litrosAbastecidos = Float.valueOf(charSequence.length() == 0 ? "0.0" : charSequence.toString());
+                litrosAbastecidos = Float.valueOf(charSequence.length() == 0 ? "0" : charSequence.toString());
             }
 
             @Override
@@ -122,7 +124,7 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
             }
         }
 
-        textViewPorcentagemEconomia.setText(String.format("%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
+        textViewPorcentagemEconomia.setText(String.format(Locale.getDefault(), "%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
 
     }
 
@@ -147,7 +149,7 @@ public abstract class CalculoResultadoBaseActivity extends AppCompatActivity {
             erro = true;
         }
 
-        return erro == false;
+        return !erro;
     }
 
 }

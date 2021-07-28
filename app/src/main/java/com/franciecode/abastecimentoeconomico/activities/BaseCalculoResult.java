@@ -18,6 +18,8 @@ import com.franciecode.abastecimentoeconomico.enums.TipoCombustivel;
 import com.franciecode.abastecimentoeconomico.models.CalculadoraCombustivel;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
 
+import java.util.Locale;
+
 public abstract class BaseCalculoResult {
 
     protected float precoGAsolina;
@@ -72,7 +74,7 @@ public abstract class BaseCalculoResult {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                litrosAbastecidos = Float.valueOf(charSequence.length() == 0 ? "0.0" : charSequence.toString());
+                litrosAbastecidos = Float.valueOf(charSequence.length() == 0 ? "0" : charSequence.toString());
             }
 
             @Override
@@ -105,11 +107,11 @@ public abstract class BaseCalculoResult {
             erro = true;
         }
 
-        return erro == false;
+        return !erro;
     }
 
-    public void calcularCombustivelMaisBarato(float precoAlcool, float precoGasolina, float kmsGasolina, float kmsAlcool) {
-        combustivelMaisBarato = calculadoraCombustivel.calcularCombustivelMaisBarato(precoGAsolina, precoAlcool, kmsGasolina, kmsAlcool);
+    public void calcularCombustivelMaisBarato(float precoDoAlcool, float precoDagasolina, float kmsGasolina, float kmsAlcool) {
+        combustivelMaisBarato = calculadoraCombustivel.calcularCombustivelMaisBarato(precoDagasolina, precoDoAlcool, kmsGasolina, kmsAlcool);
         combustivelRecomendado = combustivelMaisBarato.getCombustivelMaisBarato();
         setCombustivelRecomendado(combustivelMaisBarato);
     }
@@ -135,6 +137,6 @@ public abstract class BaseCalculoResult {
             }
         }
 
-        textViewPorcentagemEconomia.setText(String.format("%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
+        textViewPorcentagemEconomia.setText(String.format(Locale.getDefault(), "%.2f%s", combustivelMaisBarato.getPorcentagemEconomia(), "%"));
     }
 }

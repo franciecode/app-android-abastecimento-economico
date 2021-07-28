@@ -56,9 +56,7 @@ public class AbastecimentoRepository {
                     e.printStackTrace();
                 }
 
-                handler.post(() -> {
-                    listener.onComplete(exception, abastecimento);
-                });
+                handler.post(() -> listener.onComplete(exception, abastecimento));
             }
         });
     }

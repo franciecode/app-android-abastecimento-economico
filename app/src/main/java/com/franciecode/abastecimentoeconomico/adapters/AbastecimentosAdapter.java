@@ -219,14 +219,13 @@ public class AbastecimentosAdapter extends RecyclerView.Adapter<AbastecimentosAd
         @NotNull
         @Override
         public String toString() {
-            String sb = tipoAbastecimento +
+            return tipoAbastecimento +
                     " " +
                     dataAbastecimento +
                     " " +
                     descricao +
                     " " +
                     detalhes;
-            return sb;
         }
 
     }

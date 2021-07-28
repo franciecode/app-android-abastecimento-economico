@@ -42,12 +42,14 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     private EditText editTextPrecoAlcool;
     private AppPreferencias appPreferencias;
     private ADMob adMob;
-
+    private Bundle mSavedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSavedInstanceState = savedInstanceState;
 
         adMob = new ADMob(this);
         adMob.ancunioMain(findViewById(R.id.frameAnuncioMain));
@@ -55,16 +57,18 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         actionBar = getSupportActionBar();
 
         findViewById(R.id.btnCalcular).setOnClickListener(v -> calcular());
+        findViewById(R.id.radioButtonCalcularPorVeiculo).setOnClickListener(V -> carregarFramentCalculo(TipoCalculo.VEICULO));
+        findViewById(R.id.radioButtonCalcularPorKmsLitro).setOnClickListener(V -> carregarFramentCalculo(TipoCalculo.KMS_LITRO));
+        findViewById(R.id.radioButtonCalcularPorBasico).setOnClickListener(V -> carregarFramentCalculo(TipoCalculo.BASICO));
 
-        radioGroupTipoCalculo = findViewById(R.id.radioGroupTipoCalculo);
-        radioGroupTipoCalculo.setOnCheckedChangeListener(this);
-        radioGroupTipoCalculo.check(R.id.radioButtonCalcularPorVeiculo);
         fragmentManager = getSupportFragmentManager();
         editTextPrecoGasolina = findViewById(R.id.editTextPrecoGasolina);
         editTextPrecoAlcool = findViewById(R.id.editTextPrecoAlcool);
 
 
         if (savedInstanceState == null) {
+            carregarFramentCalculo(TipoCalculo.VEICULO);
+
             appPreferencias = new AppPreferencias(this);
             if (appPreferencias.getPrecoGasolina() > 0) {
                 editTextPrecoGasolina.setText(String.valueOf(appPreferencias.getPrecoGasolina()));
@@ -87,6 +91,23 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     }
 
+    private void carregarFramentCalculo(TipoCalculo tipo) {
+        switch (tipo) {
+            case VEICULO:
+                tipoCalculo = TipoCalculo.VEICULO;
+                setFragementTipCalculo(FormCalcularVeiculoFragment.class, FRAGMENTO_VEICULO);
+                break;
+            case KMS_LITRO:
+                tipoCalculo = TipoCalculo.KMS_LITRO;
+                setFragementTipCalculo(FormCalcularKmsLitroFragment.class, FRAGMENTO_KMS_LITRO);
+                break;
+            case BASICO:
+                tipoCalculo = TipoCalculo.BASICO;
+                setFragementTipCalculo(FormCalcularBasicoFragment.class, FRAGMENTO_BASICO);
+                break;
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
         outState.putString("tipoCalculo", tipoCalculo.name());
@@ -98,20 +119,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int item) {
-        switch (item) {
-            case R.id.radioButtonCalcularPorVeiculo:
-                tipoCalculo = TipoCalculo.VEICULO;
-                setFragementTipCalculo(FormCalcularVeiculoFragment.class, FRAGMENTO_VEICULO);
-                break;
-            case R.id.radioButtonCalcularPorKmsLitro:
-                tipoCalculo = TipoCalculo.KMS_LITRO;
-                setFragementTipCalculo(FormCalcularKmsLitroFragment.class, FRAGMENTO_KMS_LITRO);
-                break;
-            case R.id.radioButtonCalcularPorBasico:
-                tipoCalculo = TipoCalculo.BASICO;
-                setFragementTipCalculo(FormCalcularBasicoFragment.class, FRAGMENTO_BASICO);
-                break;
-        }
+
     }
 
     private void setFragementTipCalculo(Class<? extends FormCalcularBaseFragment> fragmentClass, String nomeFragmento) {
@@ -174,9 +182,9 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         int k = 0;
         switch (tipoCalculo) {
             case KMS_LITRO:
-                if (kmsLitroGasolina <= 0)
+                if (kmsLitroGasolina == null || kmsLitroGasolina <= 0)
                     errors.add("Informe o total de kms/litro de gasolina");
-                if (kmsLitroAlcool <= 0)
+                if (kmsLitroAlcool == null || kmsLitroAlcool <= 0)
                     errors.add("Informe o total de kms/litro de álcool");
                 break;
             case VEICULO:

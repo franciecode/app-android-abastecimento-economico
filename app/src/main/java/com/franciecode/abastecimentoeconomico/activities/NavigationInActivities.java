@@ -9,9 +9,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.franciecode.abastecimentoeconomico.models.Veiculo;
 
 public class NavigationInActivities {
-    public static void goAbastecimentos(Context context) {
-        Intent i = new Intent(context, AbastecimentosActivity.class);
-        context.startActivity(i);
+    public static void goAbastecimentos(Activity activity) {
+        Intent i = new Intent(activity, AbastecimentosActivity.class);
+        activity.startActivity(i);
     }
 
     public static void goAddVeiculoForResult(Activity activity, ActivityResultLauncher<Intent> launcher) {

@@ -8,8 +8,7 @@ public class CalculadoraCombustivel {
         float totalKms = kmsLitro * litros;
         float precoKm = precoCombustivel / kmsLitro;
         float custoTotal = totalKms * precoKm;
-        RendimentoCombustivel rendimento = new RendimentoCombustivel(precoCombustivel, litros, kmsLitro, precoKm, totalKms, custoTotal);
-        return rendimento;
+        return new RendimentoCombustivel(precoCombustivel, litros, kmsLitro, precoKm, totalKms, custoTotal);
     }
 
 

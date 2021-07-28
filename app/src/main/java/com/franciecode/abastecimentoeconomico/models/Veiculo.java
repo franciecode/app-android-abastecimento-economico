@@ -27,8 +27,6 @@ public class Veiculo implements Parcelable {
     Float kmsLitroRodoviaAlcool;
     String tipo;
     Boolean deleted = false;
-    @Ignore
-    int totalRegistros;
     /**
      * modelo de veiculo falso para os calculos do tipo Basico e Kms/Litro
      */
@@ -43,14 +41,6 @@ public class Veiculo implements Parcelable {
 
     public void setFakeModel(boolean fakeModel) {
         this.fakeModel = fakeModel;
-    }
-
-    public int getTotalRegistros() {
-        return totalRegistros;
-    }
-
-    public void setTotalRegistros(int totalRegistros) {
-        this.totalRegistros = totalRegistros;
     }
 
     protected Veiculo(Parcel in) {

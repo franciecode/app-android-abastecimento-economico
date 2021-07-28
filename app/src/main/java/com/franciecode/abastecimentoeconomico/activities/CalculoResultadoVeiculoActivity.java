@@ -3,7 +3,6 @@ package com.franciecode.abastecimentoeconomico.activities;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -13,8 +12,6 @@ import com.franciecode.abastecimentoeconomico.models.Veiculo;
 import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import org.jetbrains.annotations.NotNull;
 
 public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
 
@@ -38,14 +35,11 @@ public class CalculoResultadoVeiculoActivity extends AppCompatActivity {
         precoGasolina = getIntent().getFloatExtra("precoGasolina", 0);
         precoAlcool = getIntent().getFloatExtra("precoAlcool", 0);
 
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
-                if (position == 0) {
-                    tab.setText(getString(R.string.cidade));
-                } else {
-                    tab.setText(getString(R.string.rodovia));
-                }
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            if (position == 0) {
+                tab.setText(getString(R.string.cidade));
+            } else {
+                tab.setText(getString(R.string.rodovia));
             }
         });
         tabLayoutMediator.attach();

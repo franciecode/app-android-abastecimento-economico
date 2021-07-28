@@ -1,6 +1,5 @@
 package com.franciecode.abastecimentoeconomico.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.Menu;
@@ -9,7 +8,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +16,12 @@ import com.franciecode.abastecimentoeconomico.R;
 import com.franciecode.abastecimentoeconomico.adapters.AbastecimentosAdapter;
 import com.franciecode.abastecimentoeconomico.models.AbastecimentoComVeiculo;
 import com.franciecode.abastecimentoeconomico.persistencia.AbastecimentoRepository;
-import com.franciecode.abastecimentoeconomico.persistencia.VeiculoRespository;
 import com.franciecode.abastecimentoeconomico.persistencia.viewModel.AbastecimentoViewModel;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
 
 import java.util.List;
 
 public class AbastecimentosActivity extends BaseMenuActivity implements AbastecimentosAdapter.AdapterObserver {
-
-    private final static String TAG = AbastecimentosActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private AbastecimentosAdapter abastecimentosAdapter;
     private AbastecimentoViewModel abastecimentoViewModel;
@@ -53,12 +48,7 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
 
         abastecimentoViewModel = new ViewModelProvider(this).get(AbastecimentoViewModel.class);
         abastecimentoViewModel.setRepository(new AbastecimentoRepository(this));
-        abastecimentoViewModel.getAbastecimentoComVeiculos().observe(this, new Observer<List<AbastecimentoComVeiculo>>() {
-            @Override
-            public void onChanged(List<AbastecimentoComVeiculo> abastecimentoComVeiculos) {
-                abastecimentosAdapter.setAbastecimentos(abastecimentoComVeiculos);
-            }
-        });
+        abastecimentoViewModel.getAbastecimentoComVeiculos().observe(this, abastecimentoComVeiculos -> abastecimentosAdapter.setAbastecimentos(abastecimentoComVeiculos));
 
     }
 
@@ -129,28 +119,20 @@ public class AbastecimentosActivity extends BaseMenuActivity implements Abasteci
         String dataAbastecimento = DateFormat.format(getString(R.string.data_hora), abastecimentoComVeiculo.abastecimento.getDataAbastecimento()).toString();
         Alerts.alertWaring(this, getString(R.string.remover_abastecimento),
                 String.format(getString(R.string.confirma_remover_abastecimento), dataAbastecimento)
-        ).setPositiveButton(R.string.remover, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                abastecimentoViewModel.delete(abastecimentoComVeiculo.abastecimento, new VeiculoRespository.OnDeleteListener() {
-                    @Override
-                    public void onComplete(Exception e) {
-                        if (e != null) {
-                            Alerts.alertError(AbastecimentosActivity.this,
-                                    getString(R.string.erro_ao_remover_abastecimento),
-                                    e.getMessage())
-                                    .setPositiveButton("ok", null)
-                                    .show();
-                        } else {
-                            Toast.makeText(AbastecimentosActivity.this,
-                                    getString(R.string.abasteciment_removido_com_sucesso),
-                                    Toast.LENGTH_SHORT).show();
-                            abastecimentosAdapter.removeItem(position);
-                        }
-                    }
-                });
+        ).setPositiveButton(R.string.remover, (dialogInterface, i) -> abastecimentoViewModel.delete(abastecimentoComVeiculo.abastecimento, e -> {
+            if (e != null) {
+                Alerts.alertError(AbastecimentosActivity.this,
+                        getString(R.string.erro_ao_remover_abastecimento),
+                        e.getMessage())
+                        .setPositiveButton("ok", null)
+                        .show();
+            } else {
+                Toast.makeText(AbastecimentosActivity.this,
+                        getString(R.string.abasteciment_removido_com_sucesso),
+                        Toast.LENGTH_SHORT).show();
+                abastecimentosAdapter.removeItem(position);
             }
-        }).setNegativeButton(getString(R.string.cancelar), null)
+        })).setNegativeButton(getString(R.string.cancelar), null)
                 .show();
         return false;
     }

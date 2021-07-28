@@ -35,7 +35,6 @@ public abstract class FormCalcularBaseFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         setListener((Listener) context);
-        listener.onChangedFormCalcularFragmentListener(veiculo, kmsLitroGasolina, kmsLitroAlcool);
     }
 
     public interface Listener {

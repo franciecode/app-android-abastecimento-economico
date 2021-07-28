@@ -16,14 +16,12 @@ import java.util.concurrent.Executors;
 
 public class VeiculoRespository {
     private final AbastecimentoDao abastecimentoDao;
-    private final AppDBRoom db;
     private final VeiculoDao dao;
-    private Context context;
 
     public VeiculoRespository(Context context) {
-        this.db = AppDBRoom.getInstance(context);
-        this.dao = this.db.veiculoDao();
-        this.abastecimentoDao = this.db.abastecimentoDao();
+        AppDBRoom db = AppDBRoom.getInstance(context);
+        this.dao = db.veiculoDao();
+        this.abastecimentoDao = db.abastecimentoDao();
     }
 
     public void insert(Veiculo veiculo, OnInsert listener) {
@@ -47,9 +45,7 @@ public class VeiculoRespository {
                     e.printStackTrace();
                 }
 
-                handler.post(() -> {
-                    listener.onComplete(ex, veiculo);
-                });
+                handler.post(() -> listener.onComplete(ex, veiculo));
 
             }
 
@@ -83,9 +79,7 @@ public class VeiculoRespository {
                     e.printStackTrace();
                 }
 
-                handler.post(() -> {
-                    listener.onComplete(ex, veiculo);
-                });
+                handler.post(() -> listener.onComplete(ex, veiculo));
 
             }
 
@@ -112,9 +106,7 @@ public class VeiculoRespository {
                     e.printStackTrace();
                 }
 
-                handler.post(() -> {
-                    listener.onComplete(ex, veiculo);
-                });
+                handler.post(() -> listener.onComplete(ex, veiculo));
 
             }
 
@@ -201,7 +193,4 @@ public class VeiculoRespository {
         void onComplete(Exception e);
     }
 
-    public interface OnReadSingleVeiculo {
-        void onComplete(Exception e, Veiculo veiculo);
-    }
 }

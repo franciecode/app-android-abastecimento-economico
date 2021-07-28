@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VeiculosViewPager2Adapeter extends FragmentStateAdapter {
-    private static final String TAG = VeiculosViewPager2Adapeter.class.getSimpleName();
     List<VeiculosFragment> fragments = new ArrayList<>(2);
 
     public VeiculosViewPager2Adapeter(@NonNull @NotNull FragmentActivity fragmentActivity) {

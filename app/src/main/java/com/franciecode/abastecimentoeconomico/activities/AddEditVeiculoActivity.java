@@ -64,17 +64,14 @@ public class AddEditVeiculoActivity extends BaseMenuActivity {
 
 
         // Actions
-        radioGroupVeiculo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.radioButtonCarro:
-                        tipoVeiculo = Veiculo.TIPO_VEICULO_CARRO;
-                        break;
-                    case R.id.radioButtonMoto:
-                        tipoVeiculo = Veiculo.TIPO_VEICULO_MOTO;
-                        break;
-                }
+        radioGroupVeiculo.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                case R.id.radioButtonCarro:
+                    tipoVeiculo = Veiculo.TIPO_VEICULO_CARRO;
+                    break;
+                case R.id.radioButtonMoto:
+                    tipoVeiculo = Veiculo.TIPO_VEICULO_MOTO;
+                    break;
             }
         });
         ActionBar actionBar = getSupportActionBar();

@@ -41,28 +41,17 @@ public class VeiculosActivity extends BaseMenuActivity {
         viewPager2.setAdapter(veiculosViewPager2Adapeter);
 
         // Actions
-        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull @NotNull TabLayout.Tab tab, int position) {
-                if (position == 0) {
-                    tab.setText(R.string.cadastrados);
-                    veiculoViewModel.getTotalCadastrados().observe(VeiculosActivity.this, new Observer<Integer>() {
-                        @Override
-                        public void onChanged(Integer integer) {
-                            BadgeDrawable badge = tab.getOrCreateBadge();
-                            badge.setNumber(integer);
-                            badge.setBackgroundColor(ContextCompat.getColor(VeiculosActivity.this, R.color.badgeDark));
-                        }
-                    });
-                } else {
-                    tab.setIcon(R.drawable.ic_baseline_delete_24);
-                    veiculoViewModel.getTotalRemovidos().observe(VeiculosActivity.this, new Observer<Integer>() {
-                        @Override
-                        public void onChanged(Integer integer) {
-                            tab.getOrCreateBadge().setNumber(integer);
-                        }
-                    });
-                }
+        TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            if (position == 0) {
+                tab.setText(R.string.cadastrados);
+                veiculoViewModel.getTotalCadastrados().observe(VeiculosActivity.this, integer -> {
+                    BadgeDrawable badge = tab.getOrCreateBadge();
+                    badge.setNumber(integer);
+                    badge.setBackgroundColor(ContextCompat.getColor(VeiculosActivity.this, R.color.badgeDark));
+                });
+            } else {
+                tab.setIcon(R.drawable.ic_baseline_delete_24);
+                veiculoViewModel.getTotalRemovidos().observe(VeiculosActivity.this, integer -> tab.getOrCreateBadge().setNumber(integer));
             }
         });
         mediator.attach();

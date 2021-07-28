@@ -22,21 +22,18 @@ public class AbastecimentoViculoViewPager2Adapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return CalculoResultadoVeiculoFragment.newInstance(
-                        LocalViagem.CIDADE,
-                        calculoResultadoVeiculoActivity.getPrecoGasolina(),
-                        calculoResultadoVeiculoActivity.getPreoAlcool(),
-                        calculoResultadoVeiculoActivity.getVeiculo());
-            default:
-                return CalculoResultadoVeiculoFragment.newInstance(
-                        LocalViagem.RODOVIA,
-                        calculoResultadoVeiculoActivity.getPrecoGasolina(),
-                        calculoResultadoVeiculoActivity.getPreoAlcool(),
-                        calculoResultadoVeiculoActivity.getVeiculo());
-
+        if (position == 0) {
+            return CalculoResultadoVeiculoFragment.newInstance(
+                    LocalViagem.CIDADE,
+                    calculoResultadoVeiculoActivity.getPrecoGasolina(),
+                    calculoResultadoVeiculoActivity.getPreoAlcool(),
+                    calculoResultadoVeiculoActivity.getVeiculo());
         }
+        return CalculoResultadoVeiculoFragment.newInstance(
+                LocalViagem.RODOVIA,
+                calculoResultadoVeiculoActivity.getPrecoGasolina(),
+                calculoResultadoVeiculoActivity.getPreoAlcool(),
+                calculoResultadoVeiculoActivity.getVeiculo());
     }
 
     @Override
