@@ -14,8 +14,8 @@ public abstract class FormCalcularBaseFragment extends Fragment {
     // TODO: Rename and change types of parameters
     protected Listener listener;
     protected Veiculo veiculo;
-    protected Float kmsLitroGasolina = 0.0f;
-    protected Float kmsLitroAlcool = 0.0f;
+    protected Float kmsLitroGasolina = 0f;
+    protected Float kmsLitroAlcool = 0f;
 
     public FormCalcularBaseFragment() {
         // Required empty public constructor

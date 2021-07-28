@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 
@@ -20,17 +21,23 @@ import com.franciecode.abastecimentoeconomico.persistencia.AppPreferencias;
 import com.franciecode.abastecimentoeconomico.utils.ADMob;
 import com.franciecode.abastecimentoeconomico.widgets.Alerts;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheckedChangeListener, FormCalcularBaseFragment.Listener {
+    private final String FRAGMENTO_VEICULO = "veiculo";
+    private final String FRAGMENTO_KMS_LITRO = "kmsLitro";
+    private final String FRAGMENTO_BASICO = "basico";
+
     private FragmentManager fragmentManager;
     private RadioGroup radioGroupTipoCalculo;
     private ActionBar actionBar;
     private TipoCalculo tipoCalculo;
-    Float kmsLitroGasolina = 0f;
-    Float kmsLitroAlcool = 0f;
-    Veiculo veiculo;
+    public Float kmsLitroGasolina = 0f;
+    public Float kmsLitroAlcool = 0f;
+    public Veiculo veiculo;
     private EditText editTextPrecoGasolina;
     private EditText editTextPrecoAlcool;
     private AppPreferencias appPreferencias;
@@ -46,7 +53,6 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         adMob.ancunioMain(findViewById(R.id.frameAnuncioMain));
 
         actionBar = getSupportActionBar();
-        actionBar.setSubtitle(getString(R.string.alcool_ou_gasolina));
 
         findViewById(R.id.btnCalcular).setOnClickListener(v -> calcular());
 
@@ -57,44 +63,60 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
         editTextPrecoGasolina = findViewById(R.id.editTextPrecoGasolina);
         editTextPrecoAlcool = findViewById(R.id.editTextPrecoAlcool);
 
-        appPreferencias = new AppPreferencias(this);
-        if (appPreferencias.getPrecoGasolina() > 0) {
-            editTextPrecoGasolina.setText(String.valueOf(appPreferencias.getPrecoGasolina()));
-        }
-        if (appPreferencias.getPrecoAlcool() > 0) {
-            editTextPrecoAlcool.setText(String.valueOf(appPreferencias.getPrecoAlcool()));
-        }
 
         if (savedInstanceState == null) {
+            appPreferencias = new AppPreferencias(this);
+            if (appPreferencias.getPrecoGasolina() > 0) {
+                editTextPrecoGasolina.setText(String.valueOf(appPreferencias.getPrecoGasolina()));
+            }
+            if (appPreferencias.getPrecoAlcool() > 0) {
+                editTextPrecoAlcool.setText(String.valueOf(appPreferencias.getPrecoAlcool()));
+            }
             tipoCalculo = TipoCalculo.VEICULO;
-            setFragementTipCalculo(FormCalcularVeiculoFragment.class);
+            setFragementTipCalculo(FormCalcularVeiculoFragment.class, FRAGMENTO_VEICULO);
+        } else {
+            tipoCalculo = TipoCalculo.valueOf(savedInstanceState.getString("tipoCalculo"));
+            veiculo = savedInstanceState.getParcelable("veiculo");
+            if (savedInstanceState.getFloat("precoGasolina") > 0) {
+                editTextPrecoGasolina.setText(String.valueOf(savedInstanceState.getFloat("precoGasolina")));
+            }
+            if (savedInstanceState.getFloat("precoAlcool") > 0) {
+                editTextPrecoAlcool.setText(String.valueOf(savedInstanceState.getFloat("precoAlcool")));
+            }
         }
 
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        outState.putString("tipoCalculo", tipoCalculo.name());
+        outState.putParcelable("veiculo", veiculo);
+        outState.putFloat("precoGasolina", getPrecoGasolina());
+        outState.putFloat("precoAlcool", getPrecoAlcool());
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int item) {
         switch (item) {
             case R.id.radioButtonCalcularPorVeiculo:
                 tipoCalculo = TipoCalculo.VEICULO;
-                setFragementTipCalculo(FormCalcularVeiculoFragment.class);
+                setFragementTipCalculo(FormCalcularVeiculoFragment.class, FRAGMENTO_VEICULO);
                 break;
             case R.id.radioButtonCalcularPorKmsLitro:
                 tipoCalculo = TipoCalculo.KMS_LITRO;
-                setFragementTipCalculo(FormCalcularKmsLitroFragment.class);
+                setFragementTipCalculo(FormCalcularKmsLitroFragment.class, FRAGMENTO_KMS_LITRO);
                 break;
             case R.id.radioButtonCalcularPorBasico:
                 tipoCalculo = TipoCalculo.BASICO;
-                setFragementTipCalculo(FormCalcularBasicoFragment.class);
+                setFragementTipCalculo(FormCalcularBasicoFragment.class, FRAGMENTO_BASICO);
                 break;
         }
     }
 
-    private void setFragementTipCalculo(Class<? extends FormCalcularBaseFragment> fragmentClass) {
-        String tag = fragmentClass.getSimpleName();
+    private void setFragementTipCalculo(Class<? extends FormCalcularBaseFragment> fragmentClass, String nomeFragmento) {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragmentClass, null, tag)
+                .replace(R.id.fragment_container, fragmentClass, null, nomeFragmento)
                 .commit();
     }
 
@@ -131,8 +153,16 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     }
 
     private void setPrecosCombustiveisForIntentCalculo(Intent i) {
-        i.putExtra("precoGasolina", Float.valueOf(editTextPrecoGasolina.getText().toString()));
-        i.putExtra("precoAlcool", Float.valueOf(editTextPrecoAlcool.getText().toString()));
+        i.putExtra("precoGasolina", getPrecoGasolina());
+        i.putExtra("precoAlcool", getPrecoAlcool());
+    }
+
+    private float getPrecoGasolina() {
+        return Float.valueOf(editTextPrecoGasolina.getText().toString());
+    }
+
+    private float getPrecoAlcool() {
+        return Float.valueOf(editTextPrecoAlcool.getText().toString());
     }
 
     private boolean validarFormulario() {
@@ -141,6 +171,7 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
             errors.add(getString(R.string.infomr_o_preco_gasolina));
         if (TextUtils.isEmpty(editTextPrecoAlcool.getText()))
             errors.add(getString(R.string.informe_preco_alcool));
+        int k = 0;
         switch (tipoCalculo) {
             case KMS_LITRO:
                 if (kmsLitroGasolina <= 0)
@@ -169,4 +200,6 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
                 .setPositiveButton("ok", null).show();
         return false;
     }
+
+
 }
