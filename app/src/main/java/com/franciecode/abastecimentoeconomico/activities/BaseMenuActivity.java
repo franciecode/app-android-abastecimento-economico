@@ -33,6 +33,8 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_dia_noite:
+                return trocarTema();
             case R.id.menu_abastecimentos:
                 if (this instanceof AbastecimentosActivity) return false;
                 Intent iAbastecimento = new Intent(BaseMenuActivity.this, AbastecimentosActivity.class);
