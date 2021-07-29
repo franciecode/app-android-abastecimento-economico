@@ -11,8 +11,8 @@ android {
         applicationId "com.franciecode.abastecimentoeconomico"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 9
-        versionName "1.03"
+        versionCode 10
+        versionName "1.0.04"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
