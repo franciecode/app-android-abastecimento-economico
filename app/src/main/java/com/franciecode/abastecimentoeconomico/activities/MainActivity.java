@@ -166,10 +166,14 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     }
 
     private float getPrecoGasolina() {
+        if (TextUtils.isEmpty(editTextPrecoGasolina.getText()))
+            return 0f;
         return Float.valueOf(editTextPrecoGasolina.getText().toString());
     }
 
     private float getPrecoAlcool() {
+        if (TextUtils.isEmpty(editTextPrecoAlcool.getText()))
+            return 0f;
         return Float.valueOf(editTextPrecoAlcool.getText().toString());
     }
 
