@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 
+import com.flurry.android.FlurryAgent;
 import com.franciecode.abastecimentoeconomico.R;
 import com.franciecode.abastecimentoeconomico.enums.TipoCalculo;
 import com.franciecode.abastecimentoeconomico.fragments.FormCalcularBaseFragment;
@@ -48,6 +49,11 @@ public class MainActivity extends BaseMenuActivity implements RadioGroup.OnCheck
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Flurry
+        new FlurryAgent.Builder()
+                .withLogEnabled(true)
+                .build(this, "HQZBPGJRD82GHC3FPHTB");
 
         mSavedInstanceState = savedInstanceState;
 

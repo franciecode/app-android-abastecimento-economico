@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    tools:listitem="@layout/abatecimento_item_list" />
+                    tools:listitem="@layout/abatecimento_item_list"                   />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

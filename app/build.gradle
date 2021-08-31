@@ -11,8 +11,8 @@ android {
         applicationId "com.franciecode.abastecimentoeconomico"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 10
-        versionName "1.0.04"
+        versionCode 11
+        versionName "1.0.05"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -99,8 +99,7 @@ dependencies {
     // Multidex
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    //AdMob
-    // implementation 'com.google.android.gms:play-services-ads:20.2.0'
-
+    // flurry
+    implementation 'com.flurry.android:analytics:13.0.0@aar'
 
 }
