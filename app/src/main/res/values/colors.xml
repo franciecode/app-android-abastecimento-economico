@@ -28,4 +28,5 @@
     <color name="bg_chart">#FFFFFF</color>
     <color name="text_chart">#181818</color>
     <color name="bg_home">#fff</color>
+    <color name="snackbar_action_text_color">#F44336</color>
 </resources>

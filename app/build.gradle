@@ -11,8 +11,8 @@ android {
         applicationId "com.franciecode.abastecimentoeconomico"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 12
-        versionName "1.0.06"
+        versionCode 13
+        versionName "1.0.07"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -101,5 +101,12 @@ dependencies {
 
     // flurry
     implementation 'com.flurry.android:analytics:13.0.0@aar'
+
+    // This dependency is downloaded from the Google’s Maven repository.
+    // So, make sure you also include that repository in your project's build.gradle file.
+    implementation 'com.google.android.play:core:1.10.0'
+
+    // For Kotlin users also add the Kotlin extensions library for Play Core:
+    implementation 'com.google.android.play:core-ktx:1.8.1'
 
 }
