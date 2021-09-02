@@ -7,8 +7,8 @@ import com.franciecode.abastecimentoeconomico.enums.TipoCalculo;
 @DatabaseView("select " +
         "totalPago as somaTotalPago, " +
         "valorEconomizado as somaTotalEconomizado, " +
-        "strftime(\"%m\", 1626186005830 /1000, 'unixepoch') as mes, " +
-        "strftime(\"%Y\", 1626186005830 /1000, 'unixepoch') as ano, " +
+        "strftime(\"%m\", dataAbastecimento /1000, 'unixepoch') as mes, " +
+        "strftime(\"%Y\", dataAbastecimento /1000, 'unixepoch') as ano, " +
         "tipoCalculo, veiculoId, deleted " +
         "from table_abastecimento")
 public class AbastecimentoRelatorioGraficoView {

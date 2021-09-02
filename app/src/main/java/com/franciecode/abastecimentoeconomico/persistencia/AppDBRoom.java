@@ -7,6 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.franciecode.abastecimentoeconomico.models.Abastecimento;
@@ -17,13 +18,29 @@ import com.franciecode.abastecimentoeconomico.persistencia.databaseViews.Abastec
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Veiculo.class, Abastecimento.class},
         views = {AbastecimentoRelatorioGraficoView.class},
-        version = 1, exportSchema = false)
+        version = 2, exportSchema = false)
 @TypeConverters({RoomTypeConverters.class})
 public abstract class AppDBRoom extends RoomDatabase {
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("DROP VIEW `AbastecimentoRelatorioGraficoView`");
+            database.execSQL("CREATE VIEW `AbastecimentoRelatorioGraficoView` AS " +
+                    "select " +
+                    "totalPago as somaTotalPago, " +
+                    "valorEconomizado as somaTotalEconomizado, " +
+                    "strftime(\"%m\", dataAbastecimento /1000, 'unixepoch') as mes, " +
+                    "strftime(\"%Y\", dataAbastecimento /1000, 'unixepoch') as ano, " +
+                    "tipoCalculo, veiculoId, deleted " +
+                    "from table_abastecimento");
+        }
+    };
     public static final String DATABASE_NAME = "appDatabase";
     public static AppDBRoom INSTANCE;
 
@@ -43,6 +60,7 @@ public abstract class AppDBRoom extends RoomDatabase {
 
     public static AppDBRoom buildDatabase(final Context context) {
         return Room.databaseBuilder(context, AppDBRoom.class, DATABASE_NAME)
+                .addMigrations(MIGRATION_1_2)
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull @NotNull SupportSQLiteDatabase db) {
@@ -60,27 +78,38 @@ public abstract class AppDBRoom extends RoomDatabase {
     }
 
     private static void prePopulateVeiculos(AppDBRoom appDatabase) {
-        /*
-        Veiculo v1 = new Veiculo();
-        v1.setTipo(Veiculo.TIPO_VEICULO_CARRO);
-        v1.setNome("FIAT Mobi 1.0\u00AD6V Drive ");
-        v1.setKmsLitroCidadeAlcool(9.7f);
-        v1.setKmsLitroRodoviaAlcool(11.5f);
-        v1.setKmsLitroCidadeGasolina(13.8f);
-        v1.setKmsLitroRodoviaGasolina(16.4f);
-        Veiculo v2 = new Veiculo();
-        v2.setTipo(Veiculo.TIPO_VEICULO_CARRO);
-        v2.setNome("PEUGEOT 208");
-        v2.setKmsLitroCidadeAlcool(9.6f);
-        v2.setKmsLitroRodoviaAlcool(10.7f);
-        v2.setKmsLitroCidadeGasolina(13.9f);
-        v2.setKmsLitroRodoviaGasolina(15.5f);
-        */
-        Veiculo[] veiculos = new Veiculo[]{
-                new VeiculoTipoCalculoBasico(),
-                new VeiculoTipCalculoKMsLitro()
-                //,v1, v2
-        };
+
+        CreateVeiculos createVeiculos = new CreateVeiculos();
+        createVeiculos
+                .add("FIAT Mobi 1.0\u00AD6V Drive ", 13.8f, 9.7f, 16.4f, 11.5f)
+                .add("PEUGEOT 208", 13.9f, 9.6f, 15.5f, 10.7f);
+        List<Veiculo> listVeiculos = createVeiculos.build();
+
+        Veiculo[] veiculos = new Veiculo[listVeiculos.size() + 2];
+        veiculos[0] = new VeiculoTipoCalculoBasico();
+        veiculos[1] = new VeiculoTipCalculoKMsLitro();
+        for (int i = 0; i < listVeiculos.size(); i++) {
+            veiculos[i + 2] = listVeiculos.get(i);
+        }
         appDatabase.veiculoDao().insertAll(veiculos);
+    }
+
+    public static class CreateVeiculos {
+        List<Veiculo> veiculos = new LinkedList<>();
+
+        public CreateVeiculos add(String nome, float kmsGasloinaCidade, float kmsAlcoolCidade, float kmsGasolinaRodovia, float kmsAlcoolRodovia) {
+            Veiculo v = new Veiculo();
+            v.setNome(nome);
+            v.setKmsLitroCidadeGasolina(kmsGasloinaCidade);
+            v.setKmsLitroCidadeAlcool(kmsAlcoolCidade);
+            v.setKmsLitroRodoviaGasolina(kmsGasolinaRodovia);
+            v.setKmsLitroRodoviaAlcool(kmsAlcoolRodovia);
+            this.veiculos.add(v);
+            return this;
+        }
+
+        public List<Veiculo> build() {
+            return this.veiculos;
+        }
     }
 }
