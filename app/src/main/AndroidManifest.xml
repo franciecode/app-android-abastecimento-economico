@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.franciecode.abastecimentoeconomico"
-    android:versionCode="15"
-    android:versionName="1.0.09"
-    xmlns:dist="http://schemas.android.com/apk/distribution"    >
+    android:versionCode="16"
+    android:versionName="1.0.10">
 
     <dist:module dist:instant="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -16,12 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AbastecimentoEconomico">
+        <activity
+            android:name=".activities.SobreActivity"
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2036643128150326~3322603382" />
 
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.IntroducaoActivity"
+            android:name=".activities.IntroducaoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,33 +36,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.ChartActivity"
+            android:name=".activities.ChartActivity"
             android:label="@string/grafico"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoVeiculoActivity"
+            android:name=".activities.CalculoResultadoVeiculoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.VeiculosActivity"
+            android:name=".activities.VeiculosActivity"
             android:label="@string/veiculos"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.AddEditVeiculoActivity"
+            android:name=".activities.AddEditVeiculoActivity"
             android:label="@string/adicionar_veiculo" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.AbastecimentosActivity"
+            android:name=".activities.AbastecimentosActivity"
             android:label="@string/abastecimentos"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoKmsLitroActivity"
+            android:name=".activities.CalculoResultadoKmsLitroActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.CalculoResultadoBasicoActivity"
+            android:name=".activities.CalculoResultadoBasicoActivity"
             android:theme="@style/Theme.AbastecimentoEconomico.NoActionBar" />
         <activity
-            android:name="com.franciecode.abastecimentoeconomico.activities.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

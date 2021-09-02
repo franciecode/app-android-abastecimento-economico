@@ -120,6 +120,9 @@
     <string name="ano_exemplo">2021</string>
     <string name="meu_trocar_tema">Dia/noite</string>
     <string name="menu_dia_noite">dia/noite</string>
+    <string name="Sobre">Sobre</string>
+    <string name="sobre_app">Versão do app 1.0.10 \n\nAplicativo calculadora de economia e gerenciamento de gastos com combústiveis. \n\nDesenvolvedor: Francisco S. Filho \nContato: franciecode@gmail.com</string>
+
     <string-array name="meses_chart">
         <item>jan</item>
         <item>fev</item>

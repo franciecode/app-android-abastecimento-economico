@@ -26,4 +26,7 @@
     <item
         android:id="@+id/menu_abastecimentos"
         android:title="@string/abastecimentos" />
+    <item
+        android:id="@+id/menu_sobre"
+        android:title="@string/Sobre" />
 </menu>

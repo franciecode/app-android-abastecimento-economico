@@ -54,6 +54,10 @@ public abstract class BaseMenuActivity extends AppCompatActivity {
                 Intent iChart = new Intent(this, ChartActivity.class);
                 startActivity(iChart);
                 break;
+            case R.id.menu_sobre:
+                Intent isobre = new Intent(this, SobreActivity.class);
+                startActivity(isobre);
+                break;
         }
         return true;
     }
