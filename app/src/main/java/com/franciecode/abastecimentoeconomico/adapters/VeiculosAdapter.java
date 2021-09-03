@@ -80,6 +80,7 @@ public class VeiculosAdapter extends RecyclerView.Adapter<VeiculosAdapter.ViewHo
         }
 
         public void setData(Veiculo veiculo) {
+            if(veiculo.getTipo() == null )
             if (veiculo.getTipo().equals(Veiculo.TIPO_VEICULO_CARRO)) {
                 iconVeiculo.setImageResource(R.drawable.ic_baseline_directions_car_24);
             } else {

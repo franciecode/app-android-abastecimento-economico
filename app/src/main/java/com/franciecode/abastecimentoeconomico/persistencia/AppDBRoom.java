@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Veiculo.class, Abastecimento.class},
         views = {AbastecimentoRelatorioGraficoView.class},
-        version = 2, exportSchema = false)
+        version = 3, exportSchema = false)
 @TypeConverters({RoomTypeConverters.class})
 public abstract class AppDBRoom extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
@@ -39,6 +39,14 @@ public abstract class AppDBRoom extends RoomDatabase {
                     "strftime(\"%Y\", dataAbastecimento /1000, 'unixepoch') as ano, " +
                     "tipoCalculo, veiculoId, deleted " +
                     "from table_abastecimento");
+        }
+    };
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("UPDATE table_veiculo " +
+                    "SET tipo = '" + Veiculo.TIPO_VEICULO_CARRO + "'\n" +
+                    "WHERE tipo IS NULL ");
         }
     };
     public static final String DATABASE_NAME = "appDatabase";
@@ -60,7 +68,7 @@ public abstract class AppDBRoom extends RoomDatabase {
 
     public static AppDBRoom buildDatabase(final Context context) {
         return Room.databaseBuilder(context, AppDBRoom.class, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull @NotNull SupportSQLiteDatabase db) {
@@ -81,8 +89,8 @@ public abstract class AppDBRoom extends RoomDatabase {
 
         CreateVeiculos createVeiculos = new CreateVeiculos();
         createVeiculos
-                .add("FIAT Mobi 1.0\u00AD6V Drive ", 13.8f, 9.7f, 16.4f, 11.5f)
-                .add("PEUGEOT 208", 13.9f, 9.6f, 15.5f, 10.7f);
+                .addCarro("FIAT Mobi 1.0\u00AD6V Drive ", 13.8f, 9.7f, 16.4f, 11.5f)
+                .addCarro("PEUGEOT 208", 13.9f, 9.6f, 15.5f, 10.7f);
         List<Veiculo> listVeiculos = createVeiculos.build();
 
         Veiculo[] veiculos = new Veiculo[listVeiculos.size() + 2];
@@ -97,9 +105,10 @@ public abstract class AppDBRoom extends RoomDatabase {
     public static class CreateVeiculos {
         List<Veiculo> veiculos = new LinkedList<>();
 
-        public CreateVeiculos add(String nome, float kmsGasloinaCidade, float kmsAlcoolCidade, float kmsGasolinaRodovia, float kmsAlcoolRodovia) {
+        public CreateVeiculos addCarro(String nome, float kmsGasloinaCidade, float kmsAlcoolCidade, float kmsGasolinaRodovia, float kmsAlcoolRodovia) {
             Veiculo v = new Veiculo();
             v.setNome(nome);
+            v.setTipo(Veiculo.TIPO_VEICULO_CARRO);
             v.setKmsLitroCidadeGasolina(kmsGasloinaCidade);
             v.setKmsLitroCidadeAlcool(kmsAlcoolCidade);
             v.setKmsLitroRodoviaGasolina(kmsGasolinaRodovia);
